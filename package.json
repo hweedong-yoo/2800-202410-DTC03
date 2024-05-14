@@ -15,6 +15,7 @@
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
+    "flowbite": "^2.3.0",
     "joi": "^17.13.1",
     "mongoose": "^8.3.4",
     "nodemon": "^3.1.0"
