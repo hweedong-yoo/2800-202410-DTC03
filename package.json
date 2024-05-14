@@ -1,0 +1,22 @@
+{
+  "name": "2800-202410-dtc03",
+  "version": "1.0.0",
+  "description": "Team Name: DTC-03\r Team Members: \r - Erryl\r - Homy\r - Jon\r - Mariko\r - Winson\r ## More details to come\r TBA",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "connect-mongo": "^5.1.0",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "joi": "^17.13.1",
+    "mongoose": "^8.3.4",
+    "nodemon": "^3.1.0"
+  }
+}
