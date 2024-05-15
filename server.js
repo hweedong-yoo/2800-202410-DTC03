@@ -31,7 +31,7 @@ app.use(express.static('public'));
 main().catch(err => console.log(err));
 
 app.get('/', (req, res) => {
-    res.send('Hello World');
+    res.render("landingPage")
 });
 
 // Start the server
