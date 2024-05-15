@@ -27,12 +27,13 @@ app.set("view engine", "ejs");
 // Serve static files from the "public" folder
 app.use(express.static('public'));
 
-// run main and catch any errors
-main().catch(err => console.log(err));
+// Define routes
+const landingPageRoute = require('./routes/landingPage');
+const NotFoundController = require('./routes/landingPage');
 
-app.get('/', (req, res) => {
-    res.render("landingPage")
-});
+// Use routes
+app.get('/', landingPageRoute);
+app.get('/', NotFoundController);
 
 app.get('*', (req, res) => {
     res.render("404");
@@ -45,3 +46,6 @@ async function main() {
         console.log(`Server is running on port ${port}`);
     });
 }
+
+// run main and catch any errors
+main().catch(err => console.log(err));
