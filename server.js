@@ -11,6 +11,7 @@ const bcrypt = require('bcrypt');
 const mongodbHost = process.env.MONGODB_HOST;
 const mongodbUser = process.env.MONGODB_USER;
 const mongodbPassword = process.env.MONGODB_PASSWORD;
+const mongodbCluster = process.env.MONGODB_CLUSTER;
 const mongodbDatabase = process.env.MONGODB_DATABASE;
 const mongodbSessionSecret = process.env.MONGODB_SESSION_SECRET;
 const nodeSessionSecret = process.env.NODE_SESSION_SECRET;
@@ -36,7 +37,6 @@ const landingPageRoute = require('./routes/landingPage');
 const homePageRoute = require('./routes/home');
 const signupRoute = require('./routes/signupPage');
 const loginRoute = require('./routes/loginPage');
-const profilePageRoute = require('./routes/profilePage');
 const NotFoundController = require('./routes/404Page');
 
 // Use routes
@@ -44,12 +44,11 @@ app.use('/', landingPageRoute);
 app.use('/home', homePageRoute);
 app.use('/signup', signupRoute);
 app.use('/login', loginRoute);
-app.use('/profile', profilePageRoute);
 app.use('*', NotFoundController);
 
 // Start the server
 async function main() {
-    await mongoose.connect(`mongodb+srv://${mongodbUser}:${mongodbPassword}@${mongodbHost}/?retryWrites=true&w=majority&appName=${mongodbDatabase}`);
+    await mongoose.connect(`mongodb+srv://${mongodbUser}:${mongodbPassword}@${mongodbHost}/${mongodbDatabase}?retryWrites=true&w=majority&appName=${mongodbCluster}`);
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
     });
