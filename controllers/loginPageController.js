@@ -10,7 +10,10 @@ const displayPage = async (req, res) => {
 
 const authenticateUser = async (req, res) => {
     try {
-        res.render('loginPage');
+        const email = req.body.email; // Corrected to access 'email' field
+        const password = req.body.password; // Corrected to access 'password' field
+
+        // authentication logic here
     } catch (error) {
         res.status(500).send(error);
     }
