@@ -2,7 +2,7 @@
   "name": "2800-202410-dtc03",
   "version": "1.0.0",
   "description": "Team Name: DTC-03\r Team Members: \r - Erryl\r - Homy\r - Jon\r - Mariko\r - Winson\r ## More details to come\r TBA",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
