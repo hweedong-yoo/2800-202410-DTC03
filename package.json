@@ -4,7 +4,9 @@
   "description": "Team Name: DTC-03\r Team Members: \r - Erryl\r - Homy\r - Jon\r - Mariko\r - Winson\r ## More details to come\r TBA",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "style": "npx tailwindcss -i ./public/styles/input.css -o ./public/styles/output.css --watch"
   },
   "author": "",
   "license": "ISC",
@@ -15,8 +17,12 @@
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
+    "flowbite": "^2.3.0",
     "joi": "^17.13.1",
     "mongoose": "^8.3.4",
     "nodemon": "^3.1.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
   }
 }
