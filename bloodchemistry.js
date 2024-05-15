@@ -22,7 +22,7 @@ BLOOD CHEMISTRY:
 // Generate random data within a given range
 function generateData(min, max) {
     const data = [];
-    for (let i = 1; i <= 30; i++) { // Data for 30 days
+    for (let i = 1; i <= 7; i++) { // Data for 30 days
         const value = Math.floor(Math.random() * (max - min + 1)) + min;
         data.push(value);
     }

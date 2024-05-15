@@ -21,7 +21,7 @@ LIPID PANEL:
 // Generate random data within a given range
 function generateData(min, max) {
     const data = [];
-    for (let i = 1; i <= 30; i++) { // Data for 30 days
+    for (let i = 1; i <= 7; i++) { // Data for 30 days
         const value = Math.floor(Math.random() * (max - min + 1)) + min;
         data.push(value);
     }
@@ -32,10 +32,10 @@ function generateData(min, max) {
 const ldlCholesterolData = generateData(70, 150);
 const hdlCholesterolData = generateData(35, 65);
 const triCholesterolData = generateData(95, 155)
-const totalCholesterolData = ldlCholesterolData.map((num, index) => 
-    num + hdlCholesterolData[index] + triCholesterolData[index]*0.2
+const totalCholesterolData = ldlCholesterolData.map((num, index) =>
+    num + hdlCholesterolData[index] + triCholesterolData[index] * 0.2
 );
-const pieCholesterolData = [ldlCholesterolData[ldlCholesterolData.length - 1], hdlCholesterolData[hdlCholesterolData.length - 1], triCholesterolData[triCholesterolData.length - 1]];
+const pieCholesterolData = [ldlCholesterolData[ldlCholesterolData.length - 1], hdlCholesterolData[hdlCholesterolData.length - 1], 0.2 * triCholesterolData[triCholesterolData.length - 1]];
 
 // Create ApexChart for Total Cholesterol
 const totalCholesterolApex = {
@@ -204,7 +204,7 @@ const triCholesterolApex = {
 const pieCholesterolApex = {
     chart: {
         height: 350,
-        type: 'donut',
+        type: 'pie',
         zoom: {
             enabled: false
         },
@@ -221,10 +221,23 @@ const pieCholesterolApex = {
             fontSize: '16px',
             fontFamily: 'Orbitron',
             fontWeight: 'bold',
-            color: '#334155'
         }
     },
-    colors: ['#007bff', '#28a745', '#23dd7d']
+    legend: {
+        position: "bottom",
+    },
+    plotOptions: {
+        pie: {
+            labels: {
+                show: true,
+            },
+            size: "100%",
+            dataLabels: {
+                offset: -25
+            }
+        },
+    },
+    colors: ["#1C64F2", "#16BDCA", "#9061F9"]
 };
 
 const totalCholesterolChart = new ApexCharts(document.querySelector("#total-cholesterol-chart"), totalCholesterolApex);
