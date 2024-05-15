@@ -37,6 +37,8 @@ const landingPageRoute = require('./routes/landingPage');
 const homePageRoute = require('./routes/home');
 const signupRoute = require('./routes/signupPage');
 const loginRoute = require('./routes/loginPage');
+const bodyCompositionRoute = require('./routes/bodyCompositionPage.js')
+const profilePageRoute = require('./routes/profilePage');
 const NotFoundController = require('./routes/404Page');
 
 // Use routes
@@ -44,6 +46,8 @@ app.use('/', landingPageRoute);
 app.use('/home', homePageRoute);
 app.use('/signup', signupRoute);
 app.use('/login', loginRoute);
+app.use('/body_comp', bodyCompositionRoute)
+app.use('/profile', profilePageRoute);
 app.use('*', NotFoundController);
 
 // Start the server
