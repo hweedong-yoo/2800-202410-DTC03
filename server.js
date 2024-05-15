@@ -33,9 +33,7 @@ const NotFoundController = require('./routes/landingPage');
 
 // Use routes
 app.get('/', landingPageRoute);
-app.get('/', NotFoundController);
-
-
+app.get('*', NotFoundController);
 
 // Start the server
 async function main() {
