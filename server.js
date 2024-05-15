@@ -29,7 +29,7 @@ app.use(express.static('public'));
 
 // Define routes
 const landingPageRoute = require('./routes/landingPage');
-const NotFoundController = require('./routes/landingPage');
+const NotFoundController = require('./routes/404Page');
 
 // Use routes
 app.get('/', landingPageRoute);
