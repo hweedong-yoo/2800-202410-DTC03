@@ -2,7 +2,7 @@
   "name": "2800-202410-dtc03",
   "version": "1.0.0",
   "description": "Team Name: DTC-03\r Team Members: \r - Erryl\r - Homy\r - Jon\r - Mariko\r - Winson\r ## More details to come\r TBA",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
@@ -17,7 +17,6 @@
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
-    "flowbite": "^2.3.0",
     "joi": "^17.13.1",
     "mongoose": "^8.3.4",
     "nodemon": "^3.1.0"
