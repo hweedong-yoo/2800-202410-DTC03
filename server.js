@@ -35,13 +35,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-    res.send('Hello World');
+    res.render("404");
 });
-
-app.get('*', (req, res) => {
-    res.send('Hello World');
-});
-
 
 // Start the server
 async function main() {
