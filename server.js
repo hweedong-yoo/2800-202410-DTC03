@@ -34,6 +34,10 @@ app.get('/', (req, res) => {
     res.render("landingPage")
 });
 
+app.get('/body_model', (req, res) => {
+    res.render("body_model");
+});
+
 app.get('*', (req, res) => {
     res.render("404");
 });
