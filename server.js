@@ -30,14 +30,16 @@ app.use(express.static('public'));
 // Define routes
 const landingPageRoute = require('./routes/landingPage');
 const homePageRoute = require('./routes/home');
-const notFoundRoute = require('./routes/404Page');
+const NotFoundController = require('./routes/404Page');
 const signupRoute = require('./routes/signupPage');
+const loginRoute = require('./routes/loginPage');
 
 // Use routes
 app.get('/', landingPageRoute);
 app.get('/home', homePageRoute);
+app.get('*', NotFoundController);
 app.get('/signup', signupRoute);
-app.get('*', notFoundRoute);
+app.get('/login', loginRoute);
 
 // Start the server
 async function main() {
