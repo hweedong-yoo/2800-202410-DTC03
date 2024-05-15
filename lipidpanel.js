@@ -35,6 +35,8 @@ const triCholesterolData = generateData(95, 155)
 const totalCholesterolData = ldlCholesterolData.map((num, index) => 
     num + hdlCholesterolData[index] + triCholesterolData[index]*0.2
 );
+const pieCholesterolData = [ldlCholesterolData[ldlCholesterolData.length - 1], hdlCholesterolData[hdlCholesterolData.length - 1], triCholesterolData[triCholesterolData.length - 1]];
+
 // Create ApexChart for Total Cholesterol
 const totalCholesterolApex = {
     chart: {
@@ -158,7 +160,7 @@ const hdlCholesterolApex = {
     colors: ['#6c757d']
 };
 
-// Create ApexChart for HDL Cholesterol
+// Create ApexChart for Triglycerides
 const triCholesterolApex = {
     chart: {
         height: 350,
@@ -199,14 +201,42 @@ const triCholesterolApex = {
     colors: ['#23dd7d']
 };
 
+const pieCholesterolApex = {
+    chart: {
+        height: 350,
+        type: 'donut',
+        zoom: {
+            enabled: false
+        },
+        toolbar: {
+            show: false
+        }
+    },
+    series: pieCholesterolData,
+    labels: ['LDL', 'HDL', 'Triglycerides'],
+    title: {
+        text: 'Pie Cholesterol Data',
+        align: 'left',
+        style: {
+            fontSize: '16px',
+            fontFamily: 'Orbitron',
+            fontWeight: 'bold',
+            color: '#334155'
+        }
+    },
+    colors: ['#007bff', '#28a745', '#23dd7d']
+};
+
 const totalCholesterolChart = new ApexCharts(document.querySelector("#total-cholesterol-chart"), totalCholesterolApex);
 const ldlCholesterolChart = new ApexCharts(document.querySelector("#ldl-cholesterol-chart"), ldlCholesterolApex);
 const hdlCholesterolChart = new ApexCharts(document.querySelector("#hdl-cholesterol-chart"), hdlCholesterolApex);
 const triCholesterolChart = new ApexCharts(document.querySelector("#tri-cholesterol-chart"), triCholesterolApex);
+const pieCholesterolChart = new ApexCharts(document.querySelector("#pie-cholesterol-chart"), pieCholesterolApex);
 totalCholesterolChart.render();
 ldlCholesterolChart.render();
 hdlCholesterolChart.render();
 triCholesterolChart.render();
+pieCholesterolChart.render();
 document.getElementById('total-cholesterol-count').innerText = totalCholesterolData[totalCholesterolData.length - 1];
 document.getElementById('ldl-cholesterol-count').innerText = ldlCholesterolData[ldlCholesterolData.length - 1];
 document.getElementById('hdl-cholesterol-count').innerText = hdlCholesterolData[hdlCholesterolData.length - 1];
