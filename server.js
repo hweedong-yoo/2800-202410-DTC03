@@ -35,9 +35,7 @@ const NotFoundController = require('./routes/landingPage');
 app.get('/', landingPageRoute);
 app.get('/', NotFoundController);
 
-app.get('*', (req, res) => {
-    res.render("404");
-});
+
 
 // Start the server
 async function main() {
