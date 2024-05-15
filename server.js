@@ -34,6 +34,15 @@ app.get('/', (req, res) => {
     res.send('Hello World');
 });
 
+app.get('*', (req, res) => {
+    res.send('Hello World');
+});
+
+app.get('*', (req, res) => {
+    res.send('Hello World');
+});
+
+
 // Start the server
 async function main() {
     await mongoose.connect(`mongodb+srv://${mongodbUser}:${mongodbPassword}@${mongodbHost}/?retryWrites=true&w=majority&appName=${mongodbDatabase}`);
