@@ -27,20 +27,23 @@ app.set("view engine", "ejs");
 // Serve static files from the "public" folder
 app.use(express.static('public'));
 
-// run main and catch any errors
-main().catch(err => console.log(err));
+// Middleware for parsing JSON and urlencoded data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-    res.render("landingPage")
-});
+// Define routes
+const landingPageRoute = require('./routes/landingPage');
+const homePageRoute = require('./routes/home');
+const signupRoute = require('./routes/signupPage');
+const loginRoute = require('./routes/loginPage');
+const NotFoundController = require('./routes/404Page');
 
-app.get('/body_comp', (req, res) => {
-    res.render(`body_composition.ejs`, {})
-});
-
-app.get('*', (req, res) => {
-    res.render("404");
-});
+// Use routes
+app.use('/', landingPageRoute);
+app.use('/home', homePageRoute);
+app.use('/signup', signupRoute);
+app.use('/login', loginRoute);
+app.use('*', NotFoundController);
 
 // Start the server
 async function main() {
@@ -49,3 +52,6 @@ async function main() {
         console.log(`Server is running on port ${port}`);
     });
 }
+
+// run main and catch any errors
+main().catch(err => console.log(err));
