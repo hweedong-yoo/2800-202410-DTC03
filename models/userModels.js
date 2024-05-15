@@ -15,6 +15,14 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  recovery: {
+    type: String,
+    required: true,
+  },
+  recovery_key: {
+    type: String,
+    required: true,
+  },
 });
 
 const userModel = mongoose.model('users', userSchema);
