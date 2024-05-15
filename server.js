@@ -27,15 +27,29 @@ app.set("view engine", "ejs");
 // Serve static files from the "public" folder
 app.use(express.static('public'));
 
+// Middleware for parsing JSON and urlencoded data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Define routes
 const landingPageRoute = require('./routes/landingPage');
 const homePageRoute = require('./routes/home');
+const signupRoute = require('./routes/signupPage');
+const loginRoute = require('./routes/loginPage');
+const bodyCompositionRoute = require('./routes/bodyCompositionPage.js')
+const profilePageRoute = require('./routes/profilePage');
+const securityQuestionRoute = require('./routes/securityQuestionPage.js')
 const NotFoundController = require('./routes/404Page');
 
 // Use routes
-app.get('/', landingPageRoute);
-app.get('/home', homePageRoute);
-app.get('*', NotFoundController);
+app.use('/', landingPageRoute);
+app.use('/home', homePageRoute);
+app.use('/signup', signupRoute);
+app.use('/login', loginRoute);
+app.use('/body_comp', bodyCompositionRoute);
+app.use('/profile', profilePageRoute);
+app.use('/security_question', securityQuestionRoute);
+app.use('*', NotFoundController);
 
 // Start the server
 async function main() {
