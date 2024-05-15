@@ -41,7 +41,7 @@ const authenticateUser = async (req, res) => {
         }
         else {
             // Authentication successful
-            res.send('Authentication successful');
+            res.redirect('/home')
         }
     } catch (error) {
         console.error("Error in authenticateUser:", error);
