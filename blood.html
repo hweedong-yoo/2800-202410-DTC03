@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+    <title>Blood Assessment</title>
+</head>
+
+<body class="flex flex-col items-center bg-slate-300 min-h-screen">
+    <div class="w-full flex flex-col items-center bg-gradient-to-b from-slate-300 to-white">
+
+        <!-- Fixed Header -->
+        <div class="w-full bg-white py-5 flex justify-center fixed top-0 z-10">
+            <div class="text-3xl font-bold tracking-wider text-slate-700 font-['Orbitron']">BIOLINK</div>
+        </div>
+
+        <!-- Content Section -->
+        <div class="flex flex-col items-center space-y-8 my-24">
+
+            <!-- Title -->
+            <div class="w-full text-center text-4xl font-extrabold text-slate-700 font-['Orbitron'] my-2">Blood Tests</div>
+
+            <!-- Overview Card -->
+            <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
+                <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Overview</div>
+                <div class="flex flex-wrap justify-around items-center">
+                    <div class="flex flex-col items-center space-y-2">
+                        <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Blood" />
+                        <div class="text-base font-bold text-slate-700 font-['Orbitron']">Good</div>
+                    </div>
+                    <div class="flex flex-col items-center space-y-2">
+                        <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Lungs" />
+                        <div class="text-base font-bold text-slate-700 font-['Orbitron']">Good</div>
+                    </div>
+                    <div class="flex flex-col items-center space-y-2">
+                        <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Liver" />
+                        <div class="text-base font-bold text-slate-700 font-['Orbitron']">Good</div>
+                    </div>
+                    <div class="flex flex-col items-center space-y-2">
+                        <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Kidney" />
+                        <div class="text-base font-bold text-slate-700 font-['Orbitron']">Vulnerable</div>
+                    </div>
+                    <div class="flex flex-col items-center space-y-2">
+                        <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Coughing" />
+                        <div class="text-base font-bold text-slate-700 font-['Orbitron']">Vulnerable</div>
+                    </div>
+                    <div class="flex flex-col items-center space-y-2">
+                        <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Virus" />
+                        <div class="text-base font-bold text-slate-700 font-['Orbitron']">Good</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CBC Card -->
+            <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
+                <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Complete Blood Count</div>
+                <!-- WBC Chart and Text -->
+                <div class="flex flex-col items-center">
+                    <div id="wbc-chart" class="chart"></div>
+                    <div class="flex items-end">
+                        <div id="wbc-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
+                        <div class="text-xs font-bold text-slate-600 font-['Orbitron'] ml-1">cells/μL</div>
+                    </div>
+                </div>
+                <!-- RBC Chart and Text -->
+                <div class="flex flex-col items-center mt-5">
+                    <div id="rbc-chart" class="chart"></div>
+                    <div class="flex items-end">
+                        <div id="rbc-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">5.1MIL</div>
+                        <div class="text-xs font-bold text-slate-600 font-['Orbitron'] ml-1">cells/μL</div>
+                    </div>
+                </div>
+                <!-- Platelets Chart and Text -->
+                <div class="flex flex-col items-center mt-5">
+                    <div id="platelets-chart" class="chart"></div>
+                    <div class="flex items-end">
+                        <div id="platelets-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
+                        <div class="text-xs font-bold text-slate-600 font-['Orbitron'] ml-1">platelets/μL</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blood Chemistry Card -->
+            <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
+                <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Blood Chemistry</div>
+                <!-- Glucose Section -->
+                <div class="flex items-center">
+                    <div id="glucose-chart" class="chart"></div>
+                    <div class="flex flex-col items-center ml-4">
+                        <div id="glucose-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
+                        <div class="text-xs font-bold text-slate-600 font-['Orbitron']">mg/dL</div>
+                    </div>
+                </div>
+                <!-- Calcium Section -->
+                <div class="flex items-center mt-5">
+                    <div id="calcium-chart" class="chart"></div>
+                    <div class="flex flex-col items-center ml-4">
+                        <div id="calcium-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
+                        <div class="text-xs font-bold text-slate-600 font-['Orbitron']">mg/dL</div>
+                    </div>
+                </div>
+                <!-- Kidney Function Markers Section -->
+                <div class="flex items-center mt-5">
+                    <div id="kidney-markers-chart" class="chart"></div>
+                    <div class="flex flex-col items-center ml-4">
+                        <div id="bun-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
+                        <div class="text-xs font-bold text-slate-600 font-['Orbitron']">BUN mg/dL</div>
+                    </div>
+                    <div class="flex flex-col items-center ml-4">
+                        <div id="creatinine-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
+                        <div class="text-xs font-bold text-slate-600 font-['Orbitron']">Creatinine mg/dL</div>
+                    </div>
+                </div>
+                <!-- Liver Function Tests Section -->
+                <div class="flex items-center mt-5">
+                    <div id="liver-function-chart" class="chart"></div>
+                    <div class="flex flex-col items-center ml-4">
+                        <div id="alt-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
+                        <div class="text-xs font-bold text-slate-600 font-['Orbitron']">ALT U/L</div>
+                    </div>
+                    <div class="flex flex-col items-center ml-4">
+                        <div id="ast-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
+                        <div class="text-xs font-bold text-slate-600 font-['Orbitron']">AST U/L</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lipid Panel Card -->
+            <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
+                <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Lipid Panel</div>
+                <!-- Total Cholesterol Chart and Text -->
+                <div class="flex items-center">
+                    <div id="total-cholesterol-chart" class="chart"></div>
+                    <div class="flex flex-col items-center ml-4">
+                        <div id="total-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
+                        <div class="text-xs font-bold text-slate-600 font-['Orbitron']">Total Cholesterol mg/dL</div>
+                    </div>
+                </div>
+                <!-- LDL Cholesterol Chart and Text -->
+                <div class="flex items-center mt-5">
+                    <div id="ldl-cholesterol-chart" class="chart"></div>
+                    <div class="flex flex-col items-center ml-4">
+                        <div id="ldl-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
+                        <div class="text-xs font-bold text-slate-600 font-['Orbitron']">LDL Cholesterol mg/dL</div>
+                    </div>
+                </div>
+                <!-- HDL Cholesterol Chart and Text -->
+                <div class="flex items-center mt-5">
+                    <div id="hdl-cholesterol-chart" class="chart"></div>
+                    <div class="flex flex-col items-center ml-4">
+                        <div id="hdl-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
+                        <div class="text-xs font-bold text-slate-600 font-['Orbitron']">HDL Cholesterol mg/dL</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Fixed Footer -->
+            <div class="w-full bg-white py-5 mt-8 flex justify-center fixed bottom-0">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-slate-700 font-['Orbitron']">Home</div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <script src="cbc.js"></script>
+        <script src="bloodchemistry.js"></script>
+        <script src="lipidpanel.js"></script>
+</body>
+
+</html>
