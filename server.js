@@ -29,10 +29,12 @@ app.use(express.static('public'));
 
 // Define routes
 const landingPageRoute = require('./routes/landingPage');
+const homePageRoute = require('./routes/home');
 const NotFoundController = require('./routes/404Page');
 
 // Use routes
 app.get('/', landingPageRoute);
+app.get('/home', homePageRoute);
 app.get('*', NotFoundController);
 
 // Start the server
