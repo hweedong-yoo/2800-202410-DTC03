@@ -59,6 +59,7 @@ const bodyCompositionRoute = require('./routes/bodyCompositionPage.js')
 const profilePageRoute = require('./routes/profilePage');
 const securityQuestionRoute = require('./routes/securityQuestionPage.js')
 const recoverPageRoute = require('./routes/recoverPage');
+const editProfilePageRoute = require('./routes/editProfilePage');
 const NotFoundController = require('./routes/404Page');
 const vitalsPageRoute = require('./routes/vitalsPage');
 
@@ -73,6 +74,7 @@ app.use('/profile', sessionValidation, profilePageRoute);
 app.use('/vitals', vitalsPageRoute);
 app.use('/security_question', securityQuestionRoute);
 app.use('/recover', recoverPageRoute);
+app.use('/edit_profile', editProfilePageRoute);
 app.use('*', NotFoundController);
 
 // Start the server
