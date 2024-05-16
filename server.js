@@ -11,6 +11,7 @@ const bcrypt = require('bcrypt');
 const mongodbHost = process.env.MONGODB_HOST;
 const mongodbUser = process.env.MONGODB_USER;
 const mongodbPassword = process.env.MONGODB_PASSWORD;
+const mongodbCluster = process.env.MONGODB_CLUSTER;
 const mongodbDatabase = process.env.MONGODB_DATABASE;
 const mongodbSessionSecret = process.env.MONGODB_SESSION_SECRET;
 const nodeSessionSecret = process.env.NODE_SESSION_SECRET;
@@ -27,9 +28,32 @@ app.set("view engine", "ejs");
 // Serve static files from the "public" folder
 app.use(express.static('public'));
 
+// Middleware for parsing JSON and urlencoded data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+var mongoStore = MongoStore.create({
+    mongoUrl: `mongodb+srv://${mongodbUser}:${mongodbPassword}@${mongodbHost}/${mongodbDatabase}?retryWrites=true&w=majority&appName=${mongodbCluster}`,
+    crypto: {
+        secret: mongodbSessionSecret
+    }
+})
+
+app.use(session({
+    secret: nodeSessionSecret,
+    store: mongoStore, 
+    saveUninitialized: false,
+    resave: true
+}
+));
+
 // Define routes
 const landingPageRoute = require('./routes/landingPage');
 const homePageRoute = require('./routes/home');
+const signupRoute = require('./routes/signupPage');
+const loginRoute = require('./routes/loginPage');
+const bodyCompositionRoute = require('./routes/bodyCompositionPage.js')
+const profilePageRoute = require('./routes/profilePage');
 const NotFoundController = require('./routes/404Page');
 
 app.get('/', (req, res) => {
@@ -43,14 +67,30 @@ app.get('/body_model', (req, res) => {
 app.get('*', (req, res) => {
     res.render("404");
 });
+
+app.get('/', (req, res) => {
+    res.render("landingPage")
+});
+
+app.get('/body_model', (req, res) => {
+    res.render("body_model");
+});
+
+app.get('*', (req, res) => {
+    res.render("404");
+});
 // Use routes
-app.get('/', landingPageRoute);
-app.get('/home', homePageRoute);
-app.get('*', NotFoundController);
+app.use('/', landingPageRoute);
+app.use('/home', homePageRoute);
+app.use('/signup', signupRoute);
+app.use('/login', loginRoute);
+app.use('/body_comp', bodyCompositionRoute)
+app.use('/profile', profilePageRoute);
+app.use('*', NotFoundController);
 
 // Start the server
 async function main() {
-    await mongoose.connect(`mongodb+srv://${mongodbUser}:${mongodbPassword}@${mongodbHost}/?retryWrites=true&w=majority&appName=${mongodbDatabase}`);
+    await mongoose.connect(`mongodb+srv://${mongodbUser}:${mongodbPassword}@${mongodbHost}/${mongodbDatabase}?retryWrites=true&w=majority&appName=${mongodbCluster}`);
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
     });
