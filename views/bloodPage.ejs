@@ -3,19 +3,20 @@
     <div class="flex flex-col items-center bg-slate-300 min-h-screen">
         <div class="w-full flex flex-col items-center bg-gradient-to-b from-slate-300 to-white">
 
-    
+
             <!-- Content Section -->
             <div class="flex flex-col items-center space-y-8 my-24">
-    
+
                 <!-- Title -->
-                <div class="w-full text-center text-4xl font-extrabold text-slate-700 font-['Orbitron'] my-2">Blood Tests
+                <div class="w-full text-center text-4xl font-extrabold text-slate-700 font-['Orbitron'] my-2">Blood
+                    Tests
                 </div>
-    
+
                 <!-- Overview Card -->
                 <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
                     <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Overview</div>
-                    <div class="flex flex-wrap justify-around items-center">
-                        <div class="flex flex-col items-center space-y-2">
+                    <div class="flex flex-wrap justify-evenly items-center">
+                        <!-- <div class="flex flex-col items-center space-y-2">
                             <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Blood" />
                             <div class="text-base font-bold text-slate-700 font-['Orbitron']">Good</div>
                         </div>
@@ -38,21 +39,42 @@
                         <div class="flex flex-col items-center space-y-2">
                             <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Virus" />
                             <div class="text-base font-bold text-slate-700 font-['Orbitron']">Good</div>
-                        </div>
+                        </div> -->
+                        <span class="flex py-2 text-6xl material-symbols-outlined text-[#cc0000]">
+                            immunology
+                        </span>
+                        <span class="flex py-2 text-6xl material-symbols-outlined text-[#cc0000]">
+                            nephrology
+                        </span>
+                        <span class="flex py-2 text-6xl material-symbols-outlined text-[#cc0000]">
+                            nephrology
+                        </span>
                     </div>
                 </div>
-    
+
                 <!-- CBC Card -->
                 <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
                     <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Complete Blood Count</div>
                     <!-- WBC Chart and Text -->
-                    <div class="flex flex-col items-center">
-                        <div id="wbc-chart" class="chart"></div>
-                        <div class="flex items-end">
-                            <div id="wbc-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
-                            <div class="text-xs font-bold text-slate-600 font-['Orbitron'] ml-1">cells/μL</div>
+                    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <h5 id="wbc-count" class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2"></h5>
+                                <p class="text-base font-normal text-gray-500 dark:text-gray-400">White Blood Cells Counts</p>
+                            </div>
+                            <!-- <div
+                                class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
+                                12%
+                                <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 10 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
+                                </svg>
+                            </div> -->
                         </div>
+                        <div id="wbc-chart" class="mt-4"></div>
                     </div>
+
                     <!-- RBC Chart and Text -->
                     <div class="flex flex-col items-center mt-5">
                         <div id="rbc-chart" class="chart"></div>
@@ -65,12 +87,13 @@
                     <div class="flex flex-col items-center mt-5">
                         <div id="platelets-chart" class="chart"></div>
                         <div class="flex items-end">
-                            <div id="platelets-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
+                            <div id="platelets-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
+                            </div>
                             <div class="text-xs font-bold text-slate-600 font-['Orbitron'] ml-1">platelets/μL</div>
                         </div>
                     </div>
                 </div>
-    
+
                 <!-- Blood Chemistry Card -->
                 <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
                     <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Blood Chemistry</div>
@@ -78,7 +101,8 @@
                     <div class="flex items-center">
                         <div id="glucose-chart" class="chart"></div>
                         <div class="flex flex-col items-center ml-4">
-                            <div id="glucose-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
+                            <div id="glucose-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
+                            </div>
                             <div class="text-xs font-bold text-slate-600 font-['Orbitron']">mg/dL</div>
                         </div>
                     </div>
@@ -86,7 +110,8 @@
                     <div class="flex items-center mt-5">
                         <div id="calcium-chart" class="chart"></div>
                         <div class="flex flex-col items-center ml-4">
-                            <div id="calcium-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
+                            <div id="calcium-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
+                            </div>
                             <div class="text-xs font-bold text-slate-600 font-['Orbitron']">mg/dL</div>
                         </div>
                     </div>
@@ -116,7 +141,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <!-- Lipid Panel Card -->
                 <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
                     <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Lipid Panel</div>
@@ -126,14 +151,16 @@
                         <div class="flex flex-col items-center ml-4">
                             <div id="total-cholesterol-count"
                                 class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
-                            <div class="text-xs font-bold text-slate-600 font-['Orbitron']">Total Cholesterol mg/dL</div>
+                            <div class="text-xs font-bold text-slate-600 font-['Orbitron']">Total Cholesterol mg/dL
+                            </div>
                         </div>
                     </div>
                     <!-- LDL Cholesterol Chart and Text -->
                     <div class="flex items-center mt-5">
                         <div id="ldl-cholesterol-chart" class="chart"></div>
                         <div class="flex flex-col items-center ml-4">
-                            <div id="ldl-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
+                            <div id="ldl-cholesterol-count"
+                                class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
                             </div>
                             <div class="text-xs font-bold text-slate-600 font-['Orbitron']">LDL Cholesterol mg/dL</div>
                         </div>
@@ -142,7 +169,8 @@
                     <div class="flex items-center mt-5">
                         <div id="hdl-cholesterol-chart" class="chart"></div>
                         <div class="flex flex-col items-center ml-4">
-                            <div id="hdl-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
+                            <div id="hdl-cholesterol-count"
+                                class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
                             </div>
                             <div class="text-xs font-bold text-slate-600 font-['Orbitron']">HDL Cholesterol mg/dL</div>
                         </div>
@@ -151,7 +179,8 @@
                     <div class="flex items-center mt-5">
                         <div id="tri-cholesterol-chart" class="chart"></div>
                         <div class="flex flex-col items-center ml-4">
-                            <div id="tri-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
+                            <div id="tri-cholesterol-count"
+                                class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
                             </div>
                             <div class="text-xs font-bold text-slate-600 font-['Orbitron']">Triglycerides mg/dL</div>
                         </div>
@@ -160,7 +189,8 @@
                     <div class="flex items-center mt-5">
                         <div id="pie-cholesterol-chart" class="chart"></div>
                         <div class="flex flex-col items-center ml-4">
-                            <div id="pie-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
+                            <div id="pie-cholesterol-count"
+                                class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
                             </div>
                         </div>
                     </div>
@@ -823,4 +853,4 @@
         document.getElementById('hdl-cholesterol-count').innerText = hdlCholesterolData[hdlCholesterolData.length - 1];
         document.getElementById('tri-cholesterol-count').innerText = triCholesterolData[triCholesterolData.length - 1];
     </script>
-<%- include('partials/footer.ejs') %>
+    <%- include('partials/footer.ejs') %>
