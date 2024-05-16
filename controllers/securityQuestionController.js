@@ -6,11 +6,7 @@ const displayPage = async (req, res) => {
     }
 };
 
-const submitQuestion = async(req, res) => {
-
-}
 
 module.exports = {
     displayPage,
-    submitQuestion,
 };
