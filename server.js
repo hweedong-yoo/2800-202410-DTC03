@@ -55,6 +55,7 @@ const loginRoute = require('./routes/loginPage');
 const bodyCompositionRoute = require('./routes/bodyCompositionPage.js')
 const profilePageRoute = require('./routes/profilePage');
 const NotFoundController = require('./routes/404Page');
+const vitalsPageRoute = require('./routes/vitalsPage');
 
 
 // Use routes
@@ -64,6 +65,7 @@ app.use('/signup', signupRoute);
 app.use('/login', loginRoute);
 app.use('/body_comp', bodyCompositionRoute)
 app.use('/profile', profilePageRoute);
+app.use('/vitals', vitalsPageRoute);
 app.use('*', NotFoundController);
 
 // Start the server
