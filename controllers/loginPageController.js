@@ -1,6 +1,9 @@
 const User = require('../models/userModels');
 const bcrypt = require('bcrypt');
 const Joi = require('joi');
+const session = require('express-session');
+
+const expireTime = 60 * 60 * 1000;
 
 const displayPage = async (req, res) => {
     try {
@@ -41,6 +44,11 @@ const authenticateUser = async (req, res) => {
         }
         else {
             // Authentication successful
+            req.session.authenticated = true;
+            req.session.username = user.username;
+            req.session.email = user.email;
+            req.session.cookie.maxAge = expireTime;
+            console.log(user)
             res.redirect('/home')
         }
     } catch (error) {
