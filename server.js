@@ -57,9 +57,6 @@ const profilePageRoute = require('./routes/profilePage');
 const bodyModelRoute = require('./routes/bodyModelPage');
 const NotFoundController = require('./routes/404Page');
 
-app.get('/body_model', (req, res) => {
-    res.render("body_model");
-});
 
 // Use routes
 app.use('/', landingPageRoute);
