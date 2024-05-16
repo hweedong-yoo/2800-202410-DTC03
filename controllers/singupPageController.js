@@ -34,7 +34,7 @@ const addUser = async (req, res) => {
 	
     const newUser = new userModel({
         name: name,
-        email: name,
+        email: email,
         password: hashedPassword,
     });
 
