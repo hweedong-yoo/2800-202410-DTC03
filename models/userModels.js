@@ -1,6 +1,22 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const vitalsSchema = new mongoose.Schema({
+  sex: {
+    type: String,
+  },
+  weight: {
+    type: Number,
+  },
+  height: {
+    type: Number,
+  },
+  dob: {
+    type: Number,
+  },
+});
+
+
 const userSchema = new Schema({
   name: {
     type: String,
@@ -15,6 +31,15 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  recovery: {
+    type: String,
+    required: true,
+  },
+  recovery_key: {
+    type: String,
+    required: true,
+  },
+  profile: {vitalsSchema},
 });
 
 const userModel = mongoose.model('users', userSchema);
