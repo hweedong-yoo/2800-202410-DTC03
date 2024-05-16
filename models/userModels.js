@@ -17,11 +17,11 @@ const userSchema = new Schema({
   },
   recovery: {
     type: String,
-    required: true,
+    required: false,
   },
   recovery_key: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 

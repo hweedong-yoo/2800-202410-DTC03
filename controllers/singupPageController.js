@@ -43,8 +43,8 @@ const addUser = async (req, res) => {
     console.log("User added successfully");
 
         req.session.authenticated = true;
-        req.session.name = user.name;
-        req.session.email = user.email;
+        req.session.name = name;
+        req.session.email = email;
         req.session.cookie.maxAge = expireTime;
     return res.redirect('/home');
 };
