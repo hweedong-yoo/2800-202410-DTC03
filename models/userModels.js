@@ -12,7 +12,7 @@ const vitalsSchema = new mongoose.Schema({
     type: Number,
   },
   dob: {
-    type: Number,
+    type: Date,
   },
 });
 
