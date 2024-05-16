@@ -3,6 +3,6 @@ const router = express.Router();
 const editProfilePageController = require('../controllers/editProfilePageController');
 
 router.get('/', editProfilePageController.displayPage);
-// router.post('/', editProfilePageController.logout);
+router.post('/', editProfilePageController.editInformation);
 
 module.exports = router;
