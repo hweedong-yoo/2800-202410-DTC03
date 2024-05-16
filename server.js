@@ -41,7 +41,7 @@ var mongoStore = MongoStore.create({
 
 app.use(session({
     secret: nodeSessionSecret,
-    store: mongoStore, 
+    store: mongoStore,
     saveUninitialized: false,
     resave: true
 }
@@ -57,6 +57,8 @@ const signupRoute = require('./routes/signupPage');
 const loginRoute = require('./routes/loginPage');
 const bodyCompositionRoute = require('./routes/bodyCompositionPage.js')
 const profilePageRoute = require('./routes/profilePage');
+const securityQuestionRoute = require('./routes/securityQuestionPage.js')
+const recoverPageRoute = require('./routes/recoverPage');
 const NotFoundController = require('./routes/404Page');
 const vitalsPageRoute = require('./routes/vitalsPage');
 
@@ -69,6 +71,8 @@ app.use('/home', sessionValidation, homePageRoute);
 app.use('/body_comp', sessionValidation, bodyCompositionRoute)
 app.use('/profile', sessionValidation, profilePageRoute);
 app.use('/vitals', vitalsPageRoute);
+app.use('/security_question', securityQuestionRoute);
+app.use('/recover', recoverPageRoute);
 app.use('*', NotFoundController);
 
 // Start the server
