@@ -41,7 +41,7 @@ var mongoStore = MongoStore.create({
 
 app.use(session({
     secret: nodeSessionSecret,
-    store: mongoStore, 
+    store: mongoStore,
     saveUninitialized: false,
     resave: true
 }
@@ -69,6 +69,7 @@ app.use('/login', loginRoute);
 app.use('/home', sessionValidation, homePageRoute);
 app.use('/body_comp', sessionValidation, bodyCompositionRoute)
 app.use('/profile', sessionValidation, profilePageRoute);
+app.use('/security_question', securityQuestionRoute);
 app.use('/recover', recoverPageRoute);
 app.use('*', NotFoundController);
 
