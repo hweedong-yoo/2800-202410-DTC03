@@ -1,6 +1,11 @@
 const displayPage = async (req, res) => {
   try {
-    res.render('profile');
+    const user = {
+      username: req.session.name,
+      email: req.session.email
+    }
+    
+    res.render('profile', {user});
   } catch (error) {
     res.status(500).send(error);
   }
