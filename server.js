@@ -57,6 +57,7 @@ const signupRoute = require('./routes/signupPage');
 const loginRoute = require('./routes/loginPage');
 const bodyCompositionRoute = require('./routes/bodyCompositionPage.js')
 const profilePageRoute = require('./routes/profilePage');
+const editProfilePageRoute = require('./routes/editProfilePage');
 const NotFoundController = require('./routes/404Page');
 
 
@@ -67,6 +68,7 @@ app.use('/login', loginRoute);
 app.use('/home', sessionValidation, homePageRoute);
 app.use('/body_comp', sessionValidation, bodyCompositionRoute)
 app.use('/profile', sessionValidation, profilePageRoute);
+app.use('/edit_profile', editProfilePageRoute);
 app.use('*', NotFoundController);
 
 // Start the server
