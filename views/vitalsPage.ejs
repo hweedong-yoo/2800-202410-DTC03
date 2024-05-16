@@ -1,0 +1,388 @@
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<% currentBPM=70%>
+    <% currentTemp=37%>
+        <% currentRRP=37%>
+            <%- include('partials/header.ejs') %>
+                <section class="my-auto bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
+                    <div class="mx-10">
+
+                        <!-- notification card -->
+                        <div class="py-4 ">
+                            <div class="flex justify-evenly bg-white text-center shadow-lg rounded-full">
+                                <span class="flex py-2 text-6xl material-symbols-outlined text-[#EA3323]">
+                                    ecg_heart
+                                </span>
+                                <span class="flex py-2 text-6xl material-symbols-outlined text-[#EA3323]">
+                                    device_thermostat
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col ">
+                            <div class="rounded-lg  ">
+                                <!-- bpm chart -->
+                                <div class="mx-max max-w-md w-full bg-white rounded-lg dark:bg-gray-800 p-4 shadow-lg">
+                                    <div class="flex justify-between mb-5">
+                                        <div>
+                                            <h5
+                                                class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
+                                                BPM: <%= currentBPM %>
+                                            </h5>
+                                            <p class="text-base font-normal text-gray-500 dark:text-gray-400">This week
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
+                                            23%
+                                            <svg class="w-3 h-3 ms-1" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="M5 13V1m0 0L1 5m4-4 4 4" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <!-- actual chart -->
+                                    <div id="bpm-chart" class=""></div>
+                                </div>
+                                <!-- body temp chart -->
+                                <div class="pt-4">
+                                    <div
+                                        class="mx-max max-w-md w-full bg-white rounded-lg dark:bg-gray-800 p-4 shadow-lg">
+                                        <div class="flex justify-between mb-5">
+                                            <div>
+                                                <h5
+                                                    class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
+                                                    Temp: <%= currentTemp %> °
+                                                </h5>
+                                                <p class="text-base font-normal text-gray-500 dark:text-gray-400">This
+                                                    week
+                                                </p>
+                                            </div>
+                                            <div
+                                                class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
+                                                23%
+                                                <svg class="w-3 h-3 ms-1" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M5 13V1m0 0L1 5m4-4 4 4" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <!-- actual chart -->
+                                        <div id="temp-chart" class=""></div>
+                                    </div>
+                                </div>
+                                <!-- RRP chart -->
+                                <div class="py-4">
+                                    <div
+                                        class="mx-max max-w-md w-full bg-white rounded-lg dark:bg-gray-800 p-4 shadow-lg">
+                                        <div class="flex justify-between mb-5">
+                                            <div>
+                                                <h5
+                                                    class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
+                                                    RRP: <%= currentRRP %> 
+                                                </h5>
+                                                <p class="text-base font-normal text-gray-500 dark:text-gray-400">This
+                                                    week
+                                                </p>
+                                            </div>
+                                            <div
+                                                class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
+                                                23%
+                                                <svg class="w-3 h-3 ms-1" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M5 13V1m0 0L1 5m4-4 4 4" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <!-- actual chart -->
+                                        <div id="breath-chart" class=""></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </section>
+                <script>
+                    const bpmOptions = {
+                        // enable and customize data labels using the following example, learn more from here: https://apexcharts.com/docs/datalabels/
+                        dataLabels: {
+                            enabled: true,
+                            // offsetX: 10,
+                            style: {
+                                cssClass: 'text-xs text-white font-medium'
+                            },
+                        },
+                        grid: {
+                            show: false,
+                            strokeDashArray: 4,
+                            padding: {
+                                left: 16,
+                                right: 16,
+                                top: -26
+                            },
+                        },
+                        series: [
+                            {
+                                name: "Average BPM",
+                                data: [90, 91, 89, 85, 92, 95],
+                                color: "#1A56DB",
+                            },
+                            {
+                                name: "Your BPM",
+                                data: [70, 70, 78, 71, 69, 67],
+                                color: "#7E3BF2",
+                            },
+                        ],
+                        chart: {
+                            height: "100%",
+                            maxWidth: "100%",
+                            type: "area",
+                            fontFamily: "Inter, sans-serif",
+                            dropShadow: {
+                                enabled: false,
+                            },
+                            toolbar: {
+                                show: false,
+                            },
+                        },
+                        tooltip: {
+                            enabled: true,
+                            x: {
+                                show: false,
+                            },
+                        },
+                        legend: {
+                            show: true
+                        },
+                        fill: {
+                            type: "gradient",
+                            gradient: {
+                                opacityFrom: 0.55,
+                                opacityTo: 0,
+                                shade: "#1C64F2",
+                                gradientToColors: ["#1C64F2"],
+                            },
+                        },
+                        stroke: {
+                            width: 6,
+                        },
+                        xaxis: {
+                            categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
+                            labels: {
+                                show: false,
+                            },
+                            axisBorder: {
+                                show: false,
+                            },
+                            axisTicks: {
+                                show: false,
+                            },
+                        },
+                        yaxis: {
+                            show: true,
+                            labels: {
+
+                                formatter: function (value) {
+                                    return value;
+                                }
+                            },
+
+                        },
+                    }
+
+                    const tempOptions = {
+                        // enable and customize data labels using the following example, learn more from here: https://apexcharts.com/docs/datalabels/
+                        dataLabels: {
+                            enabled: true,
+                            // offsetX: 10,
+                            style: {
+                                cssClass: 'text-xs text-white font-medium'
+                            },
+                        },
+                        grid: {
+                            show: false,
+                            strokeDashArray: 4,
+                            padding: {
+                                left: 16,
+                                right: 16,
+                                top: -26
+                            },
+                        },
+                        series: [
+                            {
+                                name: "Average Temp",
+                                data: [90, 91, 89, 85, 92, 95],
+                                color: "#1A56DB",
+                            },
+                            {
+                                name: "Your Temp",
+                                data: [70, 70, 78, 71, 69, 67],
+                                color: "#7E3BF2",
+                            },
+                        ],
+                        chart: {
+                            height: "100%",
+                            maxWidth: "100%",
+                            type: "area",
+                            fontFamily: "Inter, sans-serif",
+                            dropShadow: {
+                                enabled: false,
+                            },
+                            toolbar: {
+                                show: false,
+                            },
+                        },
+                        tooltip: {
+                            enabled: true,
+                            x: {
+                                show: false,
+                            },
+                        },
+                        legend: {
+                            show: true
+                        },
+                        fill: {
+                            type: "gradient",
+                            gradient: {
+                                opacityFrom: 0.55,
+                                opacityTo: 0,
+                                shade: "#1C64F2",
+                                gradientToColors: ["#1C64F2"],
+                            },
+                        },
+                        stroke: {
+                            width: 6,
+                        },
+                        xaxis: {
+                            categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
+                            labels: {
+                                show: false,
+                            },
+                            axisBorder: {
+                                show: false,
+                            },
+                            axisTicks: {
+                                show: false,
+                            },
+                        },
+                        yaxis: {
+                            show: true,
+                            labels: {
+
+                                formatter: function (value) {
+                                    return value;
+                                }
+                            },
+
+                        },
+                    }
+
+                    const breathOptions = {
+                        // enable and customize data labels using the following example, learn more from here: https://apexcharts.com/docs/datalabels/
+                        dataLabels: {
+                            enabled: true,
+                            // offsetX: 10,
+                            style: {
+                                cssClass: 'text-xs text-white font-medium'
+                            },
+                        },
+                        grid: {
+                            show: false,
+                            strokeDashArray: 4,
+                            padding: {
+                                left: 16,
+                                right: 16,
+                                top: -26
+                            },
+                        },
+                        series: [
+                            {
+                                name: "Average Temp",
+                                data: [90, 91, 89, 85, 92, 95],
+                                color: "#1A56DB",
+                            },
+                            {
+                                name: "Your Temp",
+                                data: [70, 70, 78, 71, 69, 67],
+                                color: "#7E3BF2",
+                            },
+                        ],
+                        chart: {
+                            height: "100%",
+                            maxWidth: "100%",
+                            type: "area",
+                            fontFamily: "Inter, sans-serif",
+                            dropShadow: {
+                                enabled: false,
+                            },
+                            toolbar: {
+                                show: false,
+                            },
+                        },
+                        tooltip: {
+                            enabled: true,
+                            x: {
+                                show: false,
+                            },
+                        },
+                        legend: {
+                            show: true
+                        },
+                        fill: {
+                            type: "gradient",
+                            gradient: {
+                                opacityFrom: 0.55,
+                                opacityTo: 0,
+                                shade: "#1C64F2",
+                                gradientToColors: ["#1C64F2"],
+                            },
+                        },
+                        stroke: {
+                            width: 6,
+                        },
+                        xaxis: {
+                            categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
+                            labels: {
+                                show: false,
+                            },
+                            axisBorder: {
+                                show: false,
+                            },
+                            axisTicks: {
+                                show: false,
+                            },
+                        },
+                        yaxis: {
+                            show: true,
+                            labels: {
+
+                                formatter: function (value) {
+                                    return value;
+                                }
+                            },
+
+                        },
+                    }
+
+                    if (document.getElementById("bpm-chart") && typeof ApexCharts !== 'undefined') {
+
+                        const bpmChart = new ApexCharts(document.getElementById("bpm-chart"), bpmOptions);
+                        bpmChart.render();
+                    }
+                    if (document.getElementById("temp-chart") && typeof ApexCharts !== 'undefined') {
+
+                        const tempChart = new ApexCharts(document.getElementById("temp-chart"), tempOptions);
+                        tempChart.render();
+                    }
+                    if (document.getElementById("breath-chart") && typeof ApexCharts !== 'undefined') {
+
+                        const breathChart = new ApexCharts(document.getElementById("breath-chart"), breathOptions);
+                        breathChart.render();
+                    }
+                </script>
+
+                <%- include('partials/footer.ejs') %>
