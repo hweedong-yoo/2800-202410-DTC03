@@ -7,6 +7,9 @@ const expireTime = 60 * 60 * 1000;
 
 const displayPage = async (req, res) => {
     try {
+        if (req.session.authenticated) {
+            return res.redirect('/home');
+        }
         res.render('loginPage');
     } catch (error) {
         res.status(500).send(error);
@@ -45,7 +48,7 @@ const authenticateUser = async (req, res) => {
         else {
             // Authentication successful
             req.session.authenticated = true;
-            req.session.username = user.username;
+            req.session.name = user.name;
             req.session.email = user.email;
             req.session.cookie.maxAge = expireTime;
             console.log(user)
