@@ -47,6 +47,9 @@ app.use(session({
 }
 ));
 
+// Middleware for session validation
+const sessionValidation = require('./middlewares/sessionValidation');
+
 // Define routes
 const landingPageRoute = require('./routes/landingPage');
 const homePageRoute = require('./routes/home');
@@ -61,12 +64,11 @@ const NotFoundController = require('./routes/404Page');
 
 // Use routes
 app.use('/', landingPageRoute);
-app.use('/home', homePageRoute);
 app.use('/signup', signupRoute);
 app.use('/login', loginRoute);
-app.use('/body_comp', bodyCompositionRoute);
-app.use('/profile', profilePageRoute);
-app.use('/security_question', securityQuestionRoute);
+app.use('/home', sessionValidation, homePageRoute);
+app.use('/body_comp', sessionValidation, bodyCompositionRoute)
+app.use('/profile', sessionValidation, profilePageRoute);
 app.use('/recover', recoverPageRoute);
 app.use('*', NotFoundController);
 
