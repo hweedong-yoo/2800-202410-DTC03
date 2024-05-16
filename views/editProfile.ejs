@@ -1,0 +1,48 @@
+<%- include('partials/header.ejs') %>
+
+<div class="p-4 font-[Orbitron] text-[#455780] font-bold bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
+
+  <h1 class="text-center py-2 text-5xl font-[Orbitron] font-extrabold">Edit</h1>
+
+  <div class="border-2 rounded-3xl drop-shadow-lg px-2 py-4 m-4 mt-4 bg-[#FCFEFE]">
+    <form class="max-w-sm mx-auto px-2">
+      <div class="mb-5">
+        <label for="birthday" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your birthday</label>
+        <input type="date" id="birthday" name="birthday"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="name@flowbite.com"/>
+      </div>
+
+      <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select your
+        gender</label>
+      <select id="countries"
+        class="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    
+        <option id="maleGender">Male</option>
+        <option id="femaleGender">Female</option>
+        <option id="otherGender">Other</option>
+      </select>
+
+      <div class="mb-5">
+        <label for="weight" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your weight (lbs)</label>
+        <input type="number" id="weight" name="weight"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder=""/>
+      </div>
+
+      <div class="mb-5">
+        <label for="height" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your height (cm)</label>
+        <input type="number" id="height" name="height"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="" />
+      </div>
+
+      <button type="submit"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+    </form>
+  </div>
+
+
+</div>
+
+<%- include('partials/bottomNav.ejs') %>

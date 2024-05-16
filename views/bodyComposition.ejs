@@ -1,0 +1,183 @@
+<!-- Tried not using cdn for tailwind but it broke everything -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<%- include('partials/header.ejs') %>
+    <% currentBmi=25 %>
+        <section class="my-auto bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
+            <div class="mx-auto">
+                <!-- hero -->
+                <div class="flex mx-auto justify-center py-4 my-4">
+                    <h1 class="font-extrabold text-3xl">
+                        Body Composition
+                    </h1>
+                </div>
+                <!-- beginning of cards -->
+                <div class="flex flex-col mx-[10px]">
+                    <div class="m-4 p-3 bg-[#FCFEFE] rounded-lg shadow-lg">
+
+                        <!-- chart html -->
+                        <!-- chart header -->
+                        <div class="mx-max max-w-md w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4">
+                            <div class="flex justify-between mb-5">
+                                <div>
+                                    <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
+                                        BMI: <%= currentBmi %>
+                                    </h5>
+                                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">This week</p>
+                                </div>
+                                <div
+                                    class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
+                                    23%
+                                    <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 10 14">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <!-- actual chart -->
+                            <div id="bmi-chart"></div>
+
+                        </div>
+
+
+                        <p class="text-xl p-4">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus similique sit saepe
+                            vero
+                            eos
+                            sunt
+                            delectus voluptate, excepturi totam omnis illum quos. Culpa, odio accusamus! Mollitia
+                            dolorum in
+                            nostrum
+                            voluptate.
+                        </p>
+                    </div>
+                    <div class="m-4 py-20 bg-[#FCFEFE] rounded-lg shadow-lg">
+                        <h1 class="text-3xl text-center pb-10">
+                            Bone Density
+                        </h1>
+                        <p class="text-xl p-4">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus similique sit saepe
+                            vero
+                            eos
+                            sunt
+                            delectus voluptate, excepturi totam omnis illum quos. Culpa, odio accusamus! Mollitia
+                            dolorum in
+                            nostrum
+                            voluptate.
+                        </p>
+                    </div>
+                    <div class="m-4 py-20 bg-[#FCFEFE] rounded-lg shadow-lg">
+                        <h1 class="text-3xl text-center pb-10">
+                            Weight
+                        </h1>
+
+                        <p class="text-xl p-4">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus similique sit saepe
+                            vero
+                            eos
+                            sunt
+                            delectus voluptate, excepturi totam omnis illum quos. Culpa, odio accusamus! Mollitia
+                            dolorum in
+                            nostrum
+                            voluptate.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- chart script -->
+        <script>
+            const options = {
+                // enable and customize data labels using the following example, learn more from here: https://apexcharts.com/docs/datalabels/
+                dataLabels: {
+                    enabled: true,
+                    // offsetX: 10,
+                    style: {
+                        cssClass: 'text-xs text-white font-medium'
+                    },
+                },
+                grid: {
+                    show: false,
+                    strokeDashArray: 4,
+                    padding: {
+                        left: 16,
+                        right: 16,
+                        top: -26
+                    },
+                },
+                series: [
+                    {
+                        name: "Average BMI",
+                        data: [150, 141, 145, 152, 135, 125],
+                        color: "#1A56DB",
+                    },
+                    {
+                        name: "Personal BMI",
+                        data: [64, 41, 41, 41, 38, 35],
+                        color: "#7E3BF2",
+                    },
+                ],
+                chart: {
+                    height: "100%",
+                    maxWidth: "100%",
+                    type: "area",
+                    fontFamily: "Inter, sans-serif",
+                    dropShadow: {
+                        enabled: false,
+                    },
+                    toolbar: {
+                        show: false,
+                    },
+                },
+                tooltip: {
+                    enabled: true,
+                    x: {
+                        show: false,
+                    },
+                },
+                legend: {
+                    show: true
+                },
+                fill: {
+                    type: "gradient",
+                    gradient: {
+                        opacityFrom: 0.55,
+                        opacityTo: 0,
+                        shade: "#1C64F2",
+                        gradientToColors: ["#1C64F2"],
+                    },
+                },
+                stroke: {
+                    width: 6,
+                },
+                xaxis: {
+                    categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
+                    labels: {
+                        show: false,
+                    },
+                    axisBorder: {
+                        show: false,
+                    },
+                    axisTicks: {
+                        show: false,
+                    },
+                },
+                yaxis: {
+                    show: false,
+                    labels: {
+                        formatter: function (value) {
+                            return '$' + value;
+                        }
+                    }
+                },
+            }
+
+            if (document.getElementById("bmi-chart") && typeof ApexCharts !== 'undefined') {
+                const chart = new ApexCharts(document.getElementById("bmi-chart"), options);
+                chart.render();
+            }
+        </script>
+
+        <%- include('partials/footer.ejs') %>
