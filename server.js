@@ -32,6 +32,21 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+var mongoStore = MongoStore.create({
+    mongoUrl: `mongodb+srv://${mongodbUser}:${mongodbPassword}@${mongodbHost}/${mongodbDatabase}?retryWrites=true&w=majority&appName=${mongodbCluster}`,
+    crypto: {
+        secret: mongodbSessionSecret
+    }
+})
+
+app.use(session({
+    secret: nodeSessionSecret,
+    store: mongoStore, 
+    saveUninitialized: false,
+    resave: true
+}
+));
+
 // Define routes
 const landingPageRoute = require('./routes/landingPage');
 const homePageRoute = require('./routes/home');
@@ -40,6 +55,7 @@ const loginRoute = require('./routes/loginPage');
 const bodyCompositionRoute = require('./routes/bodyCompositionPage.js')
 const profilePageRoute = require('./routes/profilePage');
 const NotFoundController = require('./routes/404Page');
+
 
 // Use routes
 app.use('/', landingPageRoute);
