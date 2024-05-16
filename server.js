@@ -54,31 +54,13 @@ const signupRoute = require('./routes/signupPage');
 const loginRoute = require('./routes/loginPage');
 const bodyCompositionRoute = require('./routes/bodyCompositionPage.js')
 const profilePageRoute = require('./routes/profilePage');
+const bodyModelRoute = require('./routes/bodyModelPage');
 const NotFoundController = require('./routes/404Page');
 
-app.get('/', (req, res) => {
-    res.render("landingPage")
-});
-
 app.get('/body_model', (req, res) => {
     res.render("body_model");
 });
 
-app.get('*', (req, res) => {
-    res.render("404");
-});
-
-app.get('/', (req, res) => {
-    res.render("landingPage")
-});
-
-app.get('/body_model', (req, res) => {
-    res.render("body_model");
-});
-
-app.get('*', (req, res) => {
-    res.render("404");
-});
 // Use routes
 app.use('/', landingPageRoute);
 app.use('/home', homePageRoute);
@@ -86,6 +68,7 @@ app.use('/signup', signupRoute);
 app.use('/login', loginRoute);
 app.use('/body_comp', bodyCompositionRoute)
 app.use('/profile', profilePageRoute);
+app.use('/bodyModel', bodyModelRoute);
 app.use('*', NotFoundController);
 
 // Start the server
