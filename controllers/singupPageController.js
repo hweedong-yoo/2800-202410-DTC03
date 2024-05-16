@@ -14,9 +14,7 @@ const addUser = async (req, res) => {
     var name = req.body.name;
     var email = req.body.email;
     var password = req.body.password;
-
-    console.log(name,email,password);
-
+    
 	const schema = Joi.object(
 		{
             name: Joi.string().alphanum().max(20).required(),
