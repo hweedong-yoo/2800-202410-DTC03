@@ -261,7 +261,6 @@
                 width: 2
             },
             title: {
-                text: 'White Blood Cells Counts',
                 align: 'left',
                 style: {
                     fontSize: '16px',
@@ -361,8 +360,8 @@
         wbcChart.render();
         rbcChart.render();
         plateletsChart.render();
-        document.getElementById('wbc-count').innerText = wbcData[wbcData.length - 1];
-        document.getElementById('rbc-count').innerText = `${rbcData[rbcData.length - 1]} MIL`
+        document.getElementById('wbc-count').innerText = wbcData[wbcData.length - 1] + ' cells/μL';
+        document.getElementById('rbc-count').innerText = rbcData[rbcData.length - 1] + ' MIL cells/μL'
         document.getElementById('platelets-count').innerText = plateletsData[plateletsData.length - 1];
 
         /* 
