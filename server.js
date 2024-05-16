@@ -65,6 +65,9 @@ const NotFoundController = require('./routes/404Page');
 const vitalsPageRoute = require('./routes/vitalsPage');
 const bloodPageRoute = require('./routes/bloodPage');
 const contactPageRoute = require('./routes/contactPage');
+const aboutPageRoute = require('./routes/aboutPage');
+const termsPageRoute = require('./routes/termsPage');
+
 
 // Use routes
 app.use('/', landingPageRoute);
@@ -80,6 +83,8 @@ app.use('/edit_profile', editProfilePageRoute);
 app.use('/bodyModel', bodyModelRoute);
 app.use('/blood', bloodPageRoute)
 app.use('/contact', contactPageRoute)
+app.use('/about', aboutPageRoute);
+app.use('/terms', termsPageRoute);
 app.use('*', NotFoundController);
 
 // Start the server
