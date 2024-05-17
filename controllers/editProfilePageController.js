@@ -1,6 +1,6 @@
 const displayPage = async (req, res) => {
   try {
-    res.render('editProfile');
+    res.render('editProfile', {authenticated : req.session.authenticated});
   } catch (error) {
     res.status(500).send(error);
   }

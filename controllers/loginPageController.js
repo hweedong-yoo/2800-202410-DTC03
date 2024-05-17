@@ -8,9 +8,10 @@ const expireTime = 60 * 60 * 1000;
 const displayPage = async (req, res) => {
     try {
         if (req.session.authenticated) {
-            return res.redirect('/home');
+            console.log("authenticated:", req.session.authenticated)
+            res.redirect('home');
         }
-        res.render('loginPage');
+        res.render('loginPage', {authenticated : req.session.authenticated});
     } catch (error) {
         res.status(500).send(error);
     }

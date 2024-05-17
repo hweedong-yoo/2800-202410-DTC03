@@ -6,7 +6,7 @@ const expireTime = 60 * 60 * 1000
 
 const displayPage = async (req, res) => {
     try {
-        res.render('signupPage');
+        res.render('signupPage', {authenticated : req.session.authenticated});
     } catch (error) {
         res.status(500).send(error);
     }
@@ -46,7 +46,7 @@ const addUser = async (req, res) => {
         req.session.name = name;
         req.session.email = email;
         req.session.cookie.maxAge = expireTime;
-    return res.redirect('/home');
+    return res.redirect('/home', {authenticated : req.session.authenicated});
 };
 
 module.exports = {

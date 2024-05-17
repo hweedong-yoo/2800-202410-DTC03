@@ -1,6 +1,7 @@
+
 const displayPage = async (req, res) => {
     try {
-        res.render('landingPage', {authenicated : req.session.authenicated});
+        res.render('landingPage', {authenticated : req.session.authenticated});
     } catch (error) {
         res.status(500).send(error);
     }
