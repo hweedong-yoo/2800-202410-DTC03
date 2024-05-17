@@ -1,6 +1,6 @@
 const displayPage = async (req, res) => {
     try {
-        res.render('securityQuestion');
+        res.render('getEmail');
     } catch (error) {
         res.status(400).send(error);
     }

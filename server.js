@@ -43,9 +43,14 @@ app.use(session({
     secret: nodeSessionSecret,
     store: mongoStore,
     saveUninitialized: false,
-    resave: true
+    resave: true,
+    cookie: { maxAge: expireTime }
 }
 ));
+
+module.exports = {
+    expireTime,
+};
 
 // Middleware for session validation
 const sessionValidation = require('./middlewares/sessionValidation');
@@ -66,9 +71,9 @@ const NotFoundController = require('./routes/404Page');
 app.use('/', landingPageRoute);
 app.use('/signup', signupRoute);
 app.use('/login', loginRoute);
-app.use('/home', sessionValidation, homePageRoute);
-app.use('/body_comp', sessionValidation, bodyCompositionRoute)
-app.use('/profile', sessionValidation, profilePageRoute);
+app.use('/home', sessionValidation.sessionValidation, homePageRoute);
+app.use('/body_comp', sessionValidation.sessionValidation, bodyCompositionRoute)
+app.use('/profile', sessionValidation.sessionValidation, profilePageRoute);
 app.use('/security_question', securityQuestionRoute);
 app.use('/recover', recoverPageRoute);
 app.use('*', NotFoundController);

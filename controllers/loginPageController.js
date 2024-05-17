@@ -10,7 +10,7 @@ const displayPage = async (req, res) => {
         if (req.session.authenticated) {
             return res.redirect('/home');
         }
-        res.render('loginPage');
+        res.render('loginPage', { error: req.query.error });
     } catch (error) {
         res.status(500).send(error);
     }
@@ -43,7 +43,7 @@ const authenticateUser = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
-            return res.status(401).send('Invalid email/password combination');
+            return res.redirect('/login?error=invalidPassword');
         }
         else {
             // Authentication successful

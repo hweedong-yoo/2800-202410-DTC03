@@ -4,7 +4,7 @@
 <%- include('partials/header.ejs') %>
 
     <div class="flex-grow flex justify-center items-center bg-white dark:bg-gray-900">
-        <form class="max-w-sm mx-4 ">
+        <form class="max-w-sm mx-4 rounded-lg shadow-lg bg-gray-100 dark:bg-gray-800 p-5" action>
             <label for="countries" class="block mb-4 text-sm font-medium text-gray-900 dark:text-white">Security
                 Question:</label>
             <select id="countries"
@@ -16,8 +16,8 @@
             </select>
             
             <div class="my-5">
-                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Answer</label>
-                <input type="email" id="email"
+                <label for="answer" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Answer</label>
+                <input type="text" id="answer" name="answer"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Answer" required />
             </div>
