@@ -11,7 +11,7 @@ const displayPage = async (req, res) => {
             console.log("authenticated:", req.session.authenticated)
             res.redirect('home');
         }
-        res.render('loginPage', {authenticated : req.session.authenticated});
+        res.render('loginPage', {authenticated : req.session.authenticated, error: req.query.error });
     } catch (error) {
         res.status(500).send(error);
     }
@@ -44,7 +44,7 @@ const authenticateUser = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
-            return res.status(401).send('Invalid email/password combination');
+            return res.redirect('/login?error=invalidPassword');
         }
         else {
             // Authentication successful

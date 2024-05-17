@@ -43,9 +43,14 @@ app.use(session({
     secret: nodeSessionSecret,
     store: mongoStore,
     saveUninitialized: false,
-    resave: true
+    resave: true,
+    cookie: { maxAge: expireTime }
 }
 ));
+
+module.exports = {
+    expireTime,
+};
 
 // Middleware for session validation
 const sessionValidation = require('./middlewares/sessionValidation');
