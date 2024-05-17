@@ -253,6 +253,8 @@
         </div>
     </div>
 
+    <%- include('partials/bottomNav.ejs') %>
+
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
         /*
@@ -300,7 +302,7 @@
         // Create ApexChart for WBC
         const wbcApex = {
             chart: {
-                height: 350,
+                height: 200,
                 type: 'line',
                 zoom: {
                     enabled: false
@@ -341,7 +343,7 @@
         // Create ApexChart for RBC
         const rbcApex = {
             chart: {
-                height: 350,
+                height: 200,
                 type: 'line',
                 zoom: {
                     enabled: false
@@ -382,7 +384,7 @@
         // Create ApexChart for Platelets
         const plateletsApex = {
             chart: {
-                height: 350,
+                height: 200,
                 type: 'line',
                 zoom: {
                     enabled: false
@@ -514,7 +516,7 @@
         // Create ApexChart for Glucose
         const glucoseApex = {
             chart: {
-                height: 350,
+                height: 200,
                 type: 'line',
                 zoom: {
                     enabled: false
@@ -555,7 +557,7 @@
         // Create ApexChart for Calcium
         const calciumApex = {
             chart: {
-                height: 350,
+                height: 200,
                 type: 'line',
                 zoom: {
                     enabled: false
@@ -596,7 +598,7 @@
         // Create ApexChart for Kidney Function Markers (BUN and Creatinine)
         const kidneyMarkersApex = {
             chart: {
-                height: 350,
+                height: 200,
                 type: 'line',
                 zoom: {
                     enabled: false
@@ -643,7 +645,7 @@
         // Create ApexChart for Liver Function Tests (ALT and AST)
         const liverMarkersApex = {
             chart: {
-                height: 350,
+                height: 200,
                 type: 'line',
                 zoom: {
                     enabled: false
@@ -779,7 +781,7 @@
         // Create ApexChart for Total Cholesterol
         const totalCholesterolApex = {
             chart: {
-                height: 350,
+                height: 200,
                 type: 'line',
                 zoom: {
                     enabled: false
@@ -820,7 +822,7 @@
         // Create ApexChart for LDL Cholesterol
         const ldlCholesterolApex = {
             chart: {
-                height: 350,
+                height: 200,
                 type: 'line',
                 zoom: {
                     enabled: false
@@ -861,7 +863,7 @@
         // Create ApexChart for HDL Cholesterol
         const hdlCholesterolApex = {
             chart: {
-                height: 350,
+                height: 200,
                 type: 'line',
                 zoom: {
                     enabled: false
@@ -902,7 +904,7 @@
         // Create ApexChart for Triglycerides
         const triCholesterolApex = {
             chart: {
-                height: 350,
+                height: 200,
                 type: 'line',
                 zoom: {
                     enabled: false
@@ -942,7 +944,7 @@
 
         const pieCholesterolApex = {
             chart: {
-                height: 350,
+                height: 400,
                 type: 'pie',
                 zoom: {
                     enabled: false
@@ -994,4 +996,6 @@
         document.getElementById('hdl-cholesterol-count').innerText = hdlCholesterolData[hdlCholesterolData.length - 1];
         document.getElementById('tri-cholesterol-count').innerText = triCholesterolData[triCholesterolData.length - 1];
     </script>
-    <%- include('partials/footer.ejs') %>
+</body>
+
+</html>
