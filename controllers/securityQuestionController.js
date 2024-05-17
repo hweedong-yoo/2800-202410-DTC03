@@ -14,19 +14,17 @@ const displayPage = async (req, res) => {
 const addSecurityQuestion = async (req, res) => {
     try {
         const { securityAnswer, securityQuestion } = req.body;
-        console.log(securityAnswer, securityQuestion);
 
         const validationResult = securityAnswerSchema.validate({ answer: securityAnswer });
         if (validationResult.error) {
             console.log(validationResult.error.details[0].context.key);
             return res.redirect(`/security_question?missing=${validationResult.error.details[0].context.key}`);
         }
-
-        const hashedSecurityQuestion = await bcrypt.hash(securityQuestion, 8);
+        
         const hashedSecurityAnswer = await bcrypt.hash(securityAnswer, 8);
 
         const email = req.session.email;
-        await userModel.findOneAndUpdate({ email: email }, { recovery: hashedSecurityQuestion, recovery_key: hashedSecurityAnswer });
+        await userModel.findOneAndUpdate({ email: email }, { recovery: securityQuestion, recovery_key: hashedSecurityAnswer });
 
         res.redirect('/home');
     } catch (error) {
