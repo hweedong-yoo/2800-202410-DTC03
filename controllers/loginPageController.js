@@ -48,6 +48,7 @@ const authenticateUser = async (req, res) => {
         else {
             // Authentication successful
             req.session.authenticated = true;
+            req.session.id = user._id;
             req.session.name = user.name;
             req.session.email = user.email;
             req.session.cookie.maxAge = expireTime;
