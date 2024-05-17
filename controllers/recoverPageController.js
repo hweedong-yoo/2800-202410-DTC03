@@ -41,40 +41,47 @@ const displayPageSecurityQuestion = async (req, res) => {
   try {
     const user = await userModel.findOne({ email: req.session.email });
     const recovery = user.recovery;
-    res.render('recoverySecurityQuestion', { recovery: recovery, error: req.query.error});
+    res.render('recoverySecurityQuestion', {authenticated : req.session.authenticated ,recovery: recovery, error: req.query.error});
   } catch (error) {
     res.status(500).send(error);
   }
 };
 
-const validateSecurityQuestionAsnwer = async (req, res) => {
+const validateSecurityQuestionAnswer = async (req, res) => {
   try {
-    const email =  req.session.email;
+    const email = req.session.email;
     const answer = req.body.answer;
 
-    const validateSecurityAnswer = securityAnswerSchema.validate({answer: answer});
+    const validateSecurityAnswer = securityAnswerSchema.validate({ answer: answer });
 
     if (validateSecurityAnswer.error) {
       return res.redirect('/recover/securityquestion?error=invalidSecurityAnswer');
     }
 
-    const user = await userModel.findOne({ email: email, recovery_key: answer });
-    console.log(user, email, answer)
+    const user = await userModel.findOne({ email: email });
     if (user) {
-      req.session.recoveryAnswer = true;
-      res.redirect(`/recover/resetPassword`);
-    } else {
-      res.redirect('/recover/securityQuestion?error=invalidAnswer');
-    }
+      const hashedSecurityAnswer = user.recovery_key;
 
+      const isMatch = await bcrypt.compare(answer, hashedSecurityAnswer);
+
+      if (isMatch) {
+        req.session.recoveryAnswer = true;
+        res.redirect(`/recover/resetPassword`);
+      } else {
+        res.redirect('/recover/securityQuestion?error=invalidAnswer');
+      }
+    } else {
+      res.redirect('/recover/securityQuestion?error=invalidEmail');
+    }
   } catch (error) {
-    res.status(500).send;
+    res.status(500).send(error);
   }
 };
 
+
 const displayPageResetPassword = async (req, res) => {
   try {
-    res.render('recoveryResetPassword', {error: req.query.error});
+    res.render('recoveryResetPassword', {authenticated : req.session.authenticated, error: req.query.error});
   } catch (error) {
     res.status(500).send(error);
   }
@@ -106,7 +113,7 @@ module.exports = {
   displayPageEmail,
   displayPageSecurityQuestion,
   validateEmail,
-  validateSecurityQuestionAsnwer,
+  validateSecurityQuestionAnswer,
   displayPageResetPassword,
   resetUserPassword,
 }

@@ -78,18 +78,18 @@ const termsPageRoute = require('./routes/termsPage');
 app.use('/', landingPageRoute);
 app.use('/signup', signupRoute);
 app.use('/login', loginRoute);
-app.use('/home', sessionValidation.sessionValidation, homePageRoute);
-app.use('/body_comp', sessionValidation.sessionValidation, bodyCompositionRoute)
-app.use('/profile', sessionValidation.sessionValidation, profilePageRoute);
-app.use('/vitals', vitalsPageRoute);
-app.use('/security_question', securityQuestionRoute);
-app.use('/recover', recoverPageRoute);
-app.use('/edit_profile', editProfilePageRoute);
-app.use('/bodyModel', bodyModelRoute);
-app.use('/blood', bloodPageRoute)
 app.use('/contact', contactPageRoute)
 app.use('/about', aboutPageRoute);
 app.use('/terms', termsPageRoute);
+app.use('/security_question', securityQuestionRoute);
+app.use('/recover', recoverPageRoute);
+app.use('/home', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, homePageRoute);
+app.use('/body_comp', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, bodyCompositionRoute)
+app.use('/profile', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, profilePageRoute);
+app.use('/vitals',sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, vitalsPageRoute);
+app.use('/edit_profile',sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, editProfilePageRoute);
+app.use('/bodyModel', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, bodyModelRoute);
+app.use('/blood',sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, bloodPageRoute)
 app.use('*', NotFoundController);
 
 // Start the server
