@@ -253,6 +253,8 @@
         </div>
     </div>
 
+    <%- include('partials/bottomNav.ejs') %>
+
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
         /*
@@ -994,4 +996,6 @@
         document.getElementById('hdl-cholesterol-count').innerText = hdlCholesterolData[hdlCholesterolData.length - 1];
         document.getElementById('tri-cholesterol-count').innerText = triCholesterolData[triCholesterolData.length - 1];
     </script>
-    <%- include('partials/footer.ejs') %>
+</body>
+
+</html>
