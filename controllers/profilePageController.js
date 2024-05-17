@@ -9,7 +9,10 @@ const displayPage = async (req, res) => {
       height: req.session.height
     }
     
-    res.render('profile', {user});
+    res.render('profile',{
+      user,
+      authenticated : req.session.authenticated,
+    });
   } catch (error) {
     res.status(500).send(error);
   }

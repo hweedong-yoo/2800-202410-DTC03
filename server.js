@@ -73,9 +73,9 @@ const termsPageRoute = require('./routes/termsPage');
 app.use('/', landingPageRoute);
 app.use('/signup', signupRoute);
 app.use('/login', loginRoute);
-app.use('/home', sessionValidation, homePageRoute);
-app.use('/body_comp', sessionValidation, bodyCompositionRoute)
-app.use('/profile', sessionValidation, profilePageRoute);
+app.use('/home', sessionValidation.sessionValidation, homePageRoute);
+app.use('/body_comp', sessionValidation.sessionValidation, bodyCompositionRoute)
+app.use('/profile', sessionValidation.sessionValidation, profilePageRoute);
 app.use('/vitals', vitalsPageRoute);
 app.use('/security_question', securityQuestionRoute);
 app.use('/recover', recoverPageRoute);
