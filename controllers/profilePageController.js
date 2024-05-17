@@ -2,7 +2,11 @@ const displayPage = async (req, res) => {
   try {
     const user = {
       username: req.session.name,
-      email: req.session.email
+      email: req.session.email,
+      dob: req.session.dob,
+      sex: req.session.sex,
+      weight: req.session.weight,
+      height: req.session.height
     }
     
     res.render('profile', {user});
