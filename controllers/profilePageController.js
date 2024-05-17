@@ -1,6 +1,7 @@
 const displayPage = async (req, res) => {
   try {
     const user = {
+      id: req.session.id.substring(3, 16),
       username: req.session.name,
       email: req.session.email,
       dob: req.session.dob,
