@@ -1,7 +1,7 @@
 const { name } = require('ejs');
 const Joi = require('joi');
 
-const commonEmail = Joi.string().email().max(20).required();
+const commonEmail = Joi.string().email().max(30).required();
 const commonPassword = Joi.string().max(20).required();
 const commonSecurityAnswer = Joi.string().max(20).required();
 

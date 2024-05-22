@@ -3,8 +3,38 @@ const {expireTime} = require('../server.js');
 const { emailSchema, securityAnswerSchema, passwordSchema } = require('../validation/authValidation');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const jwtSecret = process.env.JWT_SECRET;
+var nodemailer = require('nodemailer');
 
+const jwtSecret = process.env.JWT_SECRET;
+const recoveryEmail = process.env.RECOVERY_EMAIL;
+const recoveryPassword = process.env.RECOVERY_PASSWORD;
+
+
+function sendRecoveryEmail(email, link) {
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    auth: {
+      user: recoveryEmail,
+      pass: recoveryPassword
+    }
+  });
+
+  var mailOptions = {
+    from: recoveryEmail,
+    to: email,
+    subject: 'Password Recovery Link',
+    text: 'Please click the link below to recover your password: ' + link + ' This link will expire in 15 minutes.'
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  }); 
+}
 
 const displayPageEmail = async (req, res) => {
   try {
@@ -34,8 +64,9 @@ const validateEmail = async (req, res) => {
         };
       const token = jwt.sign(payload, secret, {expiresIn: '15m'});
       const link = `http://localhost:3000/recover/securityQuestion/${user._id}/${token}`;
-      console.log(link)
-      // send revovery link to the user's email
+
+      sendRecoveryEmail(email, link);
+
       res.redirect(`/recover/?message=Please-check-your-email-for-the-recovery-link`);
     } else {
       req.session.recoveryEmail = false;
@@ -67,18 +98,14 @@ const validateSecurityQuestionAnswer = async (req, res) => {
 
   const user = await userModel.findById(id);
 
-  console.log('Answer:', answer);
-  console.log('User Recovery Answer:', user.recovery_key);
-
   isMatch = await bcrypt.compare(answer, user.recovery_key);
 
   if (isMatch) {
-    console.log('Match:', isMatch);
     req.session.recoveryAnswer = true;
     req.session.cookie.maxAge = expireTime;
     res.redirect(`/recover/resetPassword/${id}/${token}`);
+    
   } else {
-    console.log('Match:', isMatch);
     req.session.recoveryAnswer = false;
     res.redirect(`/recover/securityQuestion/${id}/${token}?error=Invalid-answer`);
   }
@@ -109,14 +136,11 @@ const resetUserPassword = async (req, res) => {
 
     res.redirect('/login');
   } catch (error) {
-    
+
     console.error('Error resetting user password:', error);
     res.status(500).send('An error occurred while resetting the password.');
   }
 }
-
-
-
 
 module.exports = {
   displayPageEmail,
