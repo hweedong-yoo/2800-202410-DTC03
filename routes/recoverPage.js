@@ -8,13 +8,13 @@ router.get('/', recoverPageController.displayPageEmail);
 router.post('/email', recoverPageController.validateEmail);
 
 
-router.get('/securityQuestion', recoverPageSessionValidation.recoveryEmailValidation, recoverPageController.displayPageSecurityQuestion);
+router.get('/securityQuestion/:id/:token', recoverPageSessionValidation.validateToken, recoverPageController.displayPageSecurityQuestion);
 //post route to validate security question
-router.post('/securityQuestion', recoverPageSessionValidation.recoveryEmailValidation, recoverPageController.validateSecurityQuestionAnswer);
+router.post('/securityQuestion/:id/:token', recoverPageSessionValidation.validateToken, recoverPageController.validateSecurityQuestionAnswer);
 
 
-router.get('/resetPassword', recoverPageSessionValidation.recoveryAnswerValidation, recoverPageController.displayPageResetPassword);
+router.get('/resetPassword/:id/:token', recoverPageSessionValidation.validateToken, recoverPageSessionValidation.recoveryAnswerValidation, recoverPageController.displayPageResetPassword);
 //post route to reset password
-router.post('/resetPassword', recoverPageSessionValidation.recoveryAnswerValidation, recoverPageController.resetUserPassword);
+router.post('/resetPassword/:id/:token', recoverPageSessionValidation.validateToken, recoverPageSessionValidation.recoveryAnswerValidation, recoverPageController.resetUserPassword);
 
 module.exports = router;
