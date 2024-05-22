@@ -18,6 +18,11 @@ const vitalsSchema = new mongoose.Schema({
 
 
 const userSchema = new Schema({
+  id: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   name: {
     type: String,
     required: true,
