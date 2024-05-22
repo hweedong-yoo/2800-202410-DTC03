@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 const displayPageEmail = async (req, res) => {
   try {
-    res.render("recoveryEmail", {error: req.query.error});
+    res.render("recoveryEmail", {authenticated : req.session.authenticated, error: req.query.error});
   } catch (error) {
     res.status(500).send(error);
   }
@@ -41,7 +41,7 @@ const displayPageSecurityQuestion = async (req, res) => {
   try {
     const user = await userModel.findOne({ email: req.session.email });
     const recovery = user.recovery;
-    res.render('recoverySecurityQuestion', { recovery: recovery, error: req.query.error});
+    res.render('recoverySecurityQuestion', {authenticated : req.session.authenticated ,recovery: recovery, error: req.query.error});
   } catch (error) {
     res.status(500).send(error);
   }
@@ -81,7 +81,7 @@ const validateSecurityQuestionAnswer = async (req, res) => {
 
 const displayPageResetPassword = async (req, res) => {
   try {
-    res.render('recoveryResetPassword', {error: req.query.error});
+    res.render('recoveryResetPassword', {authenticated : req.session.authenticated, error: req.query.error});
   } catch (error) {
     res.status(500).send(error);
   }

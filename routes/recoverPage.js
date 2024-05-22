@@ -10,7 +10,7 @@ router.post('/email', recoverPageController.validateEmail);
 
 router.get('/securityQuestion', recoverPageSessionValidation.recoveryEmailValidation, recoverPageController.displayPageSecurityQuestion);
 //post route to validate security question
-router.post('/securityQuestion', recoverPageSessionValidation.recoveryEmailValidation, recoverPageController.validateSecurityQuestionAsnwer);
+router.post('/securityQuestion', recoverPageSessionValidation.recoveryEmailValidation, recoverPageController.validateSecurityQuestionAnswer);
 
 
 router.get('/resetPassword', recoverPageSessionValidation.recoveryAnswerValidation, recoverPageController.displayPageResetPassword);
