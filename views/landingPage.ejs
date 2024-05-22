@@ -2,15 +2,60 @@
 
 <section class="flex-grow flex justify-center items-center bg-white dark:bg-gray-900 px-4 gradient">
     <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
-        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white ">Monitoring your health made simple</h1>
-        <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">Leverage your medical implant to see your current vitals and body composition</p>
-        <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
-        </div>
+        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+            Monitoring your health made <span id="easter-egg-trigger" class="cursor-pointer">simple</span>
+        </h1>
+        <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">
+            Leverage your medical implant to see your current vitals and body composition
+        </p>
+        <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0"></div>
         <a href="/signup" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
             Register Now
         </a>
     </div>
-    </div>
 </section>
 
 <%- include('partials/footer.ejs') %>
+
+<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        let clickCount = 0;
+        let clickTimer;
+        const triggerElement = document.getElementById("easter-egg-trigger");
+        
+        triggerElement.addEventListener("click", () => {
+            clearTimeout(clickTimer);
+            clickCount++;
+            
+            if (clickCount === 3) {
+                activateEasterEgg();
+            } else {
+                clickTimer = setTimeout(() => {
+                    clickCount = 0;
+                }, 1000);
+            }
+        });
+        
+        function activateEasterEgg() {
+            const lottieContainer = document.createElement("div");
+            lottieContainer.style.position = "fixed";
+            lottieContainer.style.top = "0";
+            lottieContainer.style.left = "0";
+            lottieContainer.style.width = "100%";
+            lottieContainer.style.height = "100%";
+            lottieContainer.style.zIndex = "9999";
+            lottieContainer.style.pointerEvents = "none"; 
+            
+            lottieContainer.innerHTML = `
+                <dotlottie-player src="https://lottie.host/b5004a94-9647-46e4-a07a-5ecf145c2457/xU3GplMgvd.json" background="transparent" speed="1" style="width: 100%; height: 100%;" direction="1" playMode="normal" loop autoplay></dotlottie-player>
+            `;
+            
+            document.body.appendChild(lottieContainer);
+            
+            setTimeout(() => {
+                document.body.removeChild(lottieContainer);
+            }, 5000); 
+        }
+    });
+</script>
