@@ -18,7 +18,9 @@
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "joi": "^17.13.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.4",
+    "nodemailer": "^6.9.13",
     "nodemon": "^3.1.0"
   },
   "devDependencies": {
