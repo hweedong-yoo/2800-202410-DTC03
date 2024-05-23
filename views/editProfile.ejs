@@ -1,51 +1,51 @@
 <%- include('partials/header.ejs') %>
 
-<div class="p-4 font-[Orbitron] text-[#455780] font-bold bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
+  <div class="p-4 font-[Orbitron] text-[#455780] font-bold bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
 
-  <h1 class="text-center py-2 text-4xl font-[Orbitron] font-extrabold">Edit</h1>
+    <h1 class="text-center py-2 text-4xl font-[Orbitron] font-extrabold">Edit</h1>
 
-  <div class="border-2 rounded-3xl drop-shadow-lg px-2 py-4 m-4 mt-4 bg-[#FCFEFE]">
-    <form id="editForm" method="post" class="max-w-sm mx-auto px-2">
-      <div class="mb-5">
-        <label for="birthday" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your date of birth</label>
-        <input type="date" id="birthday" name="birthday"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="name@flowbite.com"/>
-      </div>
+    <div class="border-2 rounded-3xl drop-shadow-lg px-2 py-4 m-4 mt-4 bg-[#FCFEFE]">
+      <form id="editForm" method="post" class="max-w-sm mx-auto px-2">
+        <div class="mb-5">
+          <label for="birthday" class="block mb-2 text-sm font-medium text-gray-900 ">Your date of birth</label>
+          <input type="date" id="birthday" name="birthday"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+            placeholder="name@flowbite.com" />
+        </div>
 
-      <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
-        gender</label>
-      <select id="gender"
-        class="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-    
-        <option id="maleGender" value="Male">Male</option>
-        <option id="femaleGender" value="Female">Female</option>
-        <option id="otherGender" value="Other">Other</option>
-      </select>
+        <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 ">Your
+          gender</label>
+        <select id="gender"
+          class="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
 
-      <div class="mb-5">
-        <label for="weight" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your weight (lbs)</label>
-        <input type="number" id="weight" name="weight"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder=""/>
-      </div>
+          <option id="maleGender" value="Male">Male</option>
+          <option id="femaleGender" value="Female">Female</option>
+          <option id="otherGender" value="Other">Other</option>
+        </select>
 
-      <div class="mb-5">
-        <label for="height" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your height (cm)</label>
-        <input type="number" id="height" name="height"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="" />
-      </div>
+        <div class="mb-5">
+          <label for="weight" class="block mb-2 text-sm font-medium text-gray-900 ">Your weight (lbs)</label>
+          <input type="number" id="weight" name="weight"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+            placeholder="" />
+        </div>
 
-      <button type="submit"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+        <div class="mb-5">
+          <label for="height" class="block mb-2 text-sm font-medium text-gray-900 ">Your height (cm)</label>
+          <input type="number" id="height" name="height"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+            placeholder="" />
+        </div>
 
-      <a href="/profile" type="button"
-        class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 my-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Cancel</a>
-    </form>
+        <button type="submit"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Submit</button>
+
+        <a href="/profile" type="button"
+          class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 my-2 ">Cancel</a>
+      </form>
+    </div>
+
+
   </div>
 
-
-</div>
-
-<%- include('partials/bottomNav.ejs') %>
+  <%- include('partials/bottomNav.ejs') %>
