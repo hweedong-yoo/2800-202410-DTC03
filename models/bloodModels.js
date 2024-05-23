@@ -14,7 +14,10 @@ const bloodSchema = new Schema({
   bun: [Number],
   creatinine: [Number], 
   alt: [Number], 
-  ast: [Number]
+  ast: [Number],
+  ldl: [Number], 
+  hdl: [Number], 
+  tri: [Number]
 }, { collection: 'blood' });
 
 const BloodModel = mongoose.model('blood', bloodSchema);
