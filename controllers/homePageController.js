@@ -27,10 +27,8 @@ const displayBodyCompPage = async (req, res) => {
 const displayBloodPage = async (req, res) => {
   try {
     const userID = req.session.userID;
-    console.log('UserID:', userID);
 
     const bloodData = await Blood.findOne({ userID });
-    console.log('Blood Data:', bloodData);
 
     res.render('bloodPage', { authenticated: req.session.authenticated, bloodData });
   } catch (error) {
