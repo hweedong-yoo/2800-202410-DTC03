@@ -66,6 +66,7 @@ const NotFoundController = require('./routes/404Page');
 const contactPageRoute = require('./routes/contactPage');
 const aboutPageRoute = require('./routes/aboutPage');
 const termsPageRoute = require('./routes/termsPage');
+const logoutRoute = require('./routes/logout');
 
 
 // Use routes
@@ -81,6 +82,7 @@ app.use('/home', sessionValidation.sessionValidation, sessionValidation.hasSecur
 app.use('/profile', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, profilePageRoute);
 app.use('/edit_profile',sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, editProfilePageRoute);
 app.use('/bodyModel', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, bodyModelRoute);
+app.use('/logout', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, logoutRoute);
 app.use('*', NotFoundController);
 
 // Start the server
