@@ -1,4 +1,4 @@
-const displayPage = async (req, res) => {
+const displayHomePage = async (req, res) => {
   try {
     res.render('home', {authenticated : req.session.authenticated});
   } catch (error) {
@@ -6,6 +6,33 @@ const displayPage = async (req, res) => {
   }
 };
 
+const displayVitalsPage = async (req, res) => {
+  try {
+      res.render('vitalsPage', {authenticated : req.session.authenticated});
+  } catch (error) {
+      res.status(400).send(error);
+  }
+};
+
+const displayBodyCompPage = async (req, res) => {
+  try {
+      res.render('bodyComposition', {authenticated : req.session.authenticated});
+  } catch (error) {
+      res.status(400).send(error);
+  }
+};
+
+const displayBloodPage = async (req, res) => {
+  try {
+      res.render('bloodPage', {authenticated : req.session.authenticated});
+  } catch (error) {
+      res.status(400).send(error);
+  }
+};
+
 module.exports = {
-  displayPage,
+  displayHomePage,
+  displayVitalsPage,
+  displayBodyCompPage,
+  displayBloodPage,
 };
