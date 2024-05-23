@@ -17,7 +17,8 @@ const bloodSchema = new Schema({
   ast: [Number],
   ldl: [Number], 
   hdl: [Number], 
-  tri: [Number]
+  tri: [Number],
+  vulnerabilities: [String]
 }, { collection: 'blood' });
 
 const BloodModel = mongoose.model('blood', bloodSchema);
