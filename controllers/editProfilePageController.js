@@ -3,14 +3,20 @@ const BodyComp = require('../models/bodyCompModels');
 
 const displayPage = async (req, res) => {
   try {
+    const userData = await User.findOne({ email: req.session.email });
+    const bodyCompData = await BodyComp.findOne({ userID: userData._id });
+
     const user = {
-      dob: req.session.dob ? req.session.dob : "yyyy-mm-dd",
-      sex: req.session.sex ? req.session.sex : "Any",
-      weight: req.session.weight ? req.session.weight : 0,
-      height: req.session.height ? req.session.height : 0
+      dob: userData.dob ? userData.dob.toISOString().substring(0, 10) : "yyyy-mm-dd",
+      sex: userData.sex ? userData.sex : "",
+      weight: bodyCompData && bodyCompData.weight ? bodyCompData.weight : null,
+      height: bodyCompData && bodyCompData.height ? bodyCompData.height : null
     }
 
-    res.render('editProfile', { authenticated: req.session.authenticated });
+    res.render('editProfile', {
+      user,
+      authenticated: req.session.authenticated,
+    });
   } catch (error) {
     res.status(500).send(error);
   }
