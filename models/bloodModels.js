@@ -8,7 +8,13 @@ const bloodSchema = new Schema({
   },
   wbc: [Number], 
   rbc: [Number], 
-  platelets: [Number]
+  platelets: [Number],
+  glucose: [Number], 
+  calcium: [Number], 
+  bun: [Number],
+  creatinine: [Number], 
+  alt: [Number], 
+  ast: [Number]
 }, { collection: 'blood' });
 
 const BloodModel = mongoose.model('blood', bloodSchema);
