@@ -8,9 +8,10 @@ const expireTime = 60 * 60 * 1000;
 const displayPage = async (req, res) => {
     try {
         if (req.session.authenticated) {
-            return res.redirect('/home');
+            console.log("authenticated:", req.session.authenticated)
+            res.redirect('home');
         }
-        res.render('loginPage');
+        res.render('loginPage', {authenticated : req.session.authenticated, error: req.query.error });
     } catch (error) {
         res.status(500).send(error);
     }
@@ -43,11 +44,12 @@ const authenticateUser = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
-            return res.status(401).send('Invalid email/password combination');
+            return res.redirect('/login?error=invalidPassword');
         }
         else {
             // Authentication successful
             req.session.authenticated = true;
+            req.session.id = user._id;
             req.session.name = user.name;
             req.session.email = user.email;
             req.session.cookie.maxAge = expireTime;
