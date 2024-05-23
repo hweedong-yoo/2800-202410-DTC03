@@ -19,19 +19,19 @@
     */
 
     // Generate random data within a given range
-    function generateData(min, max) {
-        const data = [];
-        for (let i = 1; i <= 7; i++) { // Data for 30 days
-            const value = Math.floor(Math.random() * (max - min + 1)) + min;
-            data.push(value);
-        }
-        return data;
-    }
+    // function generateData(min, max) {
+    //     const data = [];
+    //     for (let i = 1; i <= 7; i++) { // Data for 30 days
+    //         const value = Math.floor(Math.random() * (max - min + 1)) + min;
+    //         data.push(value);
+    //     }
+    //     return data;
+    // }
 
     // Data for Lipid Panel
-    const ldlCholesterolData = generateData(70, 150);
-    const hdlCholesterolData = generateData(35, 65);
-    const triCholesterolData = generateData(95, 155)
+    const ldlCholesterolData = <%= JSON.stringify(bloodData.ldl) %>;
+    const hdlCholesterolData = <%= JSON.stringify(bloodData.hdl) %>;
+    const triCholesterolData = <%= JSON.stringify(bloodData.tri) %>;
     const totalCholesterolData = ldlCholesterolData.map((num, index) =>
         num + hdlCholesterolData[index] + triCholesterolData[index] * 0.2
     );
