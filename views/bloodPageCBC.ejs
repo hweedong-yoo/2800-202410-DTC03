@@ -15,19 +15,19 @@
     */
 
     // Generate random data within a given range
-    function generateData(min, max) {
-        const data = [];
-        for (let i = 1; i <= 7; i++) { // Data for 7 days
-            const value = Math.floor(Math.random() * (max - min + 1)) + min;
-            data.push(value);
-        }
-        return data;
-    }
+    // function generateData(min, max) {
+    //     const data = [];
+    //     for (let i = 1; i <= 7; i++) { // Data for 7 days
+    //         const value = Math.floor(Math.random() * (max - min + 1)) + min;
+    //         data.push(value);
+    //     }
+    //     return data;
+    // }
 
     // Data for WBC, RBC, and Platelets
-    const wbcData = generateData(4500, 11000);
-    const rbcData = generateData(4.2, 6.1);
-    const plateletsData = generateData(150000, 450000);
+    const wbcData = <%= JSON.stringify(bloodData.wbc) %>;
+    const rbcData = <%= JSON.stringify(bloodData.rbc) %>;
+    const plateletsData = <%= JSON.stringify(bloodData.platelets) %>;
 
     const latestWbcValue = wbcData[wbcData.length - 1];
     const previousWbcValue = wbcData[wbcData.length - 2];
