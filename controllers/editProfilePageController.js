@@ -9,8 +9,7 @@ const displayPage = async (req, res) => {
       height: req.session.height ? req.session.height : 0
     }
 
-    res.render('editProfile', { user });
-    res.render('editProfile', {authenticated : req.session.authenticated});
+    res.render('editProfile', { authenticated: req.session.authenticated });
   } catch (error) {
     res.status(500).send(error);
   }
@@ -19,26 +18,26 @@ const displayPage = async (req, res) => {
 const editInformation = async (req, res) => {
   try {
     const { birthday, gender, weight, height } = req.body;
+    const userID = req.session.userID;
+    const email = req.session.email;
 
-    const userId = req.session.id;
-    const user = await User.findById(userId);
+    console.log('Received data:', req.body);
 
-    req.session.dob = birthday || user.profile.dob;
-    req.session.sex = gender || user.profile.sex;
-    req.session.weight = weight || user.profile.weight;
-    req.session.height = height || user.profile.height;
+    if (birthday) {
+      req.session.dob = birthday
+      await User.findOneAndUpdate(
+        { email: email },
+        { dob: birthday }
+      );
+    }
 
-
-    await userModel.findByIdAndUpdate(
-      userId,
-      {
-        'profile.dob': req.session.dob,
-        'profile.sex': req.session.sex,
-        'profile.weight': req.session.weight,
-        'profile.height': req.session.height
-      },
-      { new: true } 
-    );
+    if (gender) {
+      req.session.sex = gender
+      await User.findOneAndUpdate(
+        { email: email },
+        { sex: gender }
+      );
+    }
 
     res.redirect('/profile')
 
