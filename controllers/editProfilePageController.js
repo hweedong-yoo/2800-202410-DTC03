@@ -1,4 +1,5 @@
 const User = require('../models/userModels');
+const BodyComp = require('../models/bodyCompModels');
 
 const displayPage = async (req, res) => {
   try {
@@ -18,26 +19,52 @@ const displayPage = async (req, res) => {
 const editInformation = async (req, res) => {
   try {
     const { birthday, gender, weight, height } = req.body;
-    const userID = req.session.userID;
     const email = req.session.email;
 
-    console.log('Received data:', req.body);
+    let updateUserData = {};
 
     if (birthday) {
-      req.session.dob = birthday
-      await User.findOneAndUpdate(
-        { email: email },
-        { dob: birthday }
-      );
+      req.session.dob = birthday;
+      updateUserData.dob = birthday;
     }
 
     if (gender) {
-      req.session.sex = gender
+      req.session.sex = gender;
+      updateUserData.sex = gender;
+    }
+
+    if (Object.keys(updateUserData).length > 0) {
       await User.findOneAndUpdate(
         { email: email },
-        { sex: gender }
+        updateUserData
       );
     }
+
+
+    const user = await User.findOne({ email }).select('_id');
+    const userID = user._id;
+    console.log('User _id:', userID);
+
+    let updateBodyCompData = {};
+
+    if (weight) {
+      req.session.weight = weight;
+      updateBodyCompData.weight = weight;
+    }
+
+    if (height) {
+      req.session.height = height;
+      updateBodyCompData.height = height;
+    }
+
+    if (Object.keys(updateBodyCompData).length > 0) {
+      await BodyComp.findOneAndUpdate(
+        { userID: userID },
+        updateBodyCompData,
+        { upsert: true }
+      );
+    }
+
 
     res.redirect('/profile')
 

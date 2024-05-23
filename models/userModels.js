@@ -28,7 +28,7 @@ const userSchema = new Schema({
   },
   sex: {
     type: String,
-  },
+  }
 });
 
 const userModel = mongoose.model('users', userSchema);
