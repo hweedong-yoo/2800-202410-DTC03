@@ -30,16 +30,6 @@
                                             <p class="text-base font-normal text-gray-500 dark:text-gray-400">This week
                                             </p>
                                         </div>
-                                        <div
-                                            class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
-                                            23%
-                                            <svg class="w-3 h-3 ms-1" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2"
-                                                    d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                            </svg>
-                                        </div>
                                     </div>
                                     <!-- actual chart -->
                                     <div id="bpm-chart" class=""></div>
@@ -58,44 +48,24 @@
                                                     week
                                                 </p>
                                             </div>
-                                            <div
-                                                class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
-                                                23%
-                                                <svg class="w-3 h-3 ms-1" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2"
-                                                        d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                                </svg>
-                                            </div>
                                         </div>
                                         <!-- actual chart -->
                                         <div id="temp-chart" class=""></div>
                                     </div>
                                 </div>
                                 <!-- RRP chart -->
-                                <div class="py-4">
+                                <div class="py-4 mb-[100px]">
                                     <div
                                         class="mx-max max-w-md w-full bg-white rounded-lg dark:bg-gray-800 p-4 shadow-lg">
                                         <div class="flex justify-between mb-5">
                                             <div>
                                                 <h5
                                                     class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
-                                                    RRP: <%= currentRRP %> 
+                                                    RRP: <%= currentRRP %>
                                                 </h5>
                                                 <p class="text-base font-normal text-gray-500 dark:text-gray-400">This
                                                     week
                                                 </p>
-                                            </div>
-                                            <div
-                                                class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
-                                                23%
-                                                <svg class="w-3 h-3 ms-1" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2"
-                                                        d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                                </svg>
                                             </div>
                                         </div>
                                         <!-- actual chart -->
@@ -106,36 +76,7 @@
                         </div>
                 </section>
                 <script>
-                    const bpmOptions = {
-                        // enable and customize data labels using the following example, learn more from here: https://apexcharts.com/docs/datalabels/
-                        dataLabels: {
-                            enabled: true,
-                            // offsetX: 10,
-                            style: {
-                                cssClass: 'text-xs text-white font-medium'
-                            },
-                        },
-                        grid: {
-                            show: false,
-                            strokeDashArray: 4,
-                            padding: {
-                                left: 16,
-                                right: 16,
-                                top: -26
-                            },
-                        },
-                        series: [
-                            {
-                                name: "Average BPM",
-                                data: [90, 91, 89, 85, 92, 95],
-                                color: "#1A56DB",
-                            },
-                            {
-                                name: "Your BPM",
-                                data: [70, 70, 78, 71, 69, 67],
-                                color: "#7E3BF2",
-                            },
-                        ],
+                    let bpmOptions = {
                         chart: {
                             height: "100%",
                             maxWidth: "100%",
@@ -154,9 +95,6 @@
                                 show: false,
                             },
                         },
-                        legend: {
-                            show: true
-                        },
                         fill: {
                             type: "gradient",
                             gradient: {
@@ -166,11 +104,30 @@
                                 gradientToColors: ["#1C64F2"],
                             },
                         },
+                        dataLabels: {
+                            enabled: false,
+                        },
                         stroke: {
                             width: 6,
                         },
+                        grid: {
+                            show: false,
+                            strokeDashArray: 4,
+                            padding: {
+                                left: 2,
+                                right: 2,
+                                top: 0
+                            },
+                        },
+                        series: [
+                            {
+                                name: "Current Temperature",
+                                data: [72, 74, 76, 78, 76, 75, 74, 76, 78, 80], color: "#1A56DB",
+                                color: "#1A56DB",
+                            },
+                        ],
                         xaxis: {
-                            categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
+                            categories: ["12:00 PM", "12:01 PM", "12:02 PM", "12:03 PM", "12:04 PM", "12:05 PM", "12:06 PM", "12:07 PM", "12:08 PM", "12:09 PM"],
                             labels: {
                                 show: false,
                             },
@@ -182,47 +139,12 @@
                             },
                         },
                         yaxis: {
-                            show: true,
-                            labels: {
-
-                                formatter: function (value) {
-                                    return value;
-                                }
-                            },
-
+                            show: false,
+                            min: 50,
                         },
                     }
 
-                    const tempOptions = {
-                        // enable and customize data labels using the following example, learn more from here: https://apexcharts.com/docs/datalabels/
-                        dataLabels: {
-                            enabled: true,
-                            // offsetX: 10,
-                            style: {
-                                cssClass: 'text-xs text-white font-medium'
-                            },
-                        },
-                        grid: {
-                            show: false,
-                            strokeDashArray: 4,
-                            padding: {
-                                left: 16,
-                                right: 16,
-                                top: -26
-                            },
-                        },
-                        series: [
-                            {
-                                name: "Average Temp",
-                                data: [90, 91, 89, 85, 92, 95],
-                                color: "#1A56DB",
-                            },
-                            {
-                                name: "Your Temp",
-                                data: [70, 70, 78, 71, 69, 67],
-                                color: "#7E3BF2",
-                            },
-                        ],
+                    let tempOptions = {
                         chart: {
                             height: "100%",
                             maxWidth: "100%",
@@ -241,9 +163,6 @@
                                 show: false,
                             },
                         },
-                        legend: {
-                            show: true
-                        },
                         fill: {
                             type: "gradient",
                             gradient: {
@@ -253,11 +172,30 @@
                                 gradientToColors: ["#1C64F2"],
                             },
                         },
+                        dataLabels: {
+                            enabled: false,
+                        },
                         stroke: {
                             width: 6,
                         },
+                        grid: {
+                            show: false,
+                            strokeDashArray: 4,
+                            padding: {
+                                left: 2,
+                                right: 2,
+                                top: 0
+                            },
+                        },
+                        series: [
+                            {
+                                name: "Current Temperature",
+                                data: [36.5, 36.7, 36.4, 36.8, 36.6, 36.5, 36.9, 36.7, 36.5, 36.6],
+                                color: "#1A56DB",
+                            },
+                        ],
                         xaxis: {
-                            categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
+                            categories: ["12:00 PM", "12:01 PM", "12:02 PM", "12:03 PM", "12:04 PM", "12:05 PM", "12:06 PM", "12:07 PM", "12:08 PM", "12:09 PM"],
                             labels: {
                                 show: false,
                             },
@@ -269,47 +207,12 @@
                             },
                         },
                         yaxis: {
-                            show: true,
-                            labels: {
-
-                                formatter: function (value) {
-                                    return value;
-                                }
-                            },
-
+                            show: false,
+                            min: 35,
                         },
                     }
 
-                    const breathOptions = {
-                        // enable and customize data labels using the following example, learn more from here: https://apexcharts.com/docs/datalabels/
-                        dataLabels: {
-                            enabled: true,
-                            // offsetX: 10,
-                            style: {
-                                cssClass: 'text-xs text-white font-medium'
-                            },
-                        },
-                        grid: {
-                            show: false,
-                            strokeDashArray: 4,
-                            padding: {
-                                left: 16,
-                                right: 16,
-                                top: -26
-                            },
-                        },
-                        series: [
-                            {
-                                name: "Average Temp",
-                                data: [90, 91, 89, 85, 92, 95],
-                                color: "#1A56DB",
-                            },
-                            {
-                                name: "Your Temp",
-                                data: [70, 70, 78, 71, 69, 67],
-                                color: "#7E3BF2",
-                            },
-                        ],
+                    let breathOptions = {
                         chart: {
                             height: "100%",
                             maxWidth: "100%",
@@ -328,9 +231,6 @@
                                 show: false,
                             },
                         },
-                        legend: {
-                            show: true
-                        },
                         fill: {
                             type: "gradient",
                             gradient: {
@@ -340,11 +240,30 @@
                                 gradientToColors: ["#1C64F2"],
                             },
                         },
+                        dataLabels: {
+                            enabled: false,
+                        },
                         stroke: {
                             width: 6,
                         },
+                        grid: {
+                            show: false,
+                            strokeDashArray: 4,
+                            padding: {
+                                left: 2,
+                                right: 2,
+                                top: 0
+                            },
+                        },
+                        series: [
+                            {
+                                name: "Current Temperature",
+                                data: [16, 17, 18, 19, 20, 19, 18, 17, 16, 15],
+                                color: "#1A56DB",
+                            },
+                        ],
                         xaxis: {
-                            categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
+                            categories: ["12:00 PM", "12:01 PM", "12:02 PM", "12:03 PM", "12:04 PM", "12:05 PM", "12:06 PM", "12:07 PM", "12:08 PM", "12:09 PM"],
                             labels: {
                                 show: false,
                             },
@@ -356,32 +275,46 @@
                             },
                         },
                         yaxis: {
-                            show: true,
-                            labels: {
-
-                                formatter: function (value) {
-                                    return value;
-                                }
-                            },
-
+                            show: false,
+                            min: 10,
                         },
                     }
 
-                    if (document.getElementById("bpm-chart") && typeof ApexCharts !== 'undefined') {
+                    const bpmChart = new ApexCharts(document.getElementById("bpm-chart"), bpmOptions);
+                    const tempChart = new ApexCharts(document.getElementById("temp-chart"), tempOptions);
+                    const breathChart = new ApexCharts(document.getElementById("breath-chart"), breathOptions);
 
-                        const bpmChart = new ApexCharts(document.getElementById("bpm-chart"), bpmOptions);
-                        bpmChart.render();
-                    }
-                    if (document.getElementById("temp-chart") && typeof ApexCharts !== 'undefined') {
+                    let bmpSeries = [72, 74, 76, 78, 76];
+                    let tempSeries = [36.5, 36.7, 36.4, 36.8, 36.6];
+                    let breathSeries = [16, 17, 18, 19, 20];
 
-                        const tempChart = new ApexCharts(document.getElementById("temp-chart"), tempOptions);
-                        tempChart.render();
-                    }
-                    if (document.getElementById("breath-chart") && typeof ApexCharts !== 'undefined') {
+                    bpmChart.render();
+                    tempChart.render();
+                    breathChart.render();
 
-                        const breathChart = new ApexCharts(document.getElementById("breath-chart"), breathOptions);
-                        breathChart.render();
+                    /**
+                     * Updates each of the series with a new value, then pushes the new value to the end of the series and removes the first value.
+                     */
+                    function updateSeries() {
+                        let newBpmValue = Math.round((bmpSeries[bmpSeries.length - 1] + Math.random() * 3 - 1) * 10) / 10;
+                        bmpSeries.push(newBpmValue);
+                        bmpSeries.shift();
+                        bpmChart.updateSeries([{ data: bmpSeries }]);
+
+
+                        let newTempValue = Math.round((tempSeries[tempSeries.length - 1] + (Math.random() * 0.2 - 0.1)) * 10) / 10;
+                        tempSeries.push(newTempValue);
+                        tempSeries.shift();
+                        tempChart.updateSeries([{ data: tempSeries }]);
+
+
+                        let newBreathValue = Math.round((breathSeries[breathSeries.length - 1] + Math.random() * 3 - 1) * 10) / 10;
+                        breathSeries.push(newBreathValue);
+                        breathSeries.shift();
+                        breathChart.updateSeries([{ data: breathSeries }]);
                     }
+
+                    setInterval(updateSeries, 2000);
                 </script>
 
-                <%- include('partials/footer.ejs') %>
+                <%- include('partials/bottomNav') %>
