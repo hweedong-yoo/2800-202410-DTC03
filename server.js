@@ -3,9 +3,6 @@ const express = require('express');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const mongoose = require('mongoose');
-const Joi = require("joi");
-const bcrypt = require('bcrypt');
-
 
 // Get environment variables
 const mongodbHost = process.env.MONGODB_HOST;
@@ -60,15 +57,12 @@ const landingPageRoute = require('./routes/landingPage');
 const homePageRoute = require('./routes/home');
 const signupRoute = require('./routes/signupPage');
 const loginRoute = require('./routes/loginPage');
-const bodyCompositionRoute = require('./routes/bodyCompositionPage.js')
 const profilePageRoute = require('./routes/profilePage');
 const securityQuestionRoute = require('./routes/securityQuestionPage.js')
 const recoverPageRoute = require('./routes/recoverPage');
 const editProfilePageRoute = require('./routes/editProfilePage');
 const bodyModelRoute = require('./routes/bodyModelPage');
 const NotFoundController = require('./routes/404Page');
-const vitalsPageRoute = require('./routes/vitalsPage');
-const bloodPageRoute = require('./routes/bloodPage');
 const contactPageRoute = require('./routes/contactPage');
 const aboutPageRoute = require('./routes/aboutPage');
 const termsPageRoute = require('./routes/termsPage');
@@ -84,12 +78,9 @@ app.use('/terms', termsPageRoute);
 app.use('/security_question', securityQuestionRoute);
 app.use('/recover', recoverPageRoute);
 app.use('/home', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, homePageRoute);
-app.use('/body_comp', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, bodyCompositionRoute)
 app.use('/profile', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, profilePageRoute);
-app.use('/vitals',sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, vitalsPageRoute);
 app.use('/edit_profile',sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, editProfilePageRoute);
 app.use('/bodyModel', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, bodyModelRoute);
-app.use('/blood',sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, bloodPageRoute)
 app.use('*', NotFoundController);
 
 // Start the server

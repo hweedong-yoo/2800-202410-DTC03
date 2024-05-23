@@ -1,4 +1,6 @@
 const User = require('../models/userModels');
+const jwt = require('jsonwebtoken');
+const jwtSecret = process.env.JWT_SECRET;
 
 async function sessionValidation(req, res, next) {
     if (req.session.authenticated) {
@@ -9,11 +11,19 @@ async function sessionValidation(req, res, next) {
     }
 }
 
-async function recoveryEmailValidation(req, res, next) {
-    if (req.session.recoveryEmail) {
+async function validateToken(req, res, next) {
+    const { id, token } = req.params;
+
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            return res.redirect('/recover');
+        }
+        const secret = process.env.JWT_SECRET + user.password;
+        const payload = jwt.verify(token, secret);
         next();
-    }
-    else {
+    } catch (error) {
+        console.error('Token validation error:', error.message);
         res.redirect('/recover');
     }
 }
@@ -40,7 +50,7 @@ async function hasSecurityAnswer(req, res, next) {
 
 module.exports = {
     sessionValidation,
-    recoveryEmailValidation,
+    validateToken,
     recoveryAnswerValidation,
     hasSecurityAnswer,
 }
