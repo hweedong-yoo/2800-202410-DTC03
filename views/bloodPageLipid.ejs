@@ -60,20 +60,34 @@
             }
         },
         yaxis: {
+            min: 100,
+            max: 250
         },
         stroke: {
             curve: 'straight',
             width: 2
         },
-        title: {
-            text: 'Total Cholesterol Levels',
-            align: 'left',
-            style: {
-                fontSize: '16px',
-                fontFamily: 'Orbitron',
-                fontWeight: 'bold',
-                color: '#334155'
-            }
+        markers: {
+            size: 4, 
+        },
+        annotations: {
+            yaxis: [
+                {
+                    y: 200,
+                    borderColor: '#FF4560',
+                    label: {
+                        borderColor: '#FF4560',
+                        style: {
+                            color: '#fff',
+                            background: '#FF4560',
+                            fontSize: '8px'
+                        },
+                        text: 'Optimal Less',
+                        position: 'left',
+                        offsetX: 10,
+                    }
+                },
+            ]
         },
         colors: ['#007bff']
     };
@@ -101,20 +115,34 @@
             }
         },
         yaxis: {
+            min: 0,
+            max: 150
         },
         stroke: {
             curve: 'straight',
             width: 2
         },
-        title: {
-            text: 'LDL Cholesterol Levels',
-            align: 'left',
-            style: {
-                fontSize: '16px',
-                fontFamily: 'Orbitron',
-                fontWeight: 'bold',
-                color: '#334155'
-            }
+        markers: {
+            size: 4, 
+        },
+        annotations: {
+            yaxis: [
+                {
+                    y: 100,
+                    borderColor: '#FF4560',
+                    label: {
+                        borderColor: '#FF4560',
+                        style: {
+                            color: '#fff',
+                            background: '#FF4560',
+                            fontSize: '8px'
+                        },
+                        text: 'Optimal Less',
+                        position: 'left',
+                        offsetX: 10,
+                    }
+                },
+            ]
         },
         colors: ['#28a745']
     };
@@ -142,20 +170,34 @@
             }
         },
         yaxis: {
+            min: 0,
+            max: 100
         },
         stroke: {
             curve: 'straight',
             width: 2
         },
-        title: {
-            text: 'HDL Cholesterol Levels',
-            align: 'left',
-            style: {
-                fontSize: '16px',
-                fontFamily: 'Orbitron',
-                fontWeight: 'bold',
-                color: '#334155'
-            }
+        markers: {
+            size: 4, 
+        },
+        annotations: {
+            yaxis: [
+                {
+                    y: 60,
+                    borderColor: '#FF4560',
+                    label: {
+                        borderColor: '#FF4560',
+                        style: {
+                            color: '#fff',
+                            background: '#FF4560',
+                            fontSize: '8px'
+                        },
+                        text: 'Optimal Above',
+                        position: 'left',
+                        offsetX: 10,
+                    }
+                },
+            ]
         },
         colors: ['#6c757d']
     };
@@ -183,20 +225,34 @@
             }
         },
         yaxis: {
+            min: 100,
+            max: 300
         },
         stroke: {
             curve: 'straight',
             width: 2
         },
-        title: {
-            text: 'Triglycerides Levels',
-            align: 'left',
-            style: {
-                fontSize: '16px',
-                fontFamily: 'Orbitron',
-                fontWeight: 'bold',
-                color: '#334155'
-            }
+        markers: {
+            size: 4, 
+        },
+        annotations: {
+            yaxis: [
+                {
+                    y: 150,
+                    borderColor: '#FF4560',
+                    label: {
+                        borderColor: '#FF4560',
+                        style: {
+                            color: '#fff',
+                            background: '#FF4560',
+                            fontSize: '8px'
+                        },
+                        text: 'Optimal Less',
+                        position: 'left',
+                        offsetX: 10,
+                    }
+                },
+            ]
         },
         colors: ['#23dd7d']
     };
@@ -250,8 +306,8 @@
     hdlCholesterolChart.render();
     triCholesterolChart.render();
     pieCholesterolChart.render();
-    document.getElementById('total-cholesterol-count').innerText = totalCholesterolData[totalCholesterolData.length - 1];
-    document.getElementById('ldl-cholesterol-count').innerText = ldlCholesterolData[ldlCholesterolData.length - 1];
-    document.getElementById('hdl-cholesterol-count').innerText = hdlCholesterolData[hdlCholesterolData.length - 1];
-    document.getElementById('tri-cholesterol-count').innerText = triCholesterolData[triCholesterolData.length - 1];
+    document.getElementById('total-cholesterol-count').innerText = totalCholesterolData[totalCholesterolData.length - 1 ] + ' mg/dL';
+    document.getElementById('ldl-cholesterol-count').innerText = ldlCholesterolData[ldlCholesterolData.length - 1] + ' mg/dL';;
+    document.getElementById('hdl-cholesterol-count').innerText = hdlCholesterolData[hdlCholesterolData.length - 1] + ' mg/dL';;
+    document.getElementById('tri-cholesterol-count').innerText = triCholesterolData[triCholesterolData.length - 1] + ' mg/dL';;
 </script>
