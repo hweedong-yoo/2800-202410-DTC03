@@ -8,24 +8,34 @@ const displayHomePage = async (req, res) => {
     const bodyCompData = await BodyComp.findOne({ userID: userData._id });
     const BloodData = await BodyComp.findOne({ userID: userData._id });
 
-    let height = bodyCompData.height;
-    let weight = bodyCompData.weight;
-    
+    let bmi, weight;
+    if (bodyCompData && bodyCompData.weight) {
+      weight = bodyCompData.weight;
+      if (bodyCompData.height) {
+        let height = bodyCompData.height;
+        bmi = ((weight / height / height) * 10000).toFixed(1);
+      }
+    }
+
+    console.log("bmi", bmi);
+    console.log("weight", weight);
+
     const user = {
       name: userData.name || "",
       bpm: 75, // PLACEHOLDER
       temp: 30, //PLACEHOLDER
       rrp: 30, //PLACEHOLDER
-      bmi: height && weight ? ((weight / height / height) * 10000).toFixed(1) : "--",
+      bmi: bmi || "--",
       bf: 25, // PLACEHOLDER
       weight: weight || "--",
       wbc: 9000, //PLACEHOLDER
       rbc: 5.1 //PLACEHOLDER
     }
-    
-    res.render('home', { 
+
+    res.render('home', {
       user,
-      authenticated: req.session.authenticated });
+      authenticated: req.session.authenticated
+    });
   } catch (error) {
     res.status(500).send(error);
   }
