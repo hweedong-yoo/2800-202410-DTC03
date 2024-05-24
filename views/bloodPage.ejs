@@ -5,7 +5,7 @@
 
 
             <!-- Content Section -->
-            <div class="flex flex-col items-center space-y-8 my-24">
+            <div class="flex flex-col items-center space-y-8 mt-12 mb-24">
 
                 <!-- Title -->
                 <div class="w-full text-center text-4xl font-extrabold text-slate-700 font-['Orbitron'] my-2">Blood
@@ -16,30 +16,6 @@
                 <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
                     <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Overview</div>
                     <div class="flex flex-wrap justify-evenly items-center">
-                        <!-- <div class="flex flex-col items-center space-y-2">
-                            <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Blood" />
-                            <div class="text-base font-bold text-slate-700 font-['Orbitron']">Good</div>
-                        </div>
-                        <div class="flex flex-col items-center space-y-2">
-                            <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Lungs" />
-                            <div class="text-base font-bold text-slate-700 font-['Orbitron']">Good</div>
-                        </div>
-                        <div class="flex flex-col items-center space-y-2">
-                            <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Liver" />
-                            <div class="text-base font-bold text-slate-700 font-['Orbitron']">Good</div>
-                        </div>
-                        <div class="flex flex-col items-center space-y-2">
-                            <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Kidney" />
-                            <div class="text-base font-bold text-slate-700 font-['Orbitron']">Vulnerable</div>
-                        </div>
-                        <div class="flex flex-col items-center space-y-2">
-                            <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Coughing" />
-                            <div class="text-base font-bold text-slate-700 font-['Orbitron']">Vulnerable</div>
-                        </div>
-                        <div class="flex flex-col items-center space-y-2">
-                            <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Virus" />
-                            <div class="text-base font-bold text-slate-700 font-['Orbitron']">Good</div>
-                        </div> -->
                         <span class="flex py-2 text-6xl material-symbols-outlined text-[#cc0000]">
                             immunology
                         </span>
@@ -56,209 +32,126 @@
                 <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
                     <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Complete Blood Count</div>
                     <!-- WBC Chart and Text -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 mb-4 md:p-6">
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <!-- <p class="text-normal font-normal text-gray-500 dark:text-gray-400">White Blood Cells Counts</p> -->
-                                <h5 id="wbc-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white pb-2"></h5>
-                            </div>
-                            <div id="wbc-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="wbc-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
-                            </div>
+                    <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
+                        <div class="flex flex-col">
+                            <p class="text-normal font-bold text-gray-600 mb-2">White Blood Cells Counts</p>
+                            <h5 id="wbc-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></h5>
                         </div>
                         <div id="wbc-chart" class="mt-4"></div>
                     </div>
 
                     <!-- RBC Chart and Text -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 mb-4 md:p-6">
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <!-- <p class="text-normal font-normal text-gray-500 dark:text-gray-400">Red Blood Cells Counts</p> -->
-                                <h5 id="rbc-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white pb-2"></h5>
-                            </div>
-                            <div id="rbc-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="rbc-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
-                            </div>
+                    <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
+                        <div class="flex flex-col">
+                            <p class="text-normal font-bold text-gray-600 mb-2">Red Blood Cells Counts</p>
+                            <h5 id="rbc-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></h5>
                         </div>
                         <div id="rbc-chart" class="mt-4"></div>
                     </div>
 
                     <!-- Platelets Chart and Text -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <!-- <p class="text-normal font-normal text-gray-500 dark:text-gray-400">Platelets Counts</p> -->
-                                <h5 id="platelets-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white pb-2"></h5>
-                            </div>
-                            <div id="platelets-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="platelets-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
-                            </div>
+                    <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 md:p-6">
+                        <div class="flex flex-col">
+                            <p class="text-normal font-bold text-gray-600 mb-2">Platelets Counts</p>
+                            <h5 id="platelets-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></h5>
                         </div>
                         <div id="platelets-chart" class="mt-4"></div>
                     </div>
-
                 </div>
 
                 <!-- Blood Chemistry Card -->
                 <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
                     <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Blood Chemistry</div>
                     <!-- Glucose Section -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 mb-4 md:p-6">
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <!-- <p class="text-normal font-normal text-gray-500 dark:text-gray-400">Glucose Counts</p> -->
-                                <h5 id="glucose-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white pb-2"></h5>
-                            </div>
-                            <div id="glucose-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="glucose-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
-                            </div>
+                    <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
+                        <div class="flex flex-col">
+                            <p class="text-normal font-bold text-gray-600 mb-2">Glucose Counts</p>
+                            <h5 id="glucose-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></h5>
                         </div>
                         <div id="glucose-chart" class="mt-4"></div>
                     </div>
                     <!-- Calcium Section -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 mb-4 md:p-6">
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <!-- <p class="text-normal font-normal text-gray-500 dark:text-gray-400">Calcium Counts</p> -->
-                                <h5 id="calcium-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white pb-2"></h5>
-                            </div>
-                            <div id="calcium-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="calcium-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
-                            </div>
+                    <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
+                        <div class="flex flex-col">
+                            <p class="text-normal font-bold text-gray-600 mb-2">Calcium Counts</p>
+                            <h5 id="calcium-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></h5>
                         </div>
                         <div id="calcium-chart" class="mt-4"></div>
                     </div>
                     <!-- Kidney Function Markers Section -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 mb-4 md:p-6">
-                        <div class="flex justify-between items-center pb-4">
-                            <div>
-                                <h5 id="bun-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white"></h5>
-                            </div>
-                            <div id="bun-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="bun-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h5 id="creatinine-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white"></h5>
-                            </div>
-                            <div id="creatinine-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="creatinine-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
-                            </div>
+                    <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
+                        <div class="flex flex-col">
+                            <p class="text-normal font-bold text-gray-600 mb-2">Kidney Markers</p>
+                            <h5 id="bun-count" class="leading-none text-normal font-semibold text-gray-600 mb-1"></h5>
+                            <h5 id="creatinine-count" class="leading-none text-normal font-semibold text-gray-600"></h5>
                         </div>
                         <div id="kidney-markers-chart" class="mt-4"></div>
                     </div>
-
-
                     <!-- Liver Function Tests Section -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
-                        <div class="flex justify-between items-center pb-4">
-                            <div>
-                                <h5 id="alt-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white"></h5>
-                            </div>
-                            <div id="alt-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="alt-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h5 id="ast-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white"></h5>
-                            </div>
-                            <div id="ast-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="ast-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
-                            </div>
+                    <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 md:p-6">
+                        <div class="flex flex-col">
+                            <p class="text-normal font-bold text-gray-600 mb-2">Liver Markers</p>
+                            <h5 id="alt-count" class="leading-none text-normal font-semibold text-gray-600 mb-1"></h5>
+                            <h5 id="ast-count" class="leading-none text-normal font-semibold text-gray-600"></h5>
                         </div>
                         <div id="liver-markers-chart" class="mt-4"></div>
                     </div>
-
                 </div>
 
                 <!-- Lipid Panel Card -->
                 <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
                     <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Lipid Panel</div>
                     <!-- Total Cholesterol Chart and Text -->
-                    <div class="flex items-center">
-                        <div id="total-cholesterol-chart" class="chart"></div>
-                        <div class="flex flex-col items-center ml-4">
-                            <div id="total-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
-                            <div class="text-xs font-bold text-slate-600 font-['Orbitron']">Total Cholesterol mg/dL
-                            </div>
+                    <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
+                        <div class="flex flex-col">
+                            <p class="text-normal font-bold text-gray-600 mb-2">Total Cholesterol</p>
+                            <h5 id="total-cholesterol-count" class="leading-none text-normal font-semibold text-gray-600 pb-2">
                         </div>
+                        <div id="total-cholesterol-chart" class="mt-4"></div>
                     </div>
-                    <!-- LDL Cholesterol Chart and Text -->
-                    <div class="flex items-center mt-5">
-                        <div id="ldl-cholesterol-chart" class="chart"></div>
-                        <div class="flex flex-col items-center ml-4">
-                            <div id="ldl-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
-                            </div>
-                            <div class="text-xs font-bold text-slate-600 font-['Orbitron']">LDL Cholesterol mg/dL</div>
-                        </div>
+                </div>
+                <!-- LDL Cholesterol Chart and Text -->
+                <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
+                    <div class="flex flex-col">
+                        <p class="text-normal font-bold text-gray-600 mb-2">LDL Cholesterol</p>
+                        <div id="ldl-cholesterol-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></div>
                     </div>
-                    <!-- HDL Cholesterol Chart and Text -->
-                    <div class="flex items-center mt-5">
-                        <div id="hdl-cholesterol-chart" class="chart"></div>
-                        <div class="flex flex-col items-center ml-4">
-                            <div id="hdl-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
-                            </div>
-                            <div class="text-xs font-bold text-slate-600 font-['Orbitron']">HDL Cholesterol mg/dL</div>
-                        </div>
+                    <div id="ldl-cholesterol-chart" class="mt-4"></div>
+                </div>
+                <!-- HDL Cholesterol Chart and Text -->
+                <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
+                    <div class="flex flex-col">
+                        <p class="text-normal font-bold text-gray-600 mb-2">HDL Cholesterol</p>
+                        <div id="hdl-cholesterol-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></div>
                     </div>
-                    <!-- Triglycerides Chart and Text -->
-                    <div class="flex items-center mt-5">
-                        <div id="tri-cholesterol-chart" class="chart"></div>
-                        <div class="flex flex-col items-center ml-4">
-                            <div id="tri-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
-                            </div>
-                            <div class="text-xs font-bold text-slate-600 font-['Orbitron']">Triglycerides mg/dL</div>
-                        </div>
+                    <div id="hdl-cholesterol-chart" class="mt-4"></div>
+                </div>
+                <!-- Triglycerides Chart and Text -->
+                <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
+                    <div class="flex flex-col">
+                        <p class="text-normal font-bold text-gray-600 mb-2">Triglycerides</p>
+                        <div id="tri-cholesterol-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></div>
                     </div>
-                    <!-- Pie Chart and Text -->
-                    <div class="flex items-center mt-5">
-                        <div id="pie-cholesterol-chart" class="chart"></div>
-                        <div class="flex flex-col items-center ml-4">
-                            <div id="pie-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
-                            </div>
+                    <div id="tri-cholesterol-chart" class="mt-4"></div>
+                </div>
+                <!-- Pie Chart and Text -->
+                <div class="flex items-center mt-5">
+                    <div id="pie-cholesterol-chart" class="chart"></div>
+                    <div class="flex flex-col items-center ml-4">
+                        <div id="pie-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
+    </div>
     </div>
 
     <%- include('partials/bottomNav.ejs') %>
 
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <%- include('bloodPageCBC.ejs') %>
-    <%- include('bloodPageChemistry.ejs') %>
-    <%- include('bloodPageLipid.ejs') %>
-</body>
-
-</html>
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <%- include('bloodPageCBC.ejs') %>
+            <%- include('bloodPageChemistry.ejs') %>
+                <%- include('bloodPageLipid.ejs') %>
+                    </body>
+                    </html>
