@@ -13,7 +13,6 @@ async function sessionValidation(req, res, next) {
 
 async function validateToken(req, res, next) {
     const { id, token } = req.params;
-
     try {
         const user = await User.findById(id);
         if (!user) {
@@ -40,7 +39,6 @@ async function recoveryAnswerValidation(req, res, next) {
 async function hasSecurityAnswer(req, res, next) {
     const email = req.session.email;
     let user = await User.findOne({ email: email, recovery: { $exists: true }});
-    console.log(user)
     if (user) {
         next();
     } else {
