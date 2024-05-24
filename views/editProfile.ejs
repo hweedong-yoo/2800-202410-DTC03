@@ -2,49 +2,55 @@
 
 <div class="p-4 font-[Orbitron] text-[#455780] font-bold bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
 
-  <h1 class="text-center py-2 text-4xl font-[Orbitron] font-extrabold">Edit</h1>
+  <h1 class="text-center py-2 text-4xl font-[Orbitron] font-extrabold">Edit Information</h1>
 
-  <div class="border-2 rounded-3xl drop-shadow-lg px-2 py-4 m-4 mt-4 bg-[#FCFEFE]">
+  <!-- Form div -->
+  <div class="rounded-3xl shadow-lg px-2 py-4 my-4 mx-2 bg-[#FCFEFE]">
     <form id="editForm" method="post" class="max-w-sm mx-auto px-2">
+      <!-- Gender Field -->
+      <label for="gender" class="block mb-2 text-lg font-medium dark:text-white">Your sex</label>
+      <select id="gender" name="gender"
+        class="mb-5 bg-gray-50 border border-gray-300 text-[#354666] text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    
+        <option value="" <%=user.sex==="" ? "selected" : "" %>>Other</option>
+        <option value="M" <%=user.sex==="M" ? "selected" : "" %>>Male</option>
+        <option value="F" <%=user.sex==="F" ? "selected" : "" %>>Female</option>
+      </select>
+
+      <!-- Birthday Field -->
       <div class="mb-5">
-        <label for="birthday" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your date of birth</label>
-        <input type="date" id="birthday" name="birthday"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        <label for="birthday" class="block mb-2 text-lg font-medium dark:text-white">Your date of birth</label>
+        <input type="date" id="birthday" name="birthday" value="<%= user.dob %>"
+          class="bg-gray-50 border border-gray-300 text-[#354666] text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="name@flowbite.com"/>
       </div>
 
-      <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
-        gender</label>
-      <select id="gender"
-        class="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-    
-        <option id="maleGender" value="Male">Male</option>
-        <option id="femaleGender" value="Female">Female</option>
-        <option id="otherGender" value="Other">Other</option>
-      </select>
-
+      <!-- Weight Field -->
       <div class="mb-5">
-        <label for="weight" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your weight (lbs)</label>
-        <input type="number" id="weight" name="weight"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        <label for="weight" class="block mb-2 text-lg font-medium dark:text-white">Your weight (kg)</label>
+        <input type="number" id="weight" name="weight" value="<%= user.weight %>"
+          class="bg-gray-50 border border-gray-300 text-[#354666] text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder=""/>
       </div>
 
+      <!-- Height Field -->
       <div class="mb-5">
-        <label for="height" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your height (cm)</label>
-        <input type="number" id="height" name="height"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        <label for="height" class="block mb-2 text-lg font-medium dark:text-white">Your height (cm)</label>
+        <input type="number" id="height" name="height" value="<%= user.height %>"
+          class="bg-gray-50 border border-gray-300 text-[#354666] text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="" />
       </div>
 
+      <!-- Submit Button -->
       <button type="submit"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-base w-full tracking-wider sm:w-auto px-5 py-3 my-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
 
-      <a href="/profile" type="button"
-        class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 my-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Cancel</a>
-    </form>
-  </div>
+      </form>
+    </div>
 
+    <!-- Cancel Button -->
+    <a href="/profile" type="button"
+      class="text-center w-full underline text-gray-500 pt-2 pb-2 focus:text-gray-900 tracking-wider">Cancel</a>
 
 </div>
 

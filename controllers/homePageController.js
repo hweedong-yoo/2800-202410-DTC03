@@ -1,11 +1,74 @@
-const displayPage = async (req, res) => {
+const User = require('../models/userModels');
+const BodyComp = require('../models/bodyCompModels');
+const Blood = require('../models/bloodModels');
+
+const displayHomePage = async (req, res) => {
   try {
-    res.render('home', {authenticated : req.session.authenticated});
+    const userData = await User.findOne({ email: req.session.email });
+    const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
+    const BloodData = await BodyComp.findOne({ userID: req.session.userID });
+
+    let bmi, weight;
+    if (bodyCompData && bodyCompData.weight) {
+      weight = bodyCompData.weight;
+      if (bodyCompData.height) {
+        let height = bodyCompData.height;
+        bmi = ((weight / height / height) * 10000).toFixed(1);
+      }
+    }
+
+    const user = {
+      name: userData.name || "",
+      bpm: 75, // PLACEHOLDER
+      temp: 30, //PLACEHOLDER
+      rrp: 30, //PLACEHOLDER
+      bmi: bmi || "--",
+      bf: 25, // PLACEHOLDER
+      weight: weight || "--",
+      wbc: 9000, //PLACEHOLDER
+      rbc: 5.1 //PLACEHOLDER
+    }
+
+    res.render('home', {
+      user,
+      authenticated: req.session.authenticated
+    });
   } catch (error) {
     res.status(500).send(error);
   }
 };
 
+const displayVitalsPage = async (req, res) => {
+  try {
+    res.render('vitalsPage', { authenticated: req.session.authenticated });
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+const displayBodyCompPage = async (req, res) => {
+  try {
+    res.render('bodyComposition', { authenticated: req.session.authenticated });
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+const displayBloodPage = async (req, res) => {
+  try {
+    const userID = req.session.userID;
+
+    const bloodData = await Blood.findOne({ userID });
+
+    res.render('bloodPage', { authenticated: req.session.authenticated, bloodData });
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
 module.exports = {
-  displayPage,
+  displayHomePage,
+  displayVitalsPage,
+  displayBodyCompPage,
+  displayBloodPage,
 };
