@@ -31,7 +31,6 @@ const userSchema = new Schema({
     type: Date,
     required: false,
   },
-  profile: { vitalsSchema },
 });
 
 const userModel = mongoose.model('users', userSchema);
