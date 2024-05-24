@@ -1,8 +1,8 @@
 const User = require('../models/userModels');
 const BodyComp = require('../models/bodyCompModels');
 const Blood = require('../models/bloodModels');
-const BodyComp = require('../models/bodyCompModels');
-const User = require('../models/userModels');
+// const BodyComp = require('../models/bodyCompModels');
+// const User = require('../models/userModels');
 
 const moment = require('moment');
 
