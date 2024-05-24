@@ -1,6 +1,7 @@
 const User = require('../models/userModels');
 const BodyComp = require('../models/bodyCompModels');
 const Blood = require('../models/bloodModels');
+const Vitals = require('../models/vitalsModel');
 
 const moment = require('moment');
 
@@ -33,7 +34,7 @@ const displayHomePage = async (req, res) => {
 
 const displayVitalsPage = async (req, res) => {
   try {
-    res.render('vitalsPage', { authenticated: req.session.authenticated });
+      res.render('vitalsPage', {authenticated : req.session.authenticated, userID: req.session.userID});
   } catch (error) {
     res.status(400).send(error);
   }
@@ -160,9 +161,21 @@ const displayBloodPage = async (req, res) => {
   }
 };
 
+const getUserInfo = async (req, res) => {
+  userID = req.params.id;
+  try{
+    const userVitalInfo = await Vitals.findOne({userID: userID});
+    res.send(userVitalInfo);
+  } catch (error){
+    console.log(error)
+    res.status(400).send(error);
+  }
+};
+
 module.exports = {
   displayHomePage,
   displayVitalsPage,
   displayBodyCompPage,
   displayBloodPage,
+  getUserInfo,
 };
