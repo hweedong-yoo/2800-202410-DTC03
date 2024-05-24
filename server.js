@@ -50,7 +50,11 @@ module.exports = {
 };
 
 // Middleware for session validation
-const sessionValidation = require('./middlewares/sessionValidation');
+const sessionValidationMiddlewares = require('./middlewares/sessionValidation');
+const accountSetUpMiddlewares = require('./middlewares/accountSetUp');
+const emailVerification = accountSetUpMiddlewares.emailVerification;
+const sessionValidation = sessionValidationMiddlewares.sessionValidation;
+const hasSecurityAnswer = sessionValidationMiddlewares.hasSecurityAnswer;
 
 // Define routes
 const landingPageRoute = require('./routes/landingPage');
@@ -67,6 +71,7 @@ const contactPageRoute = require('./routes/contactPage');
 const aboutPageRoute = require('./routes/aboutPage');
 const termsPageRoute = require('./routes/termsPage');
 const logoutRoute = require('./routes/logout');
+const emailVerificationRoute = require('./routes/emailVerificationPage');
 
 
 // Use routes
@@ -78,11 +83,12 @@ app.use('/about', aboutPageRoute);
 app.use('/terms', termsPageRoute);
 app.use('/security_question', securityQuestionRoute);
 app.use('/recover', recoverPageRoute);
-app.use('/home', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, homePageRoute);
-app.use('/profile', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, profilePageRoute);
-app.use('/edit_profile',sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, editProfilePageRoute);
-app.use('/bodyModel', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, bodyModelRoute);
-app.use('/logout', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, logoutRoute);
+app.use('/verify', emailVerificationRoute);
+app.use('/home',emailVerification , sessionValidation, hasSecurityAnswer, homePageRoute);
+app.use('/profile', sessionValidation, hasSecurityAnswer, profilePageRoute);
+app.use('/edit_profile', sessionValidation, hasSecurityAnswer, editProfilePageRoute);
+app.use('/bodyModel', sessionValidation, hasSecurityAnswer, bodyModelRoute);
+app.use('/logout', sessionValidation, hasSecurityAnswer, logoutRoute);
 app.use('*', NotFoundController);
 
 // Start the server
