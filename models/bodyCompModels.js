@@ -13,7 +13,15 @@ const bodyCompSchema = new Schema({
     type: Number,
   },
   tScore: {
-    type: [Number],
+    type: Number,
+    required: false
+  },
+  BMI: {
+    type: Number,
+    required: false
+  },
+  BF: {
+    type: Number,
     required: false
   },
   vulnerabilities: [String],

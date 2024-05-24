@@ -76,15 +76,51 @@ const displayBodyCompPage = async (req, res) => {
     const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
     const userData = await User.findOne({ _id: req.session.userID });
 
-    var isoStringDob = userData.dob.toISOString().substring(0, 10)
+    //Calculate bmi
+    let bmi, weight;
+    if (bodyCompData && bodyCompData.weight) {
+      weight = bodyCompData.weight;
+      if (bodyCompData.height) {
+        let height = bodyCompData.height;
+        bmi = ((weight / height / height) * 10000).toFixed(1);
+      }
+    }
+
+    //Calculate body fat percentage
+    let bf;
+    if (userData.dob && bmi) {
+      let age = calculateAge(userData.dob.toISOString().substring(0, 10));
+      if (userData.dob === 'F') bf = ((1.39 * bmi) + (0.16 * age) - 9).toFixed(1);
+      else bf = ((1.39 * bmi) + (0.16 * age) - (10.34 * 1) - 9).toFixed(1);
+    }
+    var tempTScore;
+    if (!bodyCompData.tScore) {
+      tempTScore = 1;
+    }
+    else {
+      tempTScore = bodyCompData.tScore;
+    }
+    var tempVulnerabilities = '';
+    if (tempTScore < 1 ){
+      tempVulnerabilities += "bones";
+    }
+    var updatedBodyComp = await BodyComp.findOneAndUpdate({ userID: req.session.userID },
+      {
+        BMI: bmi,
+        BF: bf,
+        tScore: tempTScore,
+        vulnerabilities: [tempVulnerabilities]
+      }, { new: true }
+    );
     res.render('bodyComposition', {
       authenticated: req.session.authenticated,
       userId: req.session.userID,
-      userWeight: bodyCompData.weight,
-      userHeight: bodyCompData.height,
-      userTscore: bodyCompData.tScore,
+      userBMI:updatedBodyComp.BMI,
+      userBF:updatedBodyComp.BF,
+      userWeight: updatedBodyComp.weight,
+      userHeight: updatedBodyComp.height,
+      userTscore: updatedBodyComp.tScore,
       userGender: userData.sex,
-      userAge: calculateAge(isoStringDob),
     });
   } catch (error) {
     console.log(error)
