@@ -49,7 +49,7 @@ const authenticateUser = async (req, res) => {
         else {
             // Authentication successful
             req.session.authenticated = true;
-            req.session.userid = user._id.toString();
+            req.session.userID = user._id.toString();
             req.session.name = user.name;
             req.session.email = user.email;
             req.session.cookie.maxAge = expireTime;
