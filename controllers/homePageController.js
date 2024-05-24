@@ -101,7 +101,7 @@ const displayBodyCompPage = async (req, res) => {
       tempTScore = bodyCompData.tScore;
     }
     var tempVulnerabilities = '';
-    if (tempTScore < 1 ){
+    if (tempTScore < 1) {
       tempVulnerabilities += "bones";
     }
     var updatedBodyComp = await BodyComp.findOneAndUpdate({ userID: req.session.userID },
@@ -115,8 +115,8 @@ const displayBodyCompPage = async (req, res) => {
     res.render('bodyComposition', {
       authenticated: req.session.authenticated,
       userId: req.session.userID,
-      userBMI:updatedBodyComp.BMI,
-      userBF:updatedBodyComp.BF,
+      userBMI: updatedBodyComp.BMI,
+      userBF: updatedBodyComp.BF,
       userWeight: updatedBodyComp.weight,
       userHeight: updatedBodyComp.height,
       userTscore: updatedBodyComp.tScore,
@@ -133,6 +133,44 @@ const displayBloodPage = async (req, res) => {
     const userID = req.session.userID;
 
     const bloodData = await Blood.findOne({ userID });
+
+    const wbcCount = bloodData.wbc[bloodData.wbc.length - 1];
+    const rbcCount = bloodData.rbc[bloodData.rbc.length - 1];
+    const plateletsCount = bloodData.platelets[bloodData.platelets.length - 1];
+    const glucoseCount = bloodData.glucose[bloodData.glucose.length - 1];
+    const calciumCount = bloodData.calcium[bloodData.calcium.length - 1];
+    const bunCount = bloodData.bun[bloodData.bun.length - 1];
+    const creatinineCount = bloodData.creatinine[bloodData.creatinine.length - 1];
+    const altCount = bloodData.alt[bloodData.alt.length - 1];
+    const astCount = bloodData.ast[bloodData.ast.length - 1];
+
+    let vulnerabilities = [];
+
+    const showImmunity = (wbcCount < 4000 || wbcCount > 11000);
+    if (showImmunity) {
+      vulnerabilities.push("immunity");
+    }
+
+    const showHematology = (rbcCount < 4.2 || rbcCount > 6.1) || (plateletsCount < 150000 || plateletsCount > 450000);
+    if (showHematology) {
+      vulnerabilities.push("hematology");
+    }
+
+    const showKidney = (calciumCount < 8.5 || calciumCount > 10.5) || (bunCount < 7 || bunCount > 20) || (creatinineCount < 0.6 || creatinineCount > 1.3);
+    if (showKidney) {
+      vulnerabilities.push("kidney");
+    }
+
+    const showLiver = (glucoseCount < 70 || glucoseCount > 140) || (altCount < 7 || altCount > 56) || (astCount < 10 || astCount > 40);
+    if (showLiver) {
+      vulnerabilities.push("liver");
+    }
+
+    const BloodData = await Blood.findOneAndUpdate({ userID },
+      {
+        vulnerabilities: vulnerabilities
+      }, { new: true }
+    );
 
     res.render('bloodPage', { authenticated: req.session.authenticated, bloodData });
   } catch (error) {
