@@ -16,6 +16,7 @@ const bodyCompSchema = new Schema({
     type: [Number],
     required: false
   },
+  vulnerabilities: [String],
 }, { collection: 'body_compositions' });
 
 const BodyCompModel = mongoose.model('body_compositions', bodyCompSchema);
