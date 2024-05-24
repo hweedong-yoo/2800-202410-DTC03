@@ -20,6 +20,13 @@
     const addUser = async (req, res) => {
         const { name, email, password } = req.body;
 
+        const validationResult = signUpSchema.validate({ name, email, password });
+        if (validationResult.error != null) {
+            console.log(validationResult.error.details[0].context.key);
+            res.redirect(`/signup?missing=${validationResult.error.details[0].context.key}`);
+            return;
+        }
+        
         try {
             const hashedPassword = await bcrypt.hash(password, 8);
 
