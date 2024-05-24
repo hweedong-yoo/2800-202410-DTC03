@@ -20,9 +20,9 @@ const sendConfirmationEmail = async (req, res) => {
         const token = jwt.sign(payload, secret, { expiresIn: '1d' });
 
         const subject = 'Biolink account email confirmation';
-        const body = `Please click the following link to confirm your email: http://localhost:3000/verify/email/${token}.`;
+        const body = `Please click the following link to confirm your email: https://two800-202410-dtc03.onrender.com/verify/email/${token}.`;
 
-        await sendEmail(email, subject, body);
+        sendEmail(email, subject, body);
 
         res.redirect('/home');
     } catch (error) {
