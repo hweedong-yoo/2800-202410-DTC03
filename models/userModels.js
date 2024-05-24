@@ -23,12 +23,15 @@ const userSchema = new Schema({
     type: String,
     required: false,
   },
-  dob: {
-    type: Date,
-  },
   sex: {
     type: String,
-  }
+    required: false,
+  },
+  dob: {
+    type: Date,
+    required: false,
+  },
+  profile: { vitalsSchema },
 });
 
 const userModel = mongoose.model('users', userSchema);

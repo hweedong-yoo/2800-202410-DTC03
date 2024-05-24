@@ -1,179 +1,505 @@
-<%- include('partials/header.ejs') %>
-    <% currentBmi=25 %>
-        <section class="flex justify-center my-auto bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
-            <div class="max-w-lg flex flex-col">
-                <!-- hero -->
-                <div class="mx-auto  py-4 my-4 ">
-                    <h1 class="font-extrabold text-3xl">
-                        Body Composition
-                    </h1>
-                </div>
-                <!-- beginning of cards -->
-                <div class="flex flex-col mx-[10px]">
-                    <div class="m-4 p-3 bg-[#FCFEFE] rounded-lg shadow-lg">
+<% userBMI=((userWeight / userHeight / userHeight)* 10000).toFixed(1) %>
+    <% if (userGender==='F' ) {%>
+        <% userBF=((1.39 * userBMI) + (0.16 * userAge) - 9).toFixed(1) %>
+            <%}else {%>
+                <% userBF=((1.39 * userBMI) + (0.16 * userAge) - (10.34 * 1) - 9).toFixed(1) %>
+                    <% } %>
+                        <script>
+                            const tempBMI = <%= userBMI  %>;
+                            const tempTScore = <%= userTscore %>;
+                            const tempBF = <%= userBF  %>;
+                            console.log(tempBMI, 'userBMI')
+                            console.log(tempTScore, 'tempTScore')
+                            /*
+                            BMI:
+                                BMI Categories:
+                                Underweight = <18.5
+                                Normal weight = 18.5–24.9
+                                Overweight = 25–29.9
+                                Obesity = BMI of 30 or greater
+                        
+                                Calculation: (BW kg)(height^2 m^2)
+                                or (BW lbs)(hieght^2 in^2)*703
+                        
+                            Bone Density:
+                                T score:
+                                    normal             : > -1
+                                    risk of osteopenia : between -2.5 and -1
+                                    likely osteoporosis: -2.5 and below
+                        
+                            Weight: 
+                            Risks
+                                Underweight:malnutrition, osteoporosis, decreased muscle strength, hypothermia and lowered immunity
+                                Overweight :heart disease, diabetes, high blood pressure, high cholesterol, liver disease, sleep apnea and certain cancers
+                    
+                            BodyFat% :
+                                Calculation (1.39 x BMI) + (0.16 x age) - (10.34 x gender) - 9, with gender equal to 1 for men and 0 for women
+                                Ranges
+                            */
+                        </script>
 
-                        <!-- chart html -->
-                        <!-- chart header -->
-                        <div class="mx-max max-w-md w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4">
-                            <div class="flex justify-between mb-5">
-                                <div>
-                                    <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
-                                        BMI: <%= currentBmi %>
-                                    </h5>
-                                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">This week</p>
+                        <%- include('partials/header.ejs') %>
+
+                            <section class="flex justify-center my-auto bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
+                                <div class="max-w-lg flex flex-col">
+                                    <!-- hero -->
+                                    <div class="mx-auto  py-4 my-4 ">
+                                        <h1 class="font-extrabold text-3xl">
+                                            Body Composition
+                                        </h1>
+                                    </div>
+                                    <!-- beginning of cards -->
+                                    <div class="flex flex-col mx-auto">
+                                        <div class="m-4 p-3 bg-[#FCFEFE] rounded-lg shadow-lg">
+                                            <!-- chart header -->
+                                            <h1 class="text-3xl text-center pb-10 pt-5">
+                                                Body mass index
+                                            </h1>
+                                            <!-- actual chart -->
+                                            <div id="bmi-chart"></div>
+                                            <p class="text-xl p-4">
+                                                Your BMI: <%= userBMI %>
+                                                    <br>
+                                                    <% if (userBMI < 18.5) { %>
+                                                        You are underweight. Risks associated with being underweight
+                                                        are:
+                                                        <ul>
+                                                            <li class="px-3">- Malnutrition</li>
+                                                            <li class="px-3">- Osteoporosis</li>
+                                                            <li class="px-3">- Decreased muscle strength</li>
+                                                            <li class="px-3">- Hypothermia</li>
+                                                            <li class="px-3">- Lowered immunity</li>
+                                                        </ul>
+                                                        <% } else if (userBMI>= 18.5 && userBMI < 26) {%>
+                                                                You are normal weight relative to your height.
+                                                                <% }else {%>
+                                                                    You are Overweight. Risks associated with being
+                                                                    overweight
+                                                                    are:
+                                                                    <ul>
+                                                                        <li class="px-3">- heart disease</li>
+                                                                        <li class="px-3">- diabetes</li>
+                                                                        <li class="px-3">- high blood pressure</li>
+                                                                        <li class="px-3">- high cholesterol</li>
+                                                                        <li class="px-3">- liver disease</li>
+                                                                        <li class="px-3">- sleep apnea</li>
+                                                                        <li class="px-3">- certain cancers</li>
+                                                                    </ul>
+                                                                    <% }%>
+                                                                        <br>
+                                                                        <p class=" text-center">
+                                                                            *BMI rating are not accurate for people
+                                                                            with
+                                                                            physical conditioning.
+                                                                        </p>
+                                            </p>
+                                        </div>
+                                        <!-- body fat percentage -->
+
+                                        <div class="m-4 p-3 bg-[#FCFEFE] rounded-lg shadow-lg">
+
+                                            <!-- chart html -->
+                                            <!-- chart header -->
+                                            <h1 class="text-3xl text-center pb-10 pt-5">
+                                                Body Fat Percentage
+                                            </h1>
+                                            <!-- actual chart -->
+                                            <div id="bf-chart"></div>
+                                            <p class="text-xl p-4">
+                                                <!-- female bf% conditions different from male -->
+                                                Your BF%: <%= userBF %>%
+                                                <br>
+                                                    <% if (userGender==='F' ) { %>
+                                                        <% if (userBF >= 32) { %>
+                                                            <br>
+                                                            Your body fat% is higher than normal ranges.
+                                                            <% } else if (userBF > 21 && userBF < 32 ) {%>
+                                                                Your body fat% is within normal ranges.
+                                                                <% } else {%>
+                                                                    Your body fat% is below average ranges.
+                                                                    <% } %>
+                                                            
+                                                        <% } else {%>
+                                                            <% if (userBF >= 19) { %>
+                                                                <br>
+                                                                Your body fat% is higher than normal ranges.
+                                                                <% } else if (userBF > 8 && userBF < 19 ) {%>
+                                                                    Your body fat% is within normal ranges.
+                                                                    <% } else {%>
+                                                                        Your body fat% is below average ranges.
+                                                                        <% } %>
+                                                            <% } %>
+                                            </p>
+                                        </div>
+
+                                        <div class="flex">
+
+                                            <div class="m-4 p-3  bg-[#FCFEFE] rounded-lg shadow-lg flex-auto">
+                                                <h1 class="text-3xl text-center pb-10 pt-5">
+                                                    Weight
+                                                </h1>
+
+                                                <p class="text-3xl p-4 text-center ">
+                                                    <%= userWeight %> kg
+                                                        <br>
+                                                </p>
+                                            </div>
+                                            <div class="m-4 p-3  bg-[#FCFEFE] rounded-lg shadow-lg flex-auto">
+                                                <h1 class="text-3xl text-center pb-10 pt-5">
+                                                    Height
+                                                </h1>
+
+                                                <p class="text-3xl p-4 text-center">
+                                                    <%= userHeight %> cm
+                                                        <br>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="m-4 p-3 mb-[80px] bg-[#FCFEFE] rounded-lg shadow-lg">
+                                            <h1 class="text-3xl text-center pb-10 pt-5">
+                                                Bone Density
+                                            </h1>
+
+                                            <div id="t-score-chart"></div>
+                                            <p class="text-xl p-4">
+
+                                                Your Bone Density T-score: <%= userTscore%>
+                                                    <br>
+                                                    <br>
+
+                                                    <% if (userTscore> -1) { %>
+                                                        Your T-score is within normal ranges.
+                                                        <% } else if (userTscore> -2.5 && userTscore <= -1) {%>
+                                                                Your T-score is within a lower range.
+                                                                <br>
+                                                                This means that your are more likely to have
+                                                                osteopenia. A pre-osteoporosis condition.
+
+                                                                <% }else {%>
+                                                                    You have a very low T-score range.
+                                                                    <br>You are much more prone to breaking bones.
+                                                                    <br>You most likely have osteoporosis.
+
+                                                                    <% }%>
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div
-                                    class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
-                                    23%
-                                    <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 10 14">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <!-- actual chart -->
-                            <div id="bmi-chart"></div>
+                            </section>
+                            <!-- chart script -->
+                            <script>
+                                const BMIOptions = {
+                                    // enable and customize data labels using the following example, learn more from here: https://apexcharts.com/docs/datalabels/
+                                    dataLabels: {
+                                        enabled: false,
+                                        // offsetX: 10,
+                                        style: {
+                                            cssClass: 'text-xs text-white font-medium'
+                                        },
+                                    },
+                                    grid: {
+                                        show: true,
+                                        strokeDashArray: 6,
+                                        padding: {
+                                            left: 5,
+                                            right: 5,
+                                            top: -10
+                                        },
+                                    },
+                                    annotations: {
+                                        yaxis: [{
+                                            y: tempBMI,
+                                            strokeDashArray: 0,
+                                            borderColor: '#775DD0',
+                                            label: {
+                                                borderColor: '#775DD0',
+                                                style: {
+                                                    color: '#fff',
+                                                    background: '#775DD0',
+                                                },
+                                                text: 'Your BMI',
+                                            }
+                                        }]
+                                    },
+                                    series: [
+                                        {
+                                            name: "Average BMI",
+                                            data: [10, 15, 20, 25, 30, 35],
+                                            color: "#1A56DB",
+                                        },
+                                    ],
+                                    chart: {
+                                        height: "200px",
+                                        maxWidth: "100%",
+                                        type: "line",
+                                        fontFamily: "Inter, sans-serif",
+                                        dropShadow: {
+                                            enabled: false,
+                                        },
+                                        toolbar: {
+                                            show: false,
+                                        },
+                                    },
+                                    tooltip: {
+                                        enabled: true,
+                                        x: {
+                                            show: false,
+                                        },
+                                    },
+                                    legend: {
+                                        show: true
+                                    },
+                                    fill: {
+                                        type: "gradient",
+                                        gradient: {
+                                            opacityFrom: 1,
+                                            opacityTo: 1,
+                                            shadeIntensity: 1,
+                                            type: 'vertical',
+                                            gradientToColors: ["#1C64F2"],
+                                            colorStops: [
+                                                {
+                                                    offset: 0,
+                                                    color: "red",
+                                                    opacity: 1
+                                                },
+                                                {
+                                                    offset: 25,
+                                                    color: "yellow",
+                                                    opacity: 1
+                                                },
+                                                {
+                                                    offset: 50,
+                                                    color: "green",
+                                                    opacity: 1
+                                                },
+                                                {
+                                                    offset: 80,
+                                                    color: "yellow",
+                                                    opacity: 1
+                                                },
+                                                {
+                                                    offset: 100,
+                                                    color: "red",
+                                                    opacity: 1
+                                                }
+                                            ]
+                                        },
+                                    },
+                                    stroke: {
+                                        curve: 'straight',
+                                        width: 6,
+                                    },
+                                    xaxis: {
+                                        categories: ['Extremely Underweight', 'Underweight', 'Normal', 'Normal', 'Overweight', 'Extremely Overweight'],
+                                        labels: {
+                                            show: false,
+                                        },
+                                        axisBorder: {
+                                            show: false,
+                                        },
+                                        axisTicks: {
+                                            show: false,
+                                        },
+                                    },
+                                    yaxis: {
+                                        show: true,
+                                        labels: {
+                                            formatter: function (value) {
+                                                return value;
+                                            }
+                                        }
+                                    },
+                                }
 
-                        </div>
+                                if (document.getElementById("bmi-chart") && typeof ApexCharts !== 'undefined') {
+                                    const BMIchart = new ApexCharts(document.getElementById("bmi-chart"), BMIOptions);
+                                    BMIchart.render();
+                                }
+
+                                const BFOptions = {
+                                    // enable and customize data labels using the following example, learn more from here: https://apexcharts.com/docs/datalabels/
+                                    dataLabels: {
+                                        enabled: false,
+                                        // offsetX: 10,
+                                        style: {
+                                            cssClass: 'text-xs text-white font-medium'
+                                        },
+                                    },
+                                    grid: {
+                                        show: true,
+                                        strokeDashArray: 6,
+                                        padding: {
+                                            left: 5,
+                                            right: 5,
+                                            top: -10
+                                        },
+                                    },
+                                    annotations: {
+                                        yaxis: [{
+                                            y: tempBF,
+                                            strokeDashArray: 0,
+                                            borderColor: '#775DD0',
+                                            label: {
+                                                borderColor: '#775DD0',
+                                                style: {
+                                                    color: '#fff',
+                                                    background: '#775DD0',
+                                                },
+                                                text: 'Your BF%',
+                                            }
+                                        }]
+                                    },
+                                    series: [
+                                        {
+                                            name: "Average BMI",
+                                            data: [10, 15, 20, 25, 30, 35],
+                                            color: "#1A56DB",
+                                        },
+                                    ],
+                                    chart: {
+                                        height: "200px",
+                                        maxWidth: "100%",
+                                        type: "line",
+                                        fontFamily: "Inter, sans-serif",
+                                        dropShadow: {
+                                            enabled: false,
+                                        },
+                                        toolbar: {
+                                            show: false,
+                                        },
+                                    },
+                                    tooltip: {
+                                        enabled: true,
+                                        x: {
+                                            show: false,
+                                        },
+                                    },
+                                    legend: {
+                                        show: true
+                                    },
+                                    fill: {
+                                        type: "gradient",
+                                        gradient: {
+                                            opacityFrom: 1,
+                                            opacityTo: 1,
+                                            shadeIntensity: 1,
+                                            type: 'vertical',
+                                            gradientToColors: ["#1C64F2"],
+                                            colorStops: [
+                                                {
+                                                    offset: 0,
+                                                    color: "red",
+                                                    opacity: 1
+                                                },
+                                                {
+                                                    offset: 25,
+                                                    color: "yellow",
+                                                    opacity: 1
+                                                },
+                                                {
+                                                    offset: 50,
+                                                    color: "green",
+                                                    opacity: 1
+                                                },
+                                                {
+                                                    offset: 80,
+                                                    color: "green",
+                                                    opacity: 1
+                                                },
+                                                {
+                                                    offset: 100,
+                                                    color: "yellow",
+                                                    opacity: 1
+                                                }
+                                            ]
+                                        },
+                                    },
+                                    stroke: {
+                                        curve: 'straight',
+                                        width: 6,
+                                    },
+                                    xaxis: {
+                                        categories: ['Extremely Underweight', 'Underweight', 'Normal', 'Normal', 'Overweight', 'Extremely Overweight'],
+                                        labels: {
+                                            show: false,
+                                        },
+                                        axisBorder: {
+                                            show: false,
+                                        },
+                                        axisTicks: {
+                                            show: false,
+                                        },
+                                    },
+                                    yaxis: {
+                                        show: true,
+                                        labels: {
+                                            formatter: function (value) {
+                                                return value;
+                                            }
+                                        }
+                                    },
+                                }
+
+                                if (document.getElementById("bf-chart") && typeof ApexCharts !== 'undefined') {
+                                    const BFchart = new ApexCharts(document.getElementById("bf-chart"), BFOptions);
+                                    BFchart.render();
+                                }
+
+                                // T-score bar graph
+                                var TScoreOptions = {
+                                    series: [{
+                                        data: [{
+                                            x: 'Test Range',
+                                            y: [-5, 2],
+                                        }]
+                                    }],
+                                    chart: {
+                                        toolbar: { show: false },
+                                        type: 'rangeBar',
+                                        height: 120,
+                                        maxWidth: "100%",
+                                        padding: {
+                                            left: 10,
+                                            right: 10,
+                                            top: 10,
+                                            bottom: 10,
+                                        },
+                                    },
+                                    annotations: {
+                                        xaxis: [{
+                                            x: tempTScore,
+                                            strokeDashArray: 0,
+                                            borderWidth: 4,
+                                            stroke: 2,
+                                            borderColor: '#775DD0',
+                                        }]
+                                    },
+                                    plotOptions: {
+                                        bar: {
+                                            horizontal: true,
+                                        }
+                                    },
+                                    dataLabels: {
+                                        enabled: false
+                                    },
+                                    xaxis: {
+                                        min: -6,
+                                        max: 4,
+                                    },
+
+                                };
 
 
-                        <p class="text-xl p-4">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus similique sit saepe
-                            vero
-                            eos
-                            sunt
-                            delectus voluptate, excepturi totam omnis illum quos. Culpa, odio accusamus! Mollitia
-                            dolorum in
-                            nostrum
-                            voluptate.
-                        </p>
-                    </div>
-                    <div class="m-4 py-20 bg-[#FCFEFE] rounded-lg shadow-lg">
-                        <h1 class="text-3xl text-center pb-10">
-                            Bone Density
-                        </h1>
-                        <p class="text-xl p-4">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus similique sit saepe
-                            vero
-                            eos
-                            sunt
-                            delectus voluptate, excepturi totam omnis illum quos. Culpa, odio accusamus! Mollitia
-                            dolorum in
-                            nostrum
-                            voluptate.
-                        </p>
-                    </div>
-                    <div class="m-4 py-20 bg-[#FCFEFE] rounded-lg shadow-lg">
-                        <h1 class="text-3xl text-center pb-10">
-                            Weight
-                        </h1>
+                                if (document.getElementById("t-score-chart") && typeof ApexCharts !== 'undefined') {
+                                    const TScoreChart = new ApexCharts(document.getElementById("t-score-chart"), TScoreOptions);
+                                    TScoreChart.render();
+                                }
 
-                        <p class="text-xl p-4">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus similique sit saepe
-                            vero
-                            eos
-                            sunt
-                            delectus voluptate, excepturi totam omnis illum quos. Culpa, odio accusamus! Mollitia
-                            dolorum in
-                            nostrum
-                            voluptate.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- chart script -->
-        <script>
-            const options = {
-                // enable and customize data labels using the following example, learn more from here: https://apexcharts.com/docs/datalabels/
-                dataLabels: {
-                    enabled: true,
-                    // offsetX: 10,
-                    style: {
-                        cssClass: 'text-xs text-white font-medium'
-                    },
-                },
-                grid: {
-                    show: false,
-                    strokeDashArray: 4,
-                    padding: {
-                        left: 16,
-                        right: 16,
-                        top: -26
-                    },
-                },
-                series: [
-                    {
-                        name: "Average BMI",
-                        data: [150, 141, 145, 152, 135, 125],
-                        color: "#1A56DB",
-                    },
-                    {
-                        name: "Personal BMI",
-                        data: [64, 41, 41, 41, 38, 35],
-                        color: "#7E3BF2",
-                    },
-                ],
-                chart: {
-                    height: "300px",
-                    maxWidth: "100%",
-                    type: "area",
-                    fontFamily: "Inter, sans-serif",
-                    dropShadow: {
-                        enabled: false,
-                    },
-                    toolbar: {
-                        show: false,
-                    },
-                },
-                tooltip: {
-                    enabled: true,
-                    x: {
-                        show: false,
-                    },
-                },
-                legend: {
-                    show: true
-                },
-                fill: {
-                    type: "gradient",
-                    gradient: {
-                        opacityFrom: 0.55,
-                        opacityTo: 0,
-                        shade: "#1C64F2",
-                        gradientToColors: ["#1C64F2"],
-                    },
-                },
-                stroke: {
-                    width: 6,
-                },
-                xaxis: {
-                    categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
-                    labels: {
-                        show: false,
-                    },
-                    axisBorder: {
-                        show: false,
-                    },
-                    axisTicks: {
-                        show: false,
-                    },
-                },
-                yaxis: {
-                    show: false,
-                    labels: {
-                        formatter: function (value) {
-                            return '$' + value;
-                        }
-                    }
-                },
-            }
 
-            if (document.getElementById("bmi-chart") && typeof ApexCharts !== 'undefined') {
-                const chart = new ApexCharts(document.getElementById("bmi-chart"), options);
-                chart.render();
-            }
-        </script>
-        
-<%- include('partials/bottomNav.ejs') %>
+
+
+                            </script>
+
+                            <%- include('partials/bottomNav.ejs') %>
