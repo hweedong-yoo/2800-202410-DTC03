@@ -36,8 +36,11 @@ const addUser = async (req, res) => {
         await newUser.save();
     
         console.log("User added successfully");
+
+        const user = await userModel.findOne({ email: email });
     
         req.session.authenticated = true;
+        req.session.userID = user._id;
         req.session.name = name;
         req.session.email = email;
         req.session.cookie.maxAge = expireTime;
