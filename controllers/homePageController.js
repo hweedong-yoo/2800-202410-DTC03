@@ -17,9 +17,6 @@ const displayHomePage = async (req, res) => {
       }
     }
 
-    console.log("bmi", bmi);
-    console.log("weight", weight);
-
     const user = {
       name: userData.name || "",
       bpm: 75, // PLACEHOLDER
