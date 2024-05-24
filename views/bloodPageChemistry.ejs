@@ -304,4 +304,26 @@
     document.getElementById('creatinine-count').innerText = creatinineData[creatinineData.length - 1] + ' Creatinine mg/dL';
     document.getElementById('alt-count').innerText = altData[altData.length - 1] + ' ALT U/L';
     document.getElementById('ast-count').innerText = astData[astData.length - 1] + ' AST U/L';
+
+    const glucoseCount = glucoseData[glucoseData.length - 1];
+    const calciumCount = calciumData[calciumData.length - 1];
+    const bunCount = bunData[bunData.length - 1];
+    const creatinineCount = creatinineData[creatinineData.length - 1];
+    const altCount = altData[altData.length - 1];
+    const astCount = astData[astData.length - 1];
+
+    const showLiver = (glucoseCount < 70 || glucoseCount > 140) || (altCount < 7 || altCount > 56) || (astCount < 10 || astCount > 40);
+    const showKidney = (calciumCount < 8.5 || calciumCount > 10.5) || (bunCount < 7 || bunCount > 20) || (creatinineCount < 0.6 || creatinineCount > 1.3);
+
+    if (showLiver) {
+        document.getElementById('liver').style.display = 'flex';
+    } else {
+        document.getElementById('liver').style.display = 'none';
+    }
+
+    if (showKidney) {
+        document.getElementById('kidney').style.display = 'flex';
+    } else {
+        document.getElementById('kidney').style.display = 'none';
+    }
 </script>

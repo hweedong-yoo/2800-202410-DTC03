@@ -252,4 +252,25 @@
     document.getElementById('wbc-count').innerText = wbcData[wbcData.length - 1] + ' WBC/μL';
     document.getElementById('rbc-count').innerText = rbcData[rbcData.length - 1] + 'MIL RBC/μL'
     document.getElementById('platelets-count').innerText = plateletsData[plateletsData.length - 1] + ' Plats/μL';
+
+    const wbcCount = wbcData[wbcData.length - 1];
+    const rbcCount = rbcData[rbcData.length - 1];
+    const plateletsCount = plateletsData[plateletsData.length - 1];
+
+    const showImmunity = wbcCount < 4000 || wbcCount > 11000;
+    const showHematology = rbcCount < 4.2 || rbcCount > 6.1 || plateletsCount < 150000 || plateletsCount > 450000;
+
+    if (showImmunity) {
+        document.getElementById('immunity').style.display = 'flex';
+    } else {
+        document.getElementById('immunity').style.display = 'none';
+    }
+
+    if (showHematology) {
+        document.getElementById('hematology').style.display = 'flex';
+    } else {
+        document.getElementById('hematology').style.display = 'none';
+    }
+
+
 </script>
