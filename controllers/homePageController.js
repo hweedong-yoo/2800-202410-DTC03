@@ -8,7 +8,7 @@ const displayHomePage = async (req, res) => {
   try {
     const userData = await User.findOne({ email: req.session.email });
     const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
-    const BloodData = await BodyComp.findOne({ userID: req.session.userID });
+    const BloodData = await Blood.findOne({ userID: req.session.userID });
 
     //Calculate bmi
     let bmi, weight;
@@ -36,8 +36,8 @@ const displayHomePage = async (req, res) => {
       bmi: bmi || "--",
       bf: bf || "--",
       weight: weight || "--",
-      wbc: 9000, //PLACEHOLDER
-      rbc: 5.1 //PLACEHOLDER
+      wbc: BloodData.wbc[BloodData.wbc.length - 1],
+      rbc: BloodData.rbc[BloodData.rbc.length - 1]
     }
 
     res.render('home', {
