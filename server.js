@@ -88,7 +88,7 @@ app.use('/home', sessionValidation, emailVerification, hasSecurityAnswer, homePa
 app.use('/profile', sessionValidation, emailVerification, hasSecurityAnswer, profilePageRoute);
 app.use('/edit_profile', sessionValidation, emailVerification, hasSecurityAnswer, editProfilePageRoute);
 app.use('/bodyModel', sessionValidation, emailVerification, hasSecurityAnswer, bodyModelRoute);
-app.use('/logout', sessionValidation, emailVerification, hasSecurityAnswer, logoutRoute);
+app.use('/logout', sessionValidation, hasSecurityAnswer, logoutRoute);
 app.use('*', NotFoundController);
 
 // Start the server
