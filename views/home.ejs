@@ -3,14 +3,14 @@
 <div class="p-4 text-[#455780] font-bold bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
   
 
-  <h1 class="text-center py-4 text-4xl font-extrabold">Hello, <span><%= user.name %></span></h1>
+  <h1 class="text-center pb-4 pt-3 text-4xl font-extrabold">Hello, <span><%= user.name %></span></h1>
 
   <!-- Overview/Vitals card -->
-  <h2 class="mx-8 text-lg font-bold">Overview</h2>
+  <h2 class="mx-6 text-lg font-bold">Overview</h2>
   <a href="/home/vitals">
-    <div class="border-2 rounded-3xl drop-shadow-lg p-2 m-4 mt-1 bg-[#FCFEFE]">
+    <div class="border-2 rounded-3xl drop-shadow-lg p-2 mx-1 mb-4 mt-1 bg-[#FCFEFE]">
       <!-- Top (overview) section -->
-      <div class="flex flex-row justify-around py-1">
+      <div class="flex flex-row justify-around py-1 pb-3">
         <!-- Person figure -->
         <span class="material-symbols-outlined w-1/2 text-9xl text-center">
           accessibility_new
@@ -48,11 +48,11 @@
       <div class="py-1">
         <!-- Pulse -->
         <div class="flex flex-row justify-center">
-          <span class="material-symbols-outlined text-3xl pl-2 w-1/6">
+          <span class="material-symbols-outlined text-3xl pl-2 w-1/6 text-[#800000]">
             ecg_heart
           </span>
   
-          <p id="pulseRate" class="text-2xl px-2 w-2/5"><%= user.bpm %><span class="text-sm">BPM</span></p>
+          <p id="pulseRate" class="text-2xl px-2 w-2/5 text-[#354666]"><%= user.bpm %><span class="text-sm text-[#455780]">BPM</span></p>
   
           <div class="px-16 border-2 rounded-3xl mx-2">
             <span class="material-symbols-outlined text-[#455780]text-3xl">
@@ -64,11 +64,11 @@
         <!-- Body temperature -->
         <div class="py-1">
           <div class="flex flex-row justify-center">
-            <span class="material-symbols-outlined text-3xl pl-2 w-1/6">
+            <span class="material-symbols-outlined text-3xl pl-2 w-1/6 text-[#800000]">
               device_thermostat
             </span>
   
-            <p id="tempRate" class="text-2xl px-2 w-2/5"><%= user.temp %><span>°</span></p>
+            <p id="tempRate" class="text-2xl px-2 w-2/5 text-[#354666]"><%= user.temp %><span class="text-[#455780]">°</span></p>
   
             <div class="px-16 border-2 rounded-3xl mx-2">
               <span class="material-symbols-outlined text-[#455780]text-3xl">
@@ -81,11 +81,11 @@
         <!-- Respiratory rate -->
         <div class="py-1">
           <div class="flex flex-row justify-center">
-            <span class="material-symbols-outlined text-3xl pl-2 w-1/6">
+            <span class="material-symbols-outlined text-3xl pl-2 w-1/6 text-[#800000]">
               pulmonology
             </span>
   
-            <p id="respiratoryRate" class="text-2xl px-2 w-2/5"><%= user.rrp %><span class="text-sm">RRP</span></p>
+            <p id="respiratoryRate" class="text-2xl px-2 w-2/5 text-[#354666]"><%= user.rrp %><span class="text-sm text-[#455780]">RRP</span></p>
   
             <div class="px-16 border-2 rounded-3xl mx-2">
               <span class="material-symbols-outlined text-[#455780]text-3xl">
@@ -100,25 +100,25 @@
 
 
   <!-- Body Composition card -->
-  <h2 class="mx-8 pt-1 text-lg font-bold">Body Composition</h2>
+  <h2 class="mx-6 pt-1 text-lg font-bold">Body Composition</h2>
   <a href="home/bodycomposition">
-    <div class="border-2 rounded-3xl drop-shadow-lg px-2 py-4 m-4 mt-1 bg-[#FCFEFE]">
+    <div class="border-2 rounded-3xl drop-shadow-lg px-2 py-4 mx-1 mb-4 mt-1 bg-[#FCFEFE]">
       <div class="flex flex-row">
         <!-- BMI -->
         <div class="w-1/3 text-center">
-          <p id="bmiValue" class="text-2xl"><%= user.bmi %></p>
+          <p id="bmiValue" class="text-2xl text-[#354666]"><%= user.bmi %></p>
           <p class="text-sm pt-2">BMI</p>
         </div>
   
         <!-- Body fat -->
         <div class="w-1/3 text-center">
-          <p id="bfValue" class="text-2xl"><%= user.bf %><span class="text-sm">%</span></p>
+          <p id="bfValue" class="text-2xl text-[#354666]"><%= user.bf %><span class="text-sm text-[#455780]">%</span></p>
           <p class="text-sm pt-2">BF</p>
         </div>
   
         <!-- Weight -->
         <div class="w-1/3 text-center">
-          <p id="weightValue" class="text-2xl"><%= user.weight %><span class="text-sm">kg</span></p>
+          <p id="weightValue" class="text-2xl text-[#354666]"><%= user.weight %><span class="text-sm text-[#455780]">kg</span></p>
           <p class="text-sm pt-2">Weight</p>
         </div>
       </div>
@@ -127,19 +127,19 @@
 
 
   <!-- Blood card -->
-  <h2 class="mx-8 pt-1 text-lg font-bold">Blood Analysis</h2>
+  <h2 class="mx-6 pt-1 text-lg font-bold">Blood Analysis</h2>
   <a href="home/bloodcomposition">
-    <div class="border-2 rounded-3xl drop-shadow-lg px-2 py-4 m-4 mt-1 bg-[#FCFEFE]">
+    <div class="border-2 rounded-3xl drop-shadow-lg px-2 py-4 mx-1 mb-4 mt-1 bg-[#FCFEFE]">
       <div class="flex flex-row">
         <!-- Body fat -->
         <div class="w-1/2 text-center">
-          <p id="wbcValue" class="text-2xl"><%= user.wbc %><span class="text-sm">mil/mm3</span></p>
-          <p class="text-sm pt-2">WBC</p>
+          <p id="wbcValue" class="text-2xl text-[#354666]"><%= user.wbc %><span class="text-sm text-[#455780]">mil/mm3</span></p>
+          <p class="text-sm pt-2 text-[#455780]">WBC</p>
         </div>
   
         <!-- Weight -->
         <div class="w-1/2 text-center">
-          <p id="rbcValue" class="text-2xl"><%= user.rbc %><span class="text-sm">mil/mm3</span></p>
+          <p id="rbcValue" class="text-2xl text-[#354666]"><%= user.rbc %><span class="text-sm">mil/mm3</span></p>
           <p class="text-sm pt-2">RBC</p>
         </div>
       </div>
