@@ -83,12 +83,12 @@ app.use('/about', aboutPageRoute);
 app.use('/terms', termsPageRoute);
 app.use('/security_question', securityQuestionRoute);
 app.use('/recover', recoverPageRoute);
-app.use('/verify', emailVerificationRoute);
-app.use('/home',emailVerification , sessionValidation, hasSecurityAnswer, homePageRoute);
-app.use('/profile', sessionValidation, hasSecurityAnswer, profilePageRoute);
-app.use('/edit_profile', sessionValidation, hasSecurityAnswer, editProfilePageRoute);
-app.use('/bodyModel', sessionValidation, hasSecurityAnswer, bodyModelRoute);
-app.use('/logout', sessionValidation, hasSecurityAnswer, logoutRoute);
+app.use('/verify', sessionValidation, emailVerificationRoute);
+app.use('/home', sessionValidation, emailVerification, hasSecurityAnswer, homePageRoute);
+app.use('/profile', sessionValidation, emailVerification, hasSecurityAnswer, profilePageRoute);
+app.use('/edit_profile', sessionValidation, emailVerification, hasSecurityAnswer, editProfilePageRoute);
+app.use('/bodyModel', sessionValidation, emailVerification, hasSecurityAnswer, bodyModelRoute);
+app.use('/logout', sessionValidation, emailVerification, hasSecurityAnswer, logoutRoute);
 app.use('*', NotFoundController);
 
 // Start the server
