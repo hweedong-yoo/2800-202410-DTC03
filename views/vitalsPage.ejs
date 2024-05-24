@@ -328,7 +328,7 @@
          * @param {string} userID - The ID of the user.
          */
         async function getVitals(userID) {
-            const response = await fetch(`/home/vitals/json/${userID}`);
+            const response = await fetch(`/home/vitals/json/${userID}`);  
             const data = await response.json();
             console.log(data);
 
@@ -383,6 +383,11 @@
          * Updates the series data for the charts and the header text.
          */
         function updateSeries() {
+            // Ensure series arrays are not empty before updating
+            if (bpmSeries.length === 0 || tempSeries.length === 0 || breathSeries.length === 0) {
+                return;
+            }
+
             // Generate new values for BPM, temperature, and respiratory rate
             let newBpmValue = generateNewNumber(bpmSeries[bpmSeries.length - 1].y, -1, 2, 60, 100);
             let newTempValue = generateNewNumber(tempSeries[tempSeries.length - 1].y, -0.1, 0.1, 35, 40);
