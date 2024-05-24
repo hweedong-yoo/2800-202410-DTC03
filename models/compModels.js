@@ -6,13 +6,16 @@ const compositionSchema = new Schema({
         type: String,
         required: true
     },
-
     weight: {
-        type: [number],
+        type: [Number],
         required: false
     },
     height: {
-        type: [number],
+        type: [Number],
+        required: false
+    },
+    tScore: {
+        type: [Number],
         required: false
     },
 }, { collection: 'body_compositions' });
