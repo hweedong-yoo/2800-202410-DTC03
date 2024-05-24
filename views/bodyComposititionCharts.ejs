@@ -1,0 +1,313 @@
+<script>
+    const BMIOptions = {
+        // enable and customize data labels using the following example, learn more from here: https://apexcharts.com/docs/datalabels/
+        dataLabels: {
+            enabled: false,
+            // offsetX: 10,
+            style: {
+                cssClass: 'text-xs text-white font-medium'
+            },
+        },
+        grid: {
+            show: true,
+            strokeDashArray: 6,
+            padding: {
+                left: 5,
+                right: 5,
+                top: -10
+            },
+        },
+        annotations: {
+            yaxis: [{
+                y: tempBMI,
+                strokeDashArray: 0,
+                borderColor: '#775DD0',
+                label: {
+                    borderColor: '#775DD0',
+                    style: {
+                        color: '#fff',
+                        background: '#775DD0',
+                    },
+                    text: 'Your BMI',
+                }
+            }]
+        },
+        series: [
+            {
+                name: "Average BMI",
+                data: [10, 15, 20, 25, 30, 35],
+                color: "#1A56DB",
+            },
+        ],
+        chart: {
+            height: "200px",
+            maxWidth: "100%",
+            type: "line",
+            fontFamily: "Inter, sans-serif",
+            dropShadow: {
+                enabled: false,
+            },
+            toolbar: {
+                show: false,
+            },
+        },
+        tooltip: {
+            enabled: true,
+            x: {
+                show: false,
+            },
+        },
+        legend: {
+            show: true
+        },
+        fill: {
+            type: "gradient",
+            gradient: {
+                opacityFrom: 1,
+                opacityTo: 1,
+                shadeIntensity: 1,
+                type: 'vertical',
+                gradientToColors: ["#1C64F2"],
+                colorStops: [
+                    {
+                        offset: 0,
+                        color: "red",
+                        opacity: 1
+                    },
+                    {
+                        offset: 25,
+                        color: "yellow",
+                        opacity: 1
+                    },
+                    {
+                        offset: 50,
+                        color: "green",
+                        opacity: 1
+                    },
+                    {
+                        offset: 80,
+                        color: "yellow",
+                        opacity: 1
+                    },
+                    {
+                        offset: 100,
+                        color: "red",
+                        opacity: 1
+                    }
+                ]
+            },
+        },
+        stroke: {
+            curve: 'straight',
+            width: 6,
+        },
+        xaxis: {
+            categories: ['Extremely Underweight', 'Underweight', 'Normal', 'Normal', 'Overweight', 'Extremely Overweight'],
+            labels: {
+                show: false,
+            },
+            axisBorder: {
+                show: false,
+            },
+            axisTicks: {
+                show: false,
+            },
+        },
+        yaxis: {
+            show: true,
+            labels: {
+                formatter: function (value) {
+                    return value;
+                }
+            }
+        },
+    }
+
+    if (document.getElementById("bmi-chart") && typeof ApexCharts !== 'undefined') {
+        const BMIchart = new ApexCharts(document.getElementById("bmi-chart"), BMIOptions);
+        BMIchart.render();
+    }
+
+    const BFOptions = {
+        // enable and customize data labels using the following example, learn more from here: https://apexcharts.com/docs/datalabels/
+        dataLabels: {
+            enabled: false,
+            // offsetX: 10,
+            style: {
+                cssClass: 'text-xs text-white font-medium'
+            },
+        },
+        grid: {
+            show: true,
+            strokeDashArray: 6,
+            padding: {
+                left: 5,
+                right: 5,
+                top: -10
+            },
+        },
+        annotations: {
+            yaxis: [{
+                y: tempBF,
+                strokeDashArray: 0,
+                borderColor: '#775DD0',
+                label: {
+                    borderColor: '#775DD0',
+                    style: {
+                        color: '#fff',
+                        background: '#775DD0',
+                    },
+                    text: 'Your BF%',
+                }
+            }]
+        },
+        series: [
+            {
+                name: "Average BMI",
+                data: [10, 15, 20, 25, 30, 35],
+                color: "#1A56DB",
+            },
+        ],
+        chart: {
+            height: "200px",
+            maxWidth: "100%",
+            type: "line",
+            fontFamily: "Inter, sans-serif",
+            dropShadow: {
+                enabled: false,
+            },
+            toolbar: {
+                show: false,
+            },
+        },
+        tooltip: {
+            enabled: true,
+            x: {
+                show: false,
+            },
+        },
+        legend: {
+            show: true
+        },
+        fill: {
+            type: "gradient",
+            gradient: {
+                opacityFrom: 1,
+                opacityTo: 1,
+                shadeIntensity: 1,
+                type: 'vertical',
+                gradientToColors: ["#1C64F2"],
+                colorStops: [
+                    {
+                        offset: 0,
+                        color: "red",
+                        opacity: 1
+                    },
+                    {
+                        offset: 25,
+                        color: "yellow",
+                        opacity: 1
+                    },
+                    {
+                        offset: 50,
+                        color: "green",
+                        opacity: 1
+                    },
+                    {
+                        offset: 80,
+                        color: "green",
+                        opacity: 1
+                    },
+                    {
+                        offset: 100,
+                        color: "yellow",
+                        opacity: 1
+                    }
+                ]
+            },
+        },
+        stroke: {
+            curve: 'straight',
+            width: 6,
+        },
+        xaxis: {
+            categories: ['Extremely Underweight', 'Underweight', 'Normal', 'Normal', 'Overweight', 'Extremely Overweight'],
+            labels: {
+                show: false,
+            },
+            axisBorder: {
+                show: false,
+            },
+            axisTicks: {
+                show: false,
+            },
+        },
+        yaxis: {
+            show: true,
+            labels: {
+                formatter: function (value) {
+                    return value;
+                }
+            }
+        },
+    }
+
+    if (document.getElementById("bf-chart") && typeof ApexCharts !== 'undefined') {
+        const BFchart = new ApexCharts(document.getElementById("bf-chart"), BFOptions);
+        BFchart.render();
+    }
+
+    // T-score bar graph
+    var TScoreOptions = {
+        series: [{
+            data: [{
+                x: 'Test Range',
+                y: [-5, 2],
+            }]
+        }],
+        chart: {
+            toolbar: { show: false },
+            type: 'rangeBar',
+            height: 120,
+            maxWidth: "100%",
+            padding: {
+                left: 10,
+                right: 10,
+                top: 10,
+                bottom: 10,
+            },
+        },
+        annotations: {
+            xaxis: [{
+                x: tempTScore,
+                strokeDashArray: 0,
+                borderWidth: 4,
+                stroke: 2,
+                borderColor: '#775DD0',
+            }]
+        },
+        plotOptions: {
+            bar: {
+                horizontal: true,
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        xaxis: {
+            min: -6,
+            max: 4,
+        },
+
+    };
+
+
+    if (document.getElementById("t-score-chart") && typeof ApexCharts !== 'undefined') {
+        const TScoreChart = new ApexCharts(document.getElementById("t-score-chart"), TScoreOptions);
+        TScoreChart.render();
+    }
+
+
+
+
+</script>
