@@ -88,9 +88,9 @@ const displayBodyCompPage = async (req, res) => {
     }
     var updatedBodyComp = await BodyComp.findOneAndUpdate({ userID: req.session.userID },
       {
-        BMI: bmi,
-        BF: bf,
-        tScore: tempTScore,
+        BMI: bmi || "--",
+        BF:  bf  || "--",
+        tScore: tempTScore|| "--",
         vulnerabilities: [tempVulnerabilities]
       }, { new: true }
     );
