@@ -4,7 +4,7 @@ const BodyComp = require('../models/bodyCompModels');
 const displayPage = async (req, res) => {
   try {
     const userData = await User.findOne({ email: req.session.email });
-    const bodyCompData = await BodyComp.findOne({ userID: userData._id });
+    const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
 
     const user = {
       username: userData.name || "--",
