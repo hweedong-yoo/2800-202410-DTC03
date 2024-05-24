@@ -11,34 +11,16 @@ const displayHomePage = async (req, res) => {
     const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
     const BloodData = await Blood.findOne({ userID: req.session.userID });
 
-    //Calculate bmi
-    let bmi, weight;
-    if (bodyCompData && bodyCompData.weight) {
-      weight = bodyCompData.weight;
-      if (bodyCompData.height) {
-        let height = bodyCompData.height;
-        bmi = ((weight / height / height) * 10000).toFixed(1);
-      }
-    }
-
-    //Calculate body fat percentage
-    let bf;
-    if (userData.dob && bmi) {
-      let age = calculateAge(userData.dob.toISOString().substring(0, 10));
-      if (userData.dob === 'F') bf = ((1.39 * bmi) + (0.16 * age) - 9).toFixed(1);
-      else bf = ((1.39 * bmi) + (0.16 * age) - (10.34 * 1) - 9).toFixed(1);
-    }
-
     const user = {
       name: userData.name || "",
       bpm: 75, // PLACEHOLDER
       temp: 30, //PLACEHOLDER
       rrp: 30, //PLACEHOLDER
-      bmi: bmi || "--",
-      bf: bf || "--",
-      weight: weight || "--",
-      wbc: BloodData.wbc[BloodData.wbc.length - 1],
-      rbc: BloodData.rbc[BloodData.rbc.length - 1]
+      bmi: bodyCompData && bodyCompData.BMI || "--",
+      bf: bodyCompData && bodyCompData.BF || "--",
+      weight: bodyCompData && bodyCompData.weight || "--",
+      wbc: BloodData.wbc[BloodData.wbc.length - 1] || "--",
+      rbc: BloodData.rbc[BloodData.rbc.length - 1] || "--"
     }
 
     res.render('home', {
