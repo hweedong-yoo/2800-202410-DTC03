@@ -8,19 +8,33 @@ const moment = require('moment');
 const displayHomePage = async (req, res) => {
   try {
     const userData = await User.findOne({ email: req.session.email });
-    const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
+    const vitalsData = await Vitals.findOne({ userID: req.session.userID });
     const BloodData = await Blood.findOne({ userID: req.session.userID });
+    const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
+
+    const getVitalsStats = (data) => {
+      if (data && Array.isArray(data) && data.length > 0) {
+        const lastEntry = data[data.length - 1];
+        const entryData = lastEntry._doc || lastEntry;
+        console.log('entryData["1"]:', entryData["1"]);
+        return entryData["1"] !== undefined ? entryData["1"] : "--";
+      }
+      return "--";
+    };
 
     const user = {
       name: userData.name || "",
-      bpm: 75, // PLACEHOLDER
-      temp: 30, //PLACEHOLDER
-      rrp: 30, //PLACEHOLDER
-      bmi: bodyCompData && bodyCompData.BMI || "--",
-      bf: bodyCompData && bodyCompData.BF || "--",
-      weight: bodyCompData && bodyCompData.weight || "--",
+      bpm: getVitalsStats(vitalsData.BPM),
+      temp: getVitalsStats(vitalsData.temperature),
+      rrp: getVitalsStats(vitalsData.respiratoryRate),
+      bmi: bodyCompData && bodyCompData.BMI ? bodyCompData.BMI : "--",
+      bf: bodyCompData && bodyCompData.BF ? bodyCompData.BF : "--",
+      weight: bodyCompData && bodyCompData.weight ? bodyCompData.weight : "--",
       wbc: BloodData.wbc[BloodData.wbc.length - 1] || "--",
-      rbc: BloodData.rbc[BloodData.rbc.length - 1] || "--"
+      rbc: BloodData.rbc[BloodData.rbc.length - 1] || "--",
+      vitalsStatus: vitalsData && vitalsData.vulnerabilities && vitalsData.vulnerabilities.length > 1 ? 'cancel' : 'check_circle',
+      bloodStatus: BloodData && BloodData.vulnerabilities && BloodData.vulnerabilities.length > 1 ? 'cancel' : 'check_circle',
+      bodyStatus: bodyCompData && bodyCompData.vulnerabilities && bodyCompData.vulnerabilities.length > 1 ? 'cancel' : 'check_circle'
     }
 
     res.render('home', {
@@ -35,7 +49,7 @@ const displayHomePage = async (req, res) => {
 
 const displayVitalsPage = async (req, res) => {
   try {
-      res.render('vitalsPage', {authenticated : req.session.authenticated, userID: req.session.userID});
+    res.render('vitalsPage', { authenticated: req.session.authenticated, userID: req.session.userID });
   } catch (error) {
     res.status(400).send(error);
   }
@@ -91,8 +105,8 @@ const displayBodyCompPage = async (req, res) => {
     var updatedBodyComp = await BodyComp.findOneAndUpdate({ userID: req.session.userID },
       {
         BMI: bmi || "--",
-        BF:  bf  || "--",
-        tScore: tempTScore|| "--",
+        BF: bf || "--",
+        tScore: tempTScore || "--",
         vulnerabilities: [tempVulnerabilities]
       }, { new: true }
     );
@@ -164,10 +178,10 @@ const displayBloodPage = async (req, res) => {
 
 const getUserInfo = async (req, res) => {
   userID = req.params.id;
-  try{
-    const userVitalInfo = await Vitals.findOne({userID: userID});
+  try {
+    const userVitalInfo = await Vitals.findOne({ userID: userID });
     res.send(userVitalInfo);
-  } catch (error){
+  } catch (error) {
     console.log(error)
     res.status(400).send(error);
   }
