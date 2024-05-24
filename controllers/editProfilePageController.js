@@ -1,6 +1,8 @@
 const User = require('../models/userModels');
 const BodyComp = require('../models/bodyCompModels');
 
+const moment = require('moment');
+
 const displayPage = async (req, res) => {
   try {
     const userData = await User.findOne({ email: req.session.email });
@@ -21,6 +23,19 @@ const displayPage = async (req, res) => {
     res.status(500).send(error);
   }
 };
+
+function calculateAge(dob) {
+  const birthDate = moment(dob);
+  const today = moment();
+  let age = today.diff(birthDate, 'years');
+
+  // Adjust if the birthday hasn't occurred yet this year
+  if (today.month() < birthDate.month() || (today.month() === birthDate.month() && today.date() < birthDate.date())) {
+    age--;
+  }
+
+  return age;
+}
 
 const editInformation = async (req, res) => {
   try {
@@ -43,7 +58,27 @@ const editInformation = async (req, res) => {
 
     if (weight) updateBodyCompData.weight = weight;
     if (height) updateBodyCompData.height = height;
-    
+
+    //Calculate BMI
+    if (weight && height) {
+      const bmi = ((weight / height / height) * 10000).toFixed(1);
+      updateBodyCompData.BMI = bmi;
+
+      //Calculate Body Fat percentage
+      if (bmi && gender && birthday) {
+        let age = calculateAge(birthday);
+        if (gender === 'F') {
+          updateBodyCompData.BF = ((1.39 * bmi) + (0.16 * age) - 9).toFixed(1);
+        }
+        else {
+          updateBodyCompData.BF = ((1.39 * bmi) + (0.16 * age) - (10.34 * 1) - 9).toFixed(1);
+        }
+      }
+    }
+
+    console.log("updateBodyCompData", updateBodyCompData)
+
+
     if (Object.keys(updateBodyCompData).length > 0) {
       await BodyComp.findOneAndUpdate(
         { userID: req.session.userID },
