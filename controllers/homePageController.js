@@ -1,5 +1,5 @@
 const Blood = require('../models/bloodModels');
-const BodyComp = require('../models/compModels');
+const BodyComp = require('../models/bodyCompModels');
 const User = require('../models/userModels');
 
 const moment = require('moment');
@@ -39,7 +39,6 @@ const displayBodyCompPage = async (req, res) => {
     const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
     const userData = await User.findOne({ _id: req.session.userID });
 
-    console.log(calculateAge(isoStringDob))
     var isoStringDob = userData.dob.toISOString().substring(0, 10)
     res.render('bodyComposition', {
       authenticated: req.session.authenticated,
