@@ -28,6 +28,7 @@ const displayHomePage = async (req, res) => {
       authenticated: req.session.authenticated
     });
   } catch (error) {
+    console.log(error)
     res.status(500).send(error);
   }
 };

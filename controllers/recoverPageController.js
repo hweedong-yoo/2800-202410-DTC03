@@ -19,7 +19,6 @@ const displayPageEmail = async (req, res) => {
 const validateEmail = async (req, res) => {
   try {
     const email = req.body.email;
-
     const validateEmail = emailSchema.validate({email: email});
 
     if (validateEmail.error) {
@@ -40,7 +39,7 @@ const validateEmail = async (req, res) => {
       const subject = 'Password Recovery';
       const body = `Please click the following link to recover your password: ${link}`;
 
-      sendRecoveryEmail(email, subject, body);
+      sendEmail(email, subject, body);
 
       res.redirect(`/recover/?message=Please-check-your-email-for-the-recovery-link`);
     } else {
@@ -49,6 +48,7 @@ const validateEmail = async (req, res) => {
     }
 
   } catch (error) {
+    console.error('Error validating email:', error);
     res.status(500).send
   }
 };
