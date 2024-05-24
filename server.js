@@ -3,9 +3,6 @@ const express = require('express');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const mongoose = require('mongoose');
-const Joi = require("joi");
-const bcrypt = require('bcrypt');
-
 
 // Get environment variables
 const mongodbHost = process.env.MONGODB_HOST;
@@ -53,25 +50,28 @@ module.exports = {
 };
 
 // Middleware for session validation
-const sessionValidation = require('./middlewares/sessionValidation');
+const sessionValidationMiddlewares = require('./middlewares/sessionValidation');
+const accountSetUpMiddlewares = require('./middlewares/accountSetUp');
+const emailVerification = accountSetUpMiddlewares.emailVerification;
+const sessionValidation = sessionValidationMiddlewares.sessionValidation;
+const hasSecurityAnswer = sessionValidationMiddlewares.hasSecurityAnswer;
 
 // Define routes
 const landingPageRoute = require('./routes/landingPage');
 const homePageRoute = require('./routes/home');
 const signupRoute = require('./routes/signupPage');
 const loginRoute = require('./routes/loginPage');
-const bodyCompositionRoute = require('./routes/bodyCompositionPage.js')
 const profilePageRoute = require('./routes/profilePage');
 const securityQuestionRoute = require('./routes/securityQuestionPage.js')
 const recoverPageRoute = require('./routes/recoverPage');
 const editProfilePageRoute = require('./routes/editProfilePage');
 const bodyModelRoute = require('./routes/bodyModelPage');
 const NotFoundController = require('./routes/404Page');
-const vitalsPageRoute = require('./routes/vitalsPage');
-const bloodPageRoute = require('./routes/bloodPage');
 const contactPageRoute = require('./routes/contactPage');
 const aboutPageRoute = require('./routes/aboutPage');
 const termsPageRoute = require('./routes/termsPage');
+const logoutRoute = require('./routes/logout');
+const emailVerificationRoute = require('./routes/emailVerificationPage');
 
 
 // Use routes
@@ -83,13 +83,12 @@ app.use('/about', aboutPageRoute);
 app.use('/terms', termsPageRoute);
 app.use('/security_question', securityQuestionRoute);
 app.use('/recover', recoverPageRoute);
-app.use('/home', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, homePageRoute);
-app.use('/body_comp', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, bodyCompositionRoute)
-app.use('/profile', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, profilePageRoute);
-app.use('/vitals',sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, vitalsPageRoute);
-app.use('/edit_profile',sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, editProfilePageRoute);
-app.use('/bodyModel', sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, bodyModelRoute);
-app.use('/blood',sessionValidation.sessionValidation, sessionValidation.hasSecurityAnswer, bloodPageRoute)
+app.use('/verify', sessionValidation, emailVerificationRoute);
+app.use('/home', sessionValidation, emailVerification, hasSecurityAnswer, homePageRoute);
+app.use('/profile', sessionValidation, emailVerification, hasSecurityAnswer, profilePageRoute);
+app.use('/edit_profile', sessionValidation, emailVerification, hasSecurityAnswer, editProfilePageRoute);
+app.use('/bodyModel', sessionValidation, emailVerification, hasSecurityAnswer, bodyModelRoute);
+app.use('/logout', sessionValidation, hasSecurityAnswer, logoutRoute);
 app.use('*', NotFoundController);
 
 // Start the server
