@@ -1,0 +1,14 @@
+<%- include('partials/header.ejs') %>
+
+  <div class="flex-grow flex justify-center items-center bg-white dark:bg-gray-900">
+    <form class="mx-10 mb-10 flex flex-col justify-center items-center rounded-lg shadow-lg bg-gray-100 dark:bg-gray-800 px-8 py-5 text-center"
+      method="post" action="">
+      <h2 class="text-lg font-semibold mb-5 text-gray-900 dark:text-white">Welcome to BIOLINK, <a class="capitalize"><%= name %></a>.</h2>
+      <p class="mb-5 text-sm text-gray-700 dark:text-gray-300">We have send an email to <a class="text-blue-700"><%= email %></a>. Please click the link to verify your account.</p>
+      <div class="border-t border-gray-300 w-full my-5"></div>
+      <p class="mb-5 text-sm text-gray-700 dark:text-gray-300 text-center">Didn't Recieve one? <button type="submit" class="text-blue-700">Resent another email.</button></p>
+    </form>
+  </div>
+
+
+  <%- include('partials/bottomNav.ejs') %>

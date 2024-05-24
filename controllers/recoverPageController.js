@@ -1,4 +1,5 @@
 const userModel = require('../models/userModels');
+const sendEmail = require('../utils/sendEmail');
 const {expireTime} = require('../server.js');
 const { emailSchema, securityAnswerSchema, passwordSchema } = require('../validation/authValidation');
 const bcrypt = require('bcrypt');
@@ -6,35 +7,6 @@ const jwt = require('jsonwebtoken');
 var nodemailer = require('nodemailer');
 
 const jwtSecret = process.env.JWT_SECRET;
-const recoveryEmail = process.env.RECOVERY_EMAIL;
-const recoveryPassword = process.env.RECOVERY_PASSWORD;
-
-
-function sendRecoveryEmail(email, link) {
-  var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    host: 'smtp.gmail.com',
-    auth: {
-      user: recoveryEmail,
-      pass: recoveryPassword
-    }
-  });
-
-  var mailOptions = {
-    from: recoveryEmail,
-    to: email,
-    subject: 'Password Recovery Link',
-    text: 'Please click the link below to recover your password: ' + link + ' This link will expire in 15 minutes.'
-  };
-
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  }); 
-}
 
 const displayPageEmail = async (req, res) => {
   try {
@@ -65,7 +37,10 @@ const validateEmail = async (req, res) => {
       const token = jwt.sign(payload, secret, {expiresIn: '15m'});
       const link = `http://localhost:3000/recover/securityQuestion/${user._id}/${token}`;
 
-      sendRecoveryEmail(email, link);
+      const subject = 'Password Recovery';
+      const body = `Please click the following link to recover your password: ${link}`;
+
+      sendRecoveryEmail(email, subject, body);
 
       res.redirect(`/recover/?message=Please-check-your-email-for-the-recovery-link`);
     } else {
