@@ -30,8 +30,7 @@ const userSchema = new Schema({
   dob: {
     type: Date,
     required: false,
-  },
-  profile: { vitalsSchema },
+  }
 });
 
 const userModel = mongoose.model('users', userSchema);
