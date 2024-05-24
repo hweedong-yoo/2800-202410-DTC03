@@ -79,6 +79,7 @@ const displayBodyCompPage = async (req, res) => {
     var isoStringDob = userData.dob.toISOString().substring(0, 10)
     res.render('bodyComposition', {
       authenticated: req.session.authenticated,
+      userId: req.session.userID,
       userWeight: bodyCompData.weight,
       userHeight: bodyCompData.height,
       userTscore: bodyCompData.tScore,
