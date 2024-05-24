@@ -1,62 +1,63 @@
 <%- include('partials/header.ejs') %>
 
-    <section class="flex-grow flex justify-center items-center bg-white dark:bg-gray-900 px-4 gradient">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
-            <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-                Monitoring your <span id="easter-egg-trigger" class="cursor-pointer">health</span> made simple
-            </h1>
-            <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">
-                Leverage your medical implant to see your current vitals and body composition
-            </p>
-            <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0"></div>
-            <a href="/signup" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
-                Register Now
-            </a>
+<section class="flex-grow flex justify-center items-center bg-white dark:bg-gray-900 px-4 gradient">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
+        <h1 id="mainHeading" class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Monitoring your <span id="healthWord" class="cursor-pointer">health</span> made simple</h1>
+        <p id="subHeading" class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">Leverage your medical implant to see your current vitals and body composition</p>
+        <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
         </div>
-    </section>
+        <a href="/signup" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+            Register Now
+        </a>
+    </div>
+    </div>
+</section>
 
-    <%- include('partials/footer.ejs') %>
+<%- include('partials/footer.ejs') %>
 
-        <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                let clickCount = 0;
-                let clickTimer;
-                const triggerElement = document.getElementById("easter-egg-trigger");
+<script>
+    let clickCount = 0;
+    let lastClickTime = 0;
+    const mainHeading = document.getElementById('mainHeading');
+    const subHeading = document.getElementById('subHeading');
+    const quotes = [
+        "The first wealth is health.",
+        "To keep the body in good health is a duty... otherwise, we shall not be able to keep our mind strong and clear.",
+        "Strength and health are the keys to a happy life."
+    ];
 
-                triggerElement.addEventListener("click", () => {
-                    clearTimeout(clickTimer);
-                    clickCount++;
+    const healthWord = document.getElementById('healthWord');
+    healthWord.addEventListener('click', () => {
+        const now = new Date().getTime();
+        if (now - lastClickTime < 1000) {
+            clickCount++;
+            if (clickCount === 3) {
+                const randomIndex = Math.floor(Math.random() * quotes.length);
+                const selectedQuote = quotes[randomIndex];
+                showQuote(selectedQuote);
+                clickCount = 0;
+            }
+        } else {
+            clickCount = 1;
+        }
+        lastClickTime = now;
+    });
 
-                    if (clickCount === 3) {
-                        activateEasterEgg();
-                    } else {
-                        clickTimer = setTimeout(() => {
-                            clickCount = 0;
-                        }, 1000);
-                    }
+    function showQuote(quote) {
+        let index = 0;
+        const interval = setInterval(() => {
+            if (index < quote.length) {
+                mainHeading.innerHTML = quote.substr(0, index + 1).replace('health', '<span id="healthWord" class="cursor-pointer">health</span>');
+                index++;
+            } else {
+                clearInterval(interval);
+                const newHealthWord = document.getElementById('healthWord');
+                newHealthWord.addEventListener('click', () => {
+                    const randomIndex = Math.floor(Math.random() * quotes.length);
+                    const selectedQuote = quotes[randomIndex];
+                    showQuote(selectedQuote);
                 });
-
-                function activateEasterEgg() {
-                    const lottieContainer = document.createElement("div");
-                    lottieContainer.style.position = "fixed";
-                    lottieContainer.style.top = "50%";
-                    lottieContainer.style.left = "50%";
-                    lottieContainer.style.transform = "translate(-50%, -50%)";
-                    lottieContainer.style.width = "300px";
-                    lottieContainer.style.height = "300px";
-                    lottieContainer.style.zIndex = "9999";
-                    lottieContainer.style.pointerEvents = "none";
-
-                    lottieContainer.innerHTML = `
-                        <dotlottie-player src="https://lottie.host/16cf67dd-1e12-44ec-9337-311aed6eb8ff/16DDWodoIK.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
-                    `;
-
-                    document.body.appendChild(lottieContainer);
-
-                    setTimeout(() => {
-                        document.body.removeChild(lottieContainer);
-                    }, 5000);
-                }
-            });
-        </script>
+            }
+        }, 50); 
+    }
+</script>
