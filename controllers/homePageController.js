@@ -5,8 +5,8 @@ const Blood = require('../models/bloodModels');
 const displayHomePage = async (req, res) => {
   try {
     const userData = await User.findOne({ email: req.session.email });
-    const bodyCompData = await BodyComp.findOne({ userID: userData._id });
-    const BloodData = await BodyComp.findOne({ userID: userData._id });
+    const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
+    const BloodData = await BodyComp.findOne({ userID: req.session.userID });
 
     let bmi, weight;
     if (bodyCompData && bodyCompData.weight) {
