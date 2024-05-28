@@ -14,43 +14,79 @@
         </button>
         <% } %>
 
-            <div class="h-screen flex flex-col items-center p-4 text-[#455780] bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
+            <div
+                class="h-screen flex flex-col items-center p-4 text-[#455780] bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
                 <h1 class="text-center pb-4 pt-3 text-4xl font-extrabold">Body Model</h1>
                 <div class="border-2 rounded-3xl drop-shadow-lg p-2 pb-11 mx-1 mb-10 mt-1 bg-[#FCFEFE]">
                     <h1 class="text-center text-3xl py-5">Your Body</h1>
                     <h1 class="text-center text-3xl pb-5 ">Your Conditions</h1>
-                    <p class="text-center text-lg pb-8">If a condition is present in your body the following model will let you know
+                    <p class="text-center text-lg pb-8">If a condition is present in your body the following model will
+                        let you know
                     </p>
                     <div class="relative">
                         <img src="/images/Body_Model.png" alt="">
-                        <%= renderButton('heart', 'heart-modal' , '44%' , '44%' ) %>
-                            <% for (let i=0; i < bloodVul.length; i++) { %>
-                                <% if (bloodVul[i]==='liver' ) { %>
-                                    <%= renderButton('liver', 'liver-modal' , '54%' , '43%' ) %>
+                        <% for (let i=0; i < vitalsVul.length; i++) { %>
+                            <% if (vitalsVul[i]==='Irregular heartbeat' ) { %>
+                                <%= renderButton('heart', 'heart-modal' , '44%' , '44%' ) %>
+                                    <% } %>
                                         <% } %>
-                                            <% } %>
-                                                <% for (let i=0; i < bloodVul.length; i++) { %>
-                                                    <% if (bloodVul[i]==='kidney' ) { %>
-                                                        <%= renderButton('kidney', 'kidney-modal' , '74%' , '33%' ) %>
+                                            <% for (let i=0; i < bloodVul.length; i++) { %>
+                                                <% if (bloodVul[i]==='liver' ) { %>
+                                                    <%= renderButton('liver', 'liver-modal' , '54%' , '43%' ) %>
+                                                        <% } %>
                                                             <% } %>
-                                                                <% } %>
-                                                                    <%= renderButton('bone', 'bone-modal' , '90%' , '55%' )
-                                                                        %>
-                                                                        <% for (let i=0; i < bloodVul.length; i++) { %>
-                                                                            <% if (bloodVul[i]==='hematology' ) { %>
-                                                                                <%= renderButton('hematology', 'hematology-modal'
-                                                                                    , '50%' , '66%' ) %>
-                                                                                    <% } %>
-                                                                                        <% } %>
-                                                                                            <% for (let i=0; i <
-                                                                                                bloodVul.length; i++) { %>
-                                                                                                <% if
-                                                                                                    (bloodVul[i]==='immunity'
-                                                                                                    ) { %>
-                                                                                                    <%= renderButton('immunity', 'immunity-modal'
-                                                                                                        , '4%' , '44%' ) %>
-                                                                                                        <% } %>
-                                                                                                            <% } %>
+                                                                <% for (let i=0; i < bloodVul.length; i++) { %>
+                                                                    <% if (bloodVul[i]==='kidney' ) { %>
+                                                                        <%= renderButton('kidney', 'kidney-modal'
+                                                                            , '74%' , '33%' ) %>
+                                                                            <% } %>
+                                                                                <% } %>
+                                                                                    <% for (let i=0; i <
+                                                                                        bodyCompVul.length; i++) { %>
+                                                                                        <% if (bodyCompVul[i]==='bones' )
+                                                                                            { %>
+                                                                                            <%= renderButton('bone', 'bone-modal'
+                                                                                                , '90%' , '55%' ) %>
+                                                                                                <% } %>
+                                                                                                    <% } %>
+                                                                                                        <% for (let i=0;
+                                                                                                            i <
+                                                                                                            bloodVul.length;
+                                                                                                            i++) { %>
+                                                                                                            <% if
+                                                                                                                (bloodVul[i]==='hematology'
+                                                                                                                ) { %>
+                                                                                                                <%= renderButton('hematology', 'hematology-modal'
+                                                                                                                    , '50%'
+                                                                                                                    , '66%'
+                                                                                                                    ) %>
+                                                                                                                    <% }
+                                                                                                                        %>
+                                                                                                                        <% }
+                                                                                                                            %>
+                                                                                                                            <% for
+                                                                                                                                (let
+                                                                                                                                i=0;
+                                                                                                                                i
+                                                                                                                                <
+                                                                                                                                bloodVul.length;
+                                                                                                                                i++)
+                                                                                                                                {
+                                                                                                                                %>
+                                                                                                                                <% if
+                                                                                                                                    (bloodVul[i]==='immunity'
+                                                                                                                                    )
+                                                                                                                                    {
+                                                                                                                                    %>
+                                                                                                                                    <%= renderButton('immunity', 'immunity-modal'
+                                                                                                                                        , '4%'
+                                                                                                                                        , '44%'
+                                                                                                                                        )
+                                                                                                                                        %>
+                                                                                                                                        <% }
+                                                                                                                                            %>
+                                                                                                                                            <% }
+                                                                                                                                                %>
                     </div>
                     <p class="text-sm py-2">*For more information click on the affected organ</p>
                 </div>
