@@ -12,8 +12,8 @@
             show: true,
             strokeDashArray: 6,
             padding: {
-                left: 5,
-                right: 5,
+                left: 10,
+                right: 10,
                 top: -10
             },
         },
@@ -41,7 +41,7 @@
         ],
         chart: {
             height: "200px",
-            maxWidth: "100%",
+            maxWidth: "320px",
             type: "line",
             fontFamily: "Inter, sans-serif",
             dropShadow: {
@@ -71,7 +71,7 @@
                 colorStops: [
                     {
                         offset: 0,
-                        color: "red",
+                        color: "#B22F2F",
                         opacity: 1
                     },
                     {
@@ -81,7 +81,7 @@
                     },
                     {
                         offset: 50,
-                        color: "green",
+                        color: "#289322",
                         opacity: 1
                     },
                     {
@@ -91,7 +91,7 @@
                     },
                     {
                         offset: 100,
-                        color: "red",
+                        color: "#B22F2F",
                         opacity: 1
                     }
                 ]
@@ -102,15 +102,15 @@
             width: 6,
         },
         xaxis: {
-            categories: ['Extremely Underweight', 'Underweight', 'Normal', 'Normal', 'Overweight', 'Extremely Overweight'],
+            categories: ['Underweight', 'Underweight', 'Normal', 'Normal', 'Overweight', 'Overweight'],
             labels: {
                 show: false,
             },
             axisBorder: {
-                show: false,
+                show: true,
             },
             axisTicks: {
-                show: false,
+                show: true,
             },
         },
         yaxis: {
@@ -121,6 +121,10 @@
                 }
             }
         },
+    }
+
+    if (BMIOptions == "undefined") {
+        delete BMIOptions.annotations;
     }
 
     if (document.getElementById("bmi-chart") && typeof ApexCharts !== 'undefined') {
@@ -200,7 +204,7 @@
                 colorStops: [
                     {
                         offset: 0,
-                        color: "red",
+                        color: "#B22F2F",
                         opacity: 1
                     },
                     {
@@ -210,7 +214,7 @@
                     },
                     {
                         offset: 50,
-                        color: "green",
+                        color: "#289322",
                         opacity: 1
                     },
                     {
@@ -231,7 +235,7 @@
             width: 6,
         },
         xaxis: {
-            categories: ['Extremely low', 'low', 'Normal', 'Normal', 'Normal', 'Overweight', 'Overweight'],
+            categories: ['low', 'low', 'Normal', 'Normal', 'Normal', 'Overweight', 'Overweight'],
             labels: {
                 show: false,
             },
@@ -252,13 +256,17 @@
         },
     }
 
+    if (tempBF == "undefined") {
+        delete BFOptions.annotations;
+    }
+
     if (document.getElementById("bf-chart") && typeof ApexCharts !== 'undefined') {
         const BFchart = new ApexCharts(document.getElementById("bf-chart"), BFOptions);
         BFchart.render();
     }
 
     // T-score bar graph
-    var TScoreOptions = {
+    const TScoreOptions = {
         series: [{
             data: [{
                 x: 'Test Range',
@@ -300,6 +308,9 @@
         },
 
     };
+    if (tempTScore == "undefined") {
+        delete TScoreOptions.annotations;
+    }
 
 
     if (document.getElementById("t-score-chart") && typeof ApexCharts !== 'undefined') {
