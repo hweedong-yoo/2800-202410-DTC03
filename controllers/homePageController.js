@@ -12,29 +12,29 @@ const displayHomePage = async (req, res) => {
     const BloodData = await Blood.findOne({ userID: req.session.userID });
     const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
 
-    const getVitalsStats = (data) => {
-      if (data && Array.isArray(data) && data.length > 0) {
-        const lastEntry = data[data.length - 1];
-        const entryData = lastEntry._doc || lastEntry;
-        console.log('entryData["1"]:', entryData["1"]);
-        return entryData["1"] !== undefined ? entryData["1"] : "--";
-      }
-      return "--";
-    };
+    const goodHealth = {
+      icon: 'check_circle',
+      colour: '#289322'
+    }
+
+    const badHealth = {
+      icon: 'cancel',
+      colour: '#B22F2F'
+    }
 
     const user = {
-      name: userData.name || "",
-      bpm: getVitalsStats(vitalsData.BPM),
-      temp: getVitalsStats(vitalsData.temperature),
-      rrp: getVitalsStats(vitalsData.respiratoryRate),
-      bmi: bodyCompData && bodyCompData.BMI ? bodyCompData.BMI : "--",
-      bf: bodyCompData && bodyCompData.BF ? bodyCompData.BF : "--",
-      weight: bodyCompData && bodyCompData.weight ? bodyCompData.weight : "--",
-      wbc: BloodData.wbc[BloodData.wbc.length - 1] || "--",
-      rbc: BloodData.rbc[BloodData.rbc.length - 1] || "--",
-      vitalsStatus: vitalsData && vitalsData.vulnerabilities && vitalsData.vulnerabilities.length > 1 ? 'cancel' : 'check_circle',
-      bloodStatus: BloodData && BloodData.vulnerabilities && BloodData.vulnerabilities.length > 1 ? 'cancel' : 'check_circle',
-      bodyStatus: bodyCompData && bodyCompData.vulnerabilities && bodyCompData.vulnerabilities.length > 1 ? 'cancel' : 'check_circle'
+      name: userData?.name || "",
+      bpm: vitalsData?.BPM?.[vitalsData.BPM.length - 1]?._doc["1"] ?? "--",
+      temp: vitalsData?.temperature?.[vitalsData.temperature.length - 1]?._doc["1"] ?? "--",
+      rrp: vitalsData?.respiratoryRate?.[vitalsData.respiratoryRate.length - 1]?._doc["1"] ?? "--",
+      bmi: bodyCompData?.BMI ?? "--",
+      bf: bodyCompData?.BF ?? "--",
+      weight: bodyCompData?.weight ?? "--",
+      wbc: BloodData?.wbc?.[BloodData.wbc.length - 1] ?? "--",
+      rbc: BloodData?.rbc?.[BloodData.rbc.length - 1] ?? "--",
+      vitalsStatus: vitalsData?.vulnerabilities?.length > 0 ? badHealth : goodHealth,
+      bloodStatus: BloodData?.vulnerabilities?.length > 0 ? badHealth : goodHealth,
+      bodyStatus: bodyCompData?.vulnerabilities?.length > 0 ? badHealth : goodHealth
     }
 
     res.render('home', {
