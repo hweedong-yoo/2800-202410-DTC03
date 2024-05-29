@@ -7,31 +7,21 @@ async function emailVerification(req, res, next) {
     if (user.verified) {
         next();
     } else {
-        res.redirect('/verify');
-    }
-}
-
-async function securityQuestion(req, res, next) {
-    const email = req.session.email;
-    let user = await User.findOne({ email: email, recovery: { $exists: true }});
-    if (user) {
-        next();
-    } else {
-        res.redirect('/security_question');
+        res.redirect('/setup/email');
     }
 }
 
 async function profileSetup(req, res, next) {
     const email = req.session.email;
-    let user = await User.findOne({ email: email, profile: { $exists: true }});
+    let user = await User.findOne({ email: email, dob: { $exists: true }});
     if (user) {
         next();
     } else {
-        res.redirect('/setup_profile');
+        res.redirect('setup/profile');
     }
 }
 
 module.exports = { 
     emailVerification,
-    securityQuestion,
-    profileSetup };
+    profileSetup
+};

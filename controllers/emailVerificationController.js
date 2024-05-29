@@ -25,6 +25,12 @@ const baseUrl = process.env.BASE_URL;
  * @throws {Error} - If an error occurs while rendering the page.
  */
 const displayPage = async (req, res) => {
+
+    let user = await User.findOne({ email: req.session.email });
+    if (user.verified) {
+        return res.redirect('/home');
+    }
+    
     try {
         res.render('emailVerification', { authenticated: req.session.authenticated, name: req.session.name, email: req.session.email });
     } catch (error) {
@@ -47,7 +53,7 @@ const sendConfirmationEmail = async (req, res) => {
         const token = jwt.sign(payload, secret, { expiresIn: '1d' });
 
         const subject = 'Biolink account email confirmation';
-        const body = `Please click the following link to confirm your email: ${baseUrl}/verify/email/${token}.`;
+        const body = `Please click the following link to confirm your email: ${baseUrl}/setup/email/${token}.`;
 
         sendEmail(email, subject, body);
 
@@ -81,7 +87,7 @@ const verifyEmail = async (req, res) => {
     } catch (error) {
         console.error('Error verifying email:', error);
     }
-    return res.redirect('/home');
+    res.redirect('/home');
 };
 
 module.exports = {
