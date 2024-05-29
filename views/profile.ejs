@@ -1,6 +1,6 @@
 <%- include('partials/header.ejs') %>
 
-  <div class="p-4 font-[Orbitron] text-[#455780] font-bold bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
+  <div class="p-4 font-[Orbitron] text-[#455780] font-bold bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE] mb-[70px]">
 
     <h1 class="text-center py-2 text-4xl font-[Orbitron] font-extrabold text-[#354666]">Profile</h1>
 
@@ -32,11 +32,16 @@
     <!-- DOB, Sex, Weight, and Height card -->
     <div class="rounded-3xl shadow-lg px-1 pt-2 mx-1 mb-4 mt-6 bg-[#FCFEFE]">
       <!-- Edit Button -->
-      <a href="/edit_profile" type="button" id="editBtn" name="editBtn"
-        class="float-right text-blue-700 pt-0 pb-2 pr-4 focus:text-blue-950 tracking-wider"> <span
-          class="material-symbols-outlined text-lg">
-          edit
-        </span> Edit</a>
+      <div class="flex items-center justify-end mt-2">
+        <a href="/edit_profile" type="button" id="editBtn" name="editBtn"
+          class="float-right text-blue-700 pt-0 pb-2 pr-4 focus:text-blue-950 tracking-wider flex items-center justify-center">
+          <span class="material-symbols-outlined text-lg">
+            edit
+          </span>
+          <span class="ml-1">Edit</span>
+        </a>
+      </div>
+
 
       <!-- sex -->
       <div class="px-4 pt-4">
@@ -70,13 +75,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Logout button -->
-    <form id="logoutForm" method="post" class="flex justify-center pt-5">
-      <button type="submit" id="logoutBtn" name="logoutBtn"
-        class="text-center underline w-full text-red-600 pt-2 pb-14 focus:text-red-900">Logout</button>
-    </form>
-
   </div>
 
   <%- include('partials/bottomNav.ejs') %>
