@@ -14,7 +14,8 @@ const dataPointSchema = new mongoose.Schema({
 const vitalsSchema = new mongoose.Schema({
     userID: {
         type: String,
-        required: true
+        required: true,
+            unique: true
     },
     BPM: [dataPointSchema],
     temperature: [dataPointSchema],

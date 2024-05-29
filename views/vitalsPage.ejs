@@ -314,10 +314,10 @@
 
             const now = new Date();
             for (let i = 0; i < data.BPM.length; i++) {
-                let time = new Date(now.getTime() - (9 - i) * 60000); // 10 mins ago to now
-                bpmSeries.push({ x: time, y: data.BPM[i][1] });
-                tempSeries.push({ x: time, y: data.temperature[i][1] });
-                breathSeries.push({ x: time, y: data.respiratoryRate[i][1] });
+            let time = new Date(now.getTime() - (9 - i) * 60000); // 10 mins ago to now
+            bpmSeries.push({ x: time, y: data.BPM[i].value });
+            tempSeries.push({ x: time, y: data.temperature[i].value });
+            breathSeries.push({ x: time, y: data.respiratoryRate[i].value });
             }
 
             bpmChart.updateSeries([{ data: bpmSeries }]);

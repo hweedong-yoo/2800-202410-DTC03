@@ -12,8 +12,8 @@ const displayPage = async (req, res) => {
       id: userData._id.toString().substring(3, 13) || "--",
       dob: userData.dob ? userData.dob.toISOString().substring(0, 10) : "--",
       sex: userData.sex || "--",
-      weight: bodyCompData && bodyCompData.weight ? bodyCompData.weight : "--",
-      height: bodyCompData && bodyCompData.height ? bodyCompData.height : "--"
+      weight: bodyCompData?.weight ?? "--",
+      height: bodyCompData?.height ?? "--"
     }
     
     res.render('profile',{
