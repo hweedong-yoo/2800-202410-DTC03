@@ -6,13 +6,12 @@ const vitalsModel = require('../models/vitalsModel');
  * @param {number} length - The number of data points to generate.
  * @param {number} min - The minimum value for the data points.
  * @param {number} max - The maximum value for the data points.
- * @returns {Array<Array<Date, number>>} An array of data points, where each data point is represented as an array with a Date object and a number value.
+ * @returns {Array<Object>} An array of data points, where each data point is represented as an object with a date and a value.
  */
 function createMockData(length, min, max) {
     const data = [];
     const interval = 60 * 1000; // 1 minute in milliseconds
     const currentTime = new Date().getTime(); // Current timestamp
-    const range = max - min;
     let currentValue = min;
 
     for (let i = 0; i < length; i++) {
@@ -39,8 +38,9 @@ async function addMockData(userID) {
     const temperatureData = createMockData(10, 36, 38);
     const respiratoryRateData = createMockData(10, 12, 20);
 
-    console.log(bpmData, temperatureData, respiratoryRateData)
-    // Create new instances of bloodModel, bodyCompModel, and vitalsModel with mock data
+    console.log(bpmData, temperatureData, respiratoryRateData);
+    
+    // Create new instances of bloodModel and vitalsModel with mock data
     const newBlood = new bloodModel({
         userID: userID,
         platelets: [220000, 210000, 195000, 160000, 150000, 155000, 140000],
@@ -66,9 +66,24 @@ async function addMockData(userID) {
         vulnerabilities: []
     });
 
-    // Save the new instances to the database
-    await newBlood.save();
-    await newVitals.save();
+    // Save the new instances to the database if they don't already exist
+    const vitals = await vitalsModel.findOne({ userID: userID });
+    console.log(vitals);
+    if (!vitals) {
+        await newVitals.save();
+        console.log('New vitals saved.');
+    } else {
+        console.log('Vitals already exist for this userID');
+    }
+
+    const blood = await bloodModel.findOne({ userID: userID });
+    console.log(blood);
+    if (!blood) {
+        await newBlood.save();
+        console.log('New blood record saved.');
+    } else {
+        console.log('Blood record already exists for this userID');
+    }
 }
 
 module.exports = addMockData;

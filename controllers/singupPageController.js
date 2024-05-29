@@ -78,7 +78,7 @@ const addUser = async (req, res) => {
         const token = jwt.sign(payload, secret, { expiresIn: '1d' });
 
         // Compose email message
-        const confirmationLink = `${baseUrl}/verify/email/${token}`;
+        const confirmationLink = `${baseUrl}/setup/email/${token}`;
         const subject = 'Biolink account email confirmation';
         const body = `Please click the following link to confirm your email: ${confirmationLink}`;
 

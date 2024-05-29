@@ -12,8 +12,8 @@
             show: true,
             strokeDashArray: 6,
             padding: {
-                left: 5,
-                right: 5,
+                left: 20,
+                right: 20,
                 top: -10
             },
         },
@@ -54,11 +54,11 @@
         tooltip: {
             enabled: true,
             x: {
-                show: false,
+                show: true,
             },
         },
         legend: {
-            show: true
+            show: false
         },
         fill: {
             type: "gradient",
@@ -102,7 +102,7 @@
             width: 6,
         },
         xaxis: {
-            categories: ['Extremely Underweight', 'Underweight', 'Normal', 'Normal', 'Overweight', 'Extremely Overweight'],
+            categories: ['Underweight', 'Underweight', 'Normal', 'Normal', 'Overweight', 'Overweight'],
             labels: {
                 show: false,
             },
@@ -121,6 +121,11 @@
                 }
             }
         },
+    }
+
+    if (!tempBMI) {
+        console.log("deleted BMIOptions annotations.");
+        delete BMIOptions.annotations;
     }
 
     if (document.getElementById("bmi-chart") && typeof ApexCharts !== 'undefined') {
@@ -141,8 +146,8 @@
             show: true,
             strokeDashArray: 6,
             padding: {
-                left: 5,
-                right: 5,
+                left: 20,
+                right: 20,
                 top: -10
             },
         },
@@ -163,7 +168,7 @@
         },
         series: [
             {
-                name: "Average BMI",
+                name: "Average BF%",
                 data: [5, 10, 15, 20, 25, 30, 35],
                 color: "#1A56DB",
             },
@@ -183,7 +188,7 @@
         tooltip: {
             enabled: true,
             x: {
-                show: false,
+                show: true,
             },
         },
         legend: {
@@ -231,7 +236,7 @@
             width: 6,
         },
         xaxis: {
-            categories: ['Extremely low', 'low', 'Normal', 'Normal', 'Normal', 'Overweight', 'Overweight'],
+            categories: ['Low', 'Low', 'Normal', 'Normal', 'Normal', 'Overweight', 'Overweight'],
             labels: {
                 show: false,
             },
@@ -250,6 +255,11 @@
                 }
             }
         },
+    }
+
+    if (!tempBF) {
+        console.log("deleted BFOptions annotations.");
+        delete BFOptions.annotations;
     }
 
     if (document.getElementById("bf-chart") && typeof ApexCharts !== 'undefined') {
@@ -301,6 +311,10 @@
 
     };
 
+    if (!tempBF) {
+        console.log("deleted BFOptions annotations.");
+        delete BFOptions.annotations;
+    }
 
     if (document.getElementById("t-score-chart") && typeof ApexCharts !== 'undefined') {
         const TScoreChart = new ApexCharts(document.getElementById("t-score-chart"), TScoreOptions);
