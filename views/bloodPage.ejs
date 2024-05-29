@@ -39,36 +39,70 @@
                     </div>
                 </div>
 
-                <!-- CBC Card -->
-                <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
-                    <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Complete Blood Count</div>
-                    <!-- WBC Chart and Text -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
-                        <div class="flex flex-col">
-                            <p class="text-normal font-bold text-gray-600 mb-2">White Blood Cells Counts</p>
-                            <h5 id="wbc-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></h5>
+                <!-- CBC Section -->
+                <div class="swiper-container overflow-hidden relative w-full max-w-sm">
+                    <div class="swiper-wrapper">
+                        <!-- CBC Summary -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6 space-y-2">
+                                <p class="text-xl font-bold text-gray-600 mb-6">CBC Statistics Summary</p>
+                                <div class="flex justify-between mb-2">
+                                    <div class="text-left w-1/2 text-lg font-semibold text-gray-600">Last 7 days</div>
+                                    <div class="text-right w-1/2 text-lg font-semibold text-gray-600">Today's Value</div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="wbc-sparkline" class="sparkline"></div>
+                                    <div id="wbc-summary-count" class="text-right w-1/2 text-lg font-semibold text-gray-600 grow"></div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="rbc-sparkline" class="sparkline"></div>
+                                    <div id="rbc-summary-count" class="text-right w-1/2 text-lg font-semibold text-gray-600 grow"></div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="platelets-sparkline" class="sparkline"></div>
+                                    <div id="platelets-summary-count" class="text-right w-1/2 text-lg font-semibold text-gray-600 grow"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div id="wbc-chart" class="mt-4"></div>
+
+                        <!-- WBC Chart and Text -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
+                                <div class="flex flex-col">
+                                    <p class="text-normal font-bold text-gray-600 mb-2">White Blood Cells Counts</p>
+                                    <h5 id="wbc-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></h5>
+                                </div>
+                                <div id="wbc-chart" class="mt-4"></div>
+                            </div>
+                        </div>
+
+                        <!-- RBC Chart and Text -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
+                                <div class="flex flex-col">
+                                    <p class="text-normal font-bold text-gray-600 mb-2">Red Blood Cells Counts</p>
+                                    <h5 id="rbc-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></h5>
+                                </div>
+                                <div id="rbc-chart" class="mt-4"></div>
+                            </div>
+                        </div>
+
+                        <!-- Platelets Chart and Text -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 md:p-6">
+                                <div class="flex flex-col">
+                                    <p class="text-normal font-bold text-gray-600 mb-2">Platelets Counts</p>
+                                    <h5 id="platelets-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></h5>
+                                </div>
+                                <div id="platelets-chart" class="mt-4"></div>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- RBC Chart and Text -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
-                        <div class="flex flex-col">
-                            <p class="text-normal font-bold text-gray-600 mb-2">Red Blood Cells Counts</p>
-                            <h5 id="rbc-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></h5>
-                        </div>
-                        <div id="rbc-chart" class="mt-4"></div>
-                    </div>
-
-                    <!-- Platelets Chart and Text -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 md:p-6">
-                        <div class="flex flex-col">
-                            <p class="text-normal font-bold text-gray-600 mb-2">Platelets Counts</p>
-                            <h5 id="platelets-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></h5>
-                        </div>
-                        <div id="platelets-chart" class="mt-4"></div>
-                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination relative mt-2"></div>  
                 </div>
+
 
                 <!-- Blood Chemistry Card -->
                 <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
@@ -160,9 +194,26 @@
 
     <%- include('partials/bottomNav.ejs') %>
 
-        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-        <%- include('bloodPageCBC.ejs') %>
-            <%- include('bloodPageChemistry.ejs') %>
-                <%- include('bloodPageLipid.ejs') %>
-                    </body>
-                    </html>
+    <script>
+        // Initialize Swiper
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: false,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+                dynamicBullets: false,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <%- include('bloodPageCBC.ejs') %>
+    <%- include('bloodPageChemistry.ejs') %>
+    <%- include('bloodPageLipid.ejs') %>
+    </body>
+</html>
