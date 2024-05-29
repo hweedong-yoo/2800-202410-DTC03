@@ -52,13 +52,15 @@ const authenticateUser = async (req, res) => {
         const validationResult = schema.validate({ password, email });
         
         if (validationResult.error) {
-            return res.status(400).send(validationResult.error.details[0].message);
+            console.error('Error in authenticateUser:', validationResult.error.details[0].message);
+            return res.render('loginPage', {authenticated: req.session.authenticated, error: true });
         }
 
         const user = await User.findOne({ email });
 
         if (!user) {
-            return res.status(404).send('User not found');
+            console.log('User not found');
+            return res.render('loginPage', {authenticated: req.session.authenticated, error: true });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
@@ -75,7 +77,7 @@ const authenticateUser = async (req, res) => {
         }
     } catch (error) {
         console.error('Error in authenticateUser:', error);
-        res.status(500).send('Internal Server Error');
+        return res.render('loginPage', {authenticated: req.session.authenticated, error: true });
     }
 };
 
