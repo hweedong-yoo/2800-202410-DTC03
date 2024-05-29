@@ -1,6 +1,5 @@
 const userModel = require('../models/userModels');
 const { securityAnswerSchema } = require('../validation/authValidation');
-const session = require('express-session');
 const bcrypt = require('bcrypt');
 
 const displayPage = async (req, res) => {
@@ -11,7 +10,7 @@ const displayPage = async (req, res) => {
     }
 };
 
-const addSecurityQuestion = async (req, res) => {
+const saveSecurityQuestion = async (req, res) => {
     try {
         const { securityAnswer, securityQuestion } = req.body;
 
@@ -37,5 +36,5 @@ const addSecurityQuestion = async (req, res) => {
 
 module.exports = {
     displayPage,
-    addSecurityQuestion,
+    saveSecurityQuestion,
 };

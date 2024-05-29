@@ -1,15 +1,16 @@
 <%- include('partials/header.ejs') %>
 
-<div class="p-4 font-[Orbitron] text-[#455780] font-bold bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
+<div class="p-4 text-[#455780] font-bold bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
   
 
-  <h1 class="text-center py-4 text-4xl font-[Orbitron] font-extrabold">Hello, <span id="usersName">Lorem.</span></h1>
+  <h1 class="text-center pb-4 pt-3 text-4xl font-extrabold text-[#354666]">Hello <span class="capitalize"><%= user.name %></span></h1>
 
   <!-- Overview/Vitals card -->
-  <a href="/vitals">
-    <div class="border-2 rounded-3xl drop-shadow-lg p-2 m-4 bg-[#FCFEFE]">
+  <h2 class="mx-6 text-lg font-bold text-[#4f6495]">Overview</h2>
+  <a href="/home/vitals">
+    <div class="border-2 rounded-3xl drop-shadow-lg p-2 mx-1 mb-4 mt-1 bg-[#FCFEFE] hover:shadow-lg hover:border-none hover:drop-shadow-none hover:mt-2">
       <!-- Top (overview) section -->
-      <div class="flex flex-row justify-around py-1 font-[Orbitron]">
+      <div class="flex flex-row justify-around py-1 pb-3">
         <!-- Person figure -->
         <span class="material-symbols-outlined w-1/2 text-9xl text-center">
           accessibility_new
@@ -19,24 +20,24 @@
         <div class="w-1/2 flex flex-col justify-around">
           <!-- Vitals status -->
           <div class="w-1/3 flex flex-row">
-            <span id="vitalsStatus" class="material-symbols-outlined text-[#289322] text-4xl pr-1">
-              check_circle
+            <span id="vitalsStatus" class="material-symbols-outlined text-4xl pr-1 text-[<%= user.vitalsStatus.colour %>]">
+              <%= user.vitalsStatus.icon %>
             </span>
             <p class="text-2xl">Vitals</p>
           </div>
   
           <!-- Blood status -->
           <div class="w-1/3 flex flex-row">
-            <span id="bloodStatus" class="material-symbols-outlined text-[#B22F2F] text-4xl pr-1">
-              cancel
+            <span id="bloodStatus" class="material-symbols-outlined text-4xl pr-1 text-[<%= user.bloodStatus.colour %>]">
+              <%= user.bloodStatus.icon %>
             </span>
             <p class="text-2xl">Blood</p>
           </div>
   
           <!-- Body status -->
           <div class="w-1/3 flex flex-row">
-            <span id="bodyStatus" class="material-symbols-outlined text-[#289322] text-4xl pr-1">
-              check_circle
+            <span id="bodyStatus" class="material-symbols-outlined text-4xl pr-1 text-[<%= user.bodyStatus.colour %>]">
+              <%= user.bodyStatus.icon %>
             </span>
             <p class="text-2xl">Body</p>
           </div>
@@ -44,35 +45,31 @@
       </div>
   
       <!-- Bottom (vitals) section -->
-      <div class="py-1 font-[Orbitron]">
+      <div class="py-1">
         <!-- Pulse -->
         <div class="flex flex-row justify-center">
-          <span class="material-symbols-outlined text-3xl pl-2 w-1/6">
+          <span class="material-symbols-outlined text-3xl pl-2 w-1/6 text-[#800000]">
             ecg_heart
           </span>
   
-          <p id="pulseRate" class="text-3xl px-2 w-2/5">75<span class="text-sm">BPM</span></p>
+          <p id="BPM" class="text-2xl px-2 w-1/3 text-[#354666]"><%= user.bpm %><span class="text-sm text-[#455780]">BPM</span></p>
   
-          <div class="px-16 border-2 rounded-3xl mx-2">
-            <span class="material-symbols-outlined text-[#455780]text-3xl">
-              vital_signs
-            </span>
+          <div id="bpm-chart" class="mx-2">
+            
           </div>
         </div>
   
         <!-- Body temperature -->
         <div class="py-1">
           <div class="flex flex-row justify-center">
-            <span class="material-symbols-outlined text-3xl pl-2 w-1/6">
+            <span class="material-symbols-outlined text-3xl pl-2 w-1/6 text-[#800000]">
               device_thermostat
             </span>
   
-            <p id="tempRate" class="text-3xl px-2 w-2/5">30<span>°</span></p>
+            <p id="Temperature" class="text-2xl px-2 w-1/3 text-[#354666]"><%= user.temp %><span class="text-[#455780]">°</span></p>
   
-            <div class="px-16 border-2 rounded-3xl mx-2">
-              <span class="material-symbols-outlined text-[#455780]text-3xl">
-                ssid_chart
-              </span>
+            <div id="temp-chart" class="mx-2">
+             
             </div>
           </div>
         </div>
@@ -80,16 +77,14 @@
         <!-- Respiratory rate -->
         <div class="py-1">
           <div class="flex flex-row justify-center">
-            <span class="material-symbols-outlined text-3xl pl-2 w-1/6">
+            <span class="material-symbols-outlined text-3xl pl-2 w-1/6 text-[#800000]">
               pulmonology
             </span>
   
-            <p id="respiratoryRate" class="text-3xl px-2 w-2/5">30<span class="text-sm">RRP</span></p>
+            <p id="RRP" class="text-2xl px-2 w-1/3 text-[#354666]"><%= user.rrp %><span class="text-sm text-[#455780]">RRP</span></p>
   
-            <div class="px-16 border-2 rounded-3xl mx-2">
-              <span class="material-symbols-outlined text-[#455780]text-3xl">
-                ssid_chart
-              </span>
+            <div id="breath-chart" class="mx-2">
+              
             </div>
           </div>
         </div>
@@ -99,24 +94,25 @@
 
 
   <!-- Body Composition card -->
-  <a href="/body_comp">
-    <div class="border-2 rounded-3xl drop-shadow-lg px-2 py-4 m-4 mt-6 bg-[#FCFEFE]">
+  <h2 class="mx-6 pt-1 text-lg font-bold text-[#4f6495]">Body Composition</h2>
+  <a href="home/bodycomposition">
+    <div class="border-2 rounded-3xl drop-shadow-lg px-2 py-4 mx-1 mb-4 mt-1 bg-[#FCFEFE] hover:shadow-lg hover:border-none hover:drop-shadow-none hover:mt-2">
       <div class="flex flex-row">
         <!-- BMI -->
         <div class="w-1/3 text-center">
-          <p id="bmiValue" class="text-3xl">21</p>
+          <p id="bmiValue" class="text-2xl text-[#354666]"><%= user.bmi %></p>
           <p class="text-sm pt-2">BMI</p>
         </div>
   
         <!-- Body fat -->
         <div class="w-1/3 text-center">
-          <p id="bfValue" class="text-3xl">25<span class="text-sm">%</span></p>
+          <p id="bfValue" class="text-2xl text-[#354666]"><%= user.bf %><span class="text-sm text-[#455780]">%</span></p>
           <p class="text-sm pt-2">BF</p>
         </div>
   
         <!-- Weight -->
         <div class="w-1/3 text-center">
-          <p id="weightValue" class="text-3xl">160<span class="text-sm">LBS</span></p>
+          <p id="weightValue" class="text-2xl text-[#354666]"><%= user.weight %><span class="text-sm text-[#455780]">kg</span></p>
           <p class="text-sm pt-2">Weight</p>
         </div>
       </div>
@@ -125,18 +121,19 @@
 
 
   <!-- Blood card -->
-  <a href="blood">
-    <div class="border-2 rounded-3xl drop-shadow-lg px-2 py-4 m-4 mt-6 bg-[#FCFEFE]">
+  <h2 class="mx-6 pt-1 text-lg font-bold text-[#4f6495]">Blood Analysis</h2>
+  <a href="home/bloodcomposition">
+    <div class="border-2 rounded-3xl drop-shadow-lg px-2 py-4 mx-1 mb-4 mt-1 bg-[#FCFEFE] hover:shadow-lg hover:border-none hover:drop-shadow-none hover:mt-2">
       <div class="flex flex-row">
         <!-- Body fat -->
         <div class="w-1/2 text-center">
-          <p id="wbcValue" class="text-3xl">9,000<span class="text-sm">/mm3</span></p>
-          <p class="text-sm pt-2">WBC</p>
+          <p id="wbcValue" class="text-2xl text-[#354666]"><%= user.wbc %><span class="text-sm text-[#455780]">cells/μL</span></p>
+          <p class="text-sm pt-2 text-[#455780]">WBC</p>
         </div>
   
         <!-- Weight -->
         <div class="w-1/2 text-center">
-          <p id="rbcValue" class="text-3xl">5.1MIL<span class="text-sm">/mm3</span></p>
+          <p id="rbcValue" class="text-2xl text-[#354666]"><%= user.rbc %><span class="text-sm">cells/μL</span></p>
           <p class="text-sm pt-2">RBC</p>
         </div>
       </div>
@@ -144,4 +141,116 @@
   </a>
 
 </div>
+
+<script>
+  // BPM chart
+  let bpmOptions = {
+    series: [{
+      data: [72, 74, 76, 78, 76, 75, 74, 76, 78, 80]
+    }],
+    chart: {
+      type: 'line',
+      width: 100,
+      height: 35,
+      sparkline: {
+        enabled: true
+      }
+    },
+    tooltip: {
+      fixed: {
+        enabled: false
+      },
+      x: {
+        show: false
+      },
+      y: {
+        title: {
+          formatter: function (seriesName) {
+            return ''
+          }
+        }
+      },
+      marker: {
+        show: false
+      }
+    }
+  };
+
+  // Tmperature chart
+  let tempOptions = {
+    series: [{
+      data: [36.5, 36.7, 36.4, 36.8, 36.6, 36.5, 36.9, 36.7, 36.5, 36.6]
+    }],
+    chart: {
+      type: 'line',
+      width: 100,
+      height: 35,
+      sparkline: {
+        enabled: true
+      }
+    },
+    tooltip: {
+      fixed: {
+        enabled: false
+      },
+      x: {
+        show: false
+      },
+      y: {
+        title: {
+          formatter: function (seriesName) {
+            return ''
+          }
+        }
+      },
+      marker: {
+        show: false
+      }
+    }
+  };
+
+  // RRP chart
+  let breathOptions = {
+    series: [{
+      data: [16, 17, 18, 19, 20, 19, 18, 17, 16, 15]
+    }],
+    chart: {
+      type: 'line',
+      width: 100,
+      height: 35,
+      sparkline: {
+        enabled: true
+      }
+    },
+    tooltip: {
+      fixed: {
+        enabled: false
+      },
+      x: {
+        show: false
+      },
+      y: {
+        title: {
+          formatter: function (seriesName) {
+            return ''
+          }
+        }
+      },
+      marker: {
+        show: false
+      }
+    }
+  };
+
+  // Create new Apex Chart for bpm, temp, and rrp 
+  const bpmChart = new ApexCharts(document.getElementById("bpm-chart"), bpmOptions);
+  const tempChart = new ApexCharts(document.getElementById("temp-chart"), tempOptions);
+  const breathChart = new ApexCharts(document.getElementById("breath-chart"), breathOptions);
+
+  // Render charts
+  bpmChart.render();
+  tempChart.render();
+  breathChart.render();
+</script>
+
 <%- include('partials/bottomNav.ejs') %>

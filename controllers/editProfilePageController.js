@@ -1,18 +1,115 @@
 const User = require('../models/userModels');
+const BodyComp = require('../models/bodyCompModels');
+const addMockData = require('../utils/mockData');
+
+const moment = require('moment');
 
 const displayPage = async (req, res) => {
   try {
+    const userData = await User.findOne({ email: req.session.email });
+    const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
+
     const user = {
-      dob: req.session.dob ? req.session.dob : "yyyy-mm-dd",
-      sex: req.session.sex ? req.session.sex : "Any",
-      weight: req.session.weight ? req.session.weight : 0,
-      height: req.session.height ? req.session.height : 0
+      dob: userData.dob ? userData.dob.toISOString().substring(0, 10) : "yyyy-mm-dd",
+      sex: userData.sex ? userData.sex : "",
+      weight: bodyCompData?.weight ?? null,
+      height: bodyCompData?.height ?? null
     }
 
-    res.render('editProfile', { user });
-    res.render('editProfile', {authenticated : req.session.authenticated});
+    res.render('editProfile', {
+      user,
+      authenticated: req.session.authenticated,
+    });
   } catch (error) {
     res.status(500).send(error);
+  }
+};
+
+const displaySetUpPage = async (req, res) => {
+  try {
+    const userID = req.session.userID;
+
+    const user = await User.findOne({ email: req.session.email });
+    if (user.dob) {
+      res.redirect('/home');
+    }
+
+    res.render('setUpProfile', {
+      user,
+      authenticated: req.session.authenticated,
+    });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+function calculateAge(dob) {
+  const birthDate = moment(dob);
+  const today = moment();
+  let age = today.diff(birthDate, 'years');
+
+  // Adjust if the birthday hasn't occurred yet this year
+  if (today.month() < birthDate.month() || (today.month() === birthDate.month() && today.date() < birthDate.date())) {
+    age--;
+  }
+
+  return age;
+}
+
+const addInitialInformation = async (req, res) => {
+  try {
+    const { birthday, gender, weight, height } = req.body;
+    const userID = req.session.userID;
+
+    let updateUserData = {};
+    if (birthday) updateUserData.dob = birthday;
+    if (gender) updateUserData.sex = gender;
+
+    if (Object.keys(updateUserData).length > 0) {
+      await User.findOneAndUpdate(
+        { email: req.session.email },
+        updateUserData
+      );
+    }
+
+
+    let updateBodyCompData = {};
+    if (weight && weight > 0 && weight < 300) updateBodyCompData.weight = weight;
+    if (height && height > 0 && height < 300) updateBodyCompData.height = height;
+
+    //Calculate BMI
+    if (updateBodyCompData.weight && updateBodyCompData.height) {
+      const bmi = ((weight / height / height) * 10000).toFixed(1);
+      updateBodyCompData.BMI = bmi;
+
+      //Calculate Body Fat percentage
+      if (bmi && gender && birthday) {
+        let age = calculateAge(birthday);
+        if (gender === 'F') {
+          updateBodyCompData.BF = ((1.39 * bmi) + (0.16 * age) - 9).toFixed(1);
+        }
+        else {
+          updateBodyCompData.BF = ((1.39 * bmi) + (0.16 * age) - (10.34 * 1) - 9).toFixed(1);
+        }
+      }
+    }
+
+    console.log("updateBodyCompData", updateBodyCompData)
+
+    if (Object.keys(updateBodyCompData).length > 0) {
+      await BodyComp.findOneAndUpdate(
+        { userID: req.session.userID },
+        updateBodyCompData,
+        { upsert: true }
+      );
+    }
+    
+    await addMockData(userID);
+    res.redirect('/home')
+
+  } catch (error) {
+    console.log(error)
+    res.status(400).send(error);
   }
 };
 
@@ -20,25 +117,49 @@ const editInformation = async (req, res) => {
   try {
     const { birthday, gender, weight, height } = req.body;
 
-    const userId = req.session.id;
-    const user = await User.findById(userId);
+    let updateUserData = {};
+    if (birthday) updateUserData.dob = birthday;
+    if (gender) updateUserData.sex = gender;
 
-    req.session.dob = birthday || user.profile.dob;
-    req.session.sex = gender || user.profile.sex;
-    req.session.weight = weight || user.profile.weight;
-    req.session.height = height || user.profile.height;
+    // Update users collection with birthday and/or gender if the user entered it
+    if (Object.keys(updateUserData).length > 0) {
+      await User.findOneAndUpdate(
+        { email: req.session.email },
+        updateUserData
+      );
+    }
 
 
-    await userModel.findByIdAndUpdate(
-      userId,
-      {
-        'profile.dob': req.session.dob,
-        'profile.sex': req.session.sex,
-        'profile.weight': req.session.weight,
-        'profile.height': req.session.height
-      },
-      { new: true } 
-    );
+    let updateBodyCompData = {};
+    if (weight && weight > 0 && weight < 300) updateBodyCompData.weight = weight;
+    if (height && height > 0 && height < 300) updateBodyCompData.height = height;
+
+    //Calculate BMI
+    if (updateBodyCompData.weight && updateBodyCompData.height) {
+      const bmi = ((weight / height / height) * 10000).toFixed(1);
+      updateBodyCompData.BMI = bmi;
+
+      //Calculate Body Fat percentage
+      if (bmi && gender && birthday) {
+        let age = calculateAge(birthday);
+        if (gender === 'F') {
+          updateBodyCompData.BF = ((1.39 * bmi) + (0.16 * age) - 9).toFixed(1);
+        }
+        else {
+          updateBodyCompData.BF = ((1.39 * bmi) + (0.16 * age) - (10.34 * 1) - 9).toFixed(1);
+        }
+      }
+    }
+
+    console.log("updateBodyCompData", updateBodyCompData)
+// Update body_compositions collection with weight, height, bmi, and/or bf if the user entered it
+    if (Object.keys(updateBodyCompData).length > 0) {
+      await BodyComp.findOneAndUpdate(
+        { userID: req.session.userID },
+        updateBodyCompData,
+        { upsert: true }
+      );
+    }
 
     res.redirect('/profile')
 
@@ -49,5 +170,7 @@ const editInformation = async (req, res) => {
 
 module.exports = {
   displayPage,
+  displaySetUpPage,
   editInformation,
+  addInitialInformation,
 };

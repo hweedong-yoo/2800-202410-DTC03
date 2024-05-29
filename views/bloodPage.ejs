@@ -1,1001 +1,297 @@
 <%- include('partials/header.ejs') %>
 
-    <div class="flex flex-col items-center bg-slate-300 min-h-screen">
-        <div class="w-full flex flex-col items-center bg-gradient-to-b from-slate-300 to-white">
+    <div class="flex flex-col items-center bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE] text-[#455780]">
+        <div class="flex flex-col items-center my-auto font-bold w-full">
 
 
             <!-- Content Section -->
-            <div class="flex flex-col items-center space-y-8 my-24">
+            <div class="flex flex-col items-center space-y-6 mt-6 mb-24">
 
                 <!-- Title -->
-                <div class="w-full text-center text-4xl font-extrabold text-slate-700 font-['Orbitron'] my-2">Blood
-                    Tests
+                <div class="w-full text-center text-4xl font-extrabold text-[#354666] font-['Orbitron']">
+                    Blood Tests
                 </div>
 
                 <!-- Overview Card -->
-                <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
-                    <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Overview</div>
+                <div class="flex flex-col bg-white rounded-3xl p-5 w-full shadow-lg">
+                    <div class="text-xl font-extrabold text-[#4f6495] font-['Orbitron'] mb-4">Overview</div>
                     <div class="flex flex-wrap justify-evenly items-center">
-                        <!-- <div class="flex flex-col items-center space-y-2">
-                            <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Blood" />
-                            <div class="text-base font-bold text-slate-700 font-['Orbitron']">Good</div>
+                        <div id="immunity" class="flex flex-col items-center bg-red-100 rounded-3xl p-4">
+                            <span class="text-6xl material-symbols-outlined text-red-700 mb-2">immunology</span>
+                            <span class="text-lg font-semibold text-red-700 mb-2">Immunity</span>
+                            <span class="text-sm font-semibold text-red-700">Vulnerable</span>
                         </div>
-                        <div class="flex flex-col items-center space-y-2">
-                            <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Lungs" />
-                            <div class="text-base font-bold text-slate-700 font-['Orbitron']">Good</div>
+                        <div id="kidney" class="flex flex-col items-center bg-red-100 rounded-3xl p-4">
+                            <span class="text-6xl material-symbols-outlined text-red-700 mb-2">nephrology</span>
+                            <span class="text-lg font-semibold text-red-700 mb-2">Kidney</span>
+                            <span class="text-sm font-semibold text-red-700">Vulnerable</span>
                         </div>
-                        <div class="flex flex-col items-center space-y-2">
-                            <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Liver" />
-                            <div class="text-base font-bold text-slate-700 font-['Orbitron']">Good</div>
+                        <div id="hematology" class="flex flex-col items-center bg-red-100 rounded-3xl p-4">
+                            <span class="text-6xl material-symbols-outlined text-red-700 mb-2">hematology</span>
+                            <span class="text-lg font-semibold text-red-700 mb-2">Hematology</span>
+                            <span class="text-sm font-semibold text-red-700">Vulnerable</span>
                         </div>
-                        <div class="flex flex-col items-center space-y-2">
-                            <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Kidney" />
-                            <div class="text-base font-bold text-slate-700 font-['Orbitron']">Vulnerable</div>
+                        <div id="liver" class="flex flex-col items-center bg-red-100 rounded-3xl p-4">
+                            <span class="text-6xl material-symbols-outlined text-red-700 mb-2">emergency</span>
+                            <span class="text-lg font-semibold text-red-700 mb-2">Liver</span>
+                            <span class="text-sm font-semibold text-red-700">Vulnerable</span>
                         </div>
-                        <div class="flex flex-col items-center space-y-2">
-                            <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Coughing" />
-                            <div class="text-base font-bold text-slate-700 font-['Orbitron']">Vulnerable</div>
-                        </div>
-                        <div class="flex flex-col items-center space-y-2">
-                            <img class="w-12 h-12" src="https://via.placeholder.com/50x50" alt="Virus" />
-                            <div class="text-base font-bold text-slate-700 font-['Orbitron']">Good</div>
-                        </div> -->
-                        <span class="flex py-2 text-6xl material-symbols-outlined text-[#cc0000]">
-                            immunology
-                        </span>
-                        <span class="flex py-2 text-6xl material-symbols-outlined text-[#cc0000]">
-                            nephrology
-                        </span>
-                        <span class="flex py-2 text-6xl material-symbols-outlined text-[#cc0000]">
-                            hematology
-                        </span>
                     </div>
                 </div>
 
-                <!-- CBC Card -->
-                <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
-                    <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Complete Blood Count</div>
-                    <!-- WBC Chart and Text -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 mb-4 md:p-6">
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <!-- <p class="text-normal font-normal text-gray-500 dark:text-gray-400">White Blood Cells Counts</p> -->
-                                <h5 id="wbc-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white pb-2"></h5>
-                            </div>
-                            <div id="wbc-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="wbc-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div id="wbc-chart" class="mt-4"></div>
-                    </div>
-
-                    <!-- RBC Chart and Text -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 mb-4 md:p-6">
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <!-- <p class="text-normal font-normal text-gray-500 dark:text-gray-400">Red Blood Cells Counts</p> -->
-                                <h5 id="rbc-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white pb-2"></h5>
-                            </div>
-                            <div id="rbc-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="rbc-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
+                <!-- CBC Section -->
+                <div class="swiper-container overflow-hidden relative w-full max-w-sm">
+                    <div class="swiper-wrapper">
+                        <!-- CBC Summary -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-3xl p-4 mb-4 md:p-6 space-y-2 shadow-lg">
+                                <p class="text-xl font-bold text-[#4f6495] mb-6">CBC Summary</p>
+                                <div class="flex justify-between mb-2">
+                                    <div class="text-left w-1/2 text-lg font-semibold text-[#354666]">Last 7 days</div>
+                                    <div class="text-right w-1/2 text-lg font-semibold text-[#354666]">Today's Value</div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="wbc-sparkline" class="sparkline"></div>
+                                    <div id="wbc-summary-count" class="text-right w-1/2 text-lg font-semibold text-[#354666] grow"></div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="rbc-sparkline" class="sparkline"></div>
+                                    <div id="rbc-summary-count" class="text-right w-1/2 text-lg font-semibold text-[#354666] grow"></div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="platelets-sparkline" class="sparkline"></div>
+                                    <div id="platelets-summary-count" class="text-right w-1/2 text-lg font-semibold text-[#354666] grow"></div>
+                                </div>
                             </div>
                         </div>
-                        <div id="rbc-chart" class="mt-4"></div>
-                    </div>
-
-                    <!-- Platelets Chart and Text -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <!-- <p class="text-normal font-normal text-gray-500 dark:text-gray-400">Platelets Counts</p> -->
-                                <h5 id="platelets-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white pb-2"></h5>
-                            </div>
-                            <div id="platelets-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="platelets-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
+                        <!-- WBC Chart and Text -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-3xl shadow-lg p-4 mb-4 md:p-6 ">
+                                <div class="flex flex-col">
+                                    <p class="text-xl font-bold text-[#4f6495] mb-2">White Blood Cells Counts</p>
+                                    <h5 id="wbc-count" class="leading-none text-2xl text-end font-semibold text-[#354666] pb-2"></h5>
+                                </div>
+                                <div id="wbc-chart" class="mt-4"></div>
                             </div>
                         </div>
-                        <div id="platelets-chart" class="mt-4"></div>
+                        <!-- RBC Chart and Text -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-3xl shadow-lg p-4 mb-4 md:p-6">
+                                <div class="flex flex-col">
+                                    <p class="text-xl font-bold text-[#4f6495] mb-2">Red Blood Cells Counts</p>
+                                    <h5 id="rbc-count" class="leading-none text-2xl text-end font-semibold text-[#354666] pb-2"></h5>
+                                </div>
+                                <div id="rbc-chart" class="mt-4"></div>
+                            </div>
+                        </div>
+                        <!-- Platelets Chart and Text -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-3xl shadow-lg p-4 md:p-6">
+                                <div class="flex flex-col">
+                                    <p class="text-xl font-bold text-[#4f6495] mb-2">Platelets Counts</p>
+                                    <h5 id="platelets-count" class="leading-none text-2xl text-end font-semibold text-[#354666] pb-2"></h5>
+                                </div>
+                                <div id="platelets-chart" class="mt-4"></div>
+                            </div>
+                        </div>
                     </div>
-
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination relative mt-2"></div>
                 </div>
+
 
                 <!-- Blood Chemistry Card -->
-                <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
-                    <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Blood Chemistry</div>
-                    <!-- Glucose Section -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 mb-4 md:p-6">
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <!-- <p class="text-normal font-normal text-gray-500 dark:text-gray-400">Glucose Counts</p> -->
-                                <h5 id="glucose-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white pb-2"></h5>
-                            </div>
-                            <div id="glucose-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="glucose-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
+                <div class="swiper-container overflow-hidden relative w-full max-w-sm">
+                    <div class="swiper-wrapper">
+                        <!-- Blood Chemistry Summary -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-3xl shadow-lg p-4 mb-4 md:p-6 space-y-2">
+                                <p class="text-xl font-bold text-[#4f6495] mb-6">Blood Chemistry Summary</p>
+                                <div class="flex justify-between mb-2">
+                                    <div class="text-left w-1/2 text-lg font-semibold text-[#354666]">Last 7 days</div>
+                                    <div class="text-right w-1/2 text-lg font-semibold text-[#354666]">Today's Value</div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="glucose-sparkline" class="sparkline"></div>
+                                    <div id="glucose-summary-count" class="text-right w-1/2 text-lg font-semibold text-[#354666] grow"></div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="calcium-sparkline" class="sparkline"></div>
+                                    <div id="calcium-summary-count" class="text-right w-1/2 text-lg font-semibold text-[#354666] grow"></div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="kidney-markers-sparkline" class="sparkline"></div>
+                                    <div class="flex flex-col text-right">
+                                        <div id="bun-summary-count" class="text-lg font-semibold text-[#354666]"></div>
+                                        <div id="creatinine-summary-count" class="text-lg font-semibold text-[#354666]"></div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="liver-markers-sparkline" class="sparkline"></div>
+                                    <div class="flex flex-col text-right">
+                                        <div id="alt-summary-count" class="text-lg font-semibold text-[#354666] grow"></div>
+                                        <div id="ast-summary-count" class="text-lg font-semibold text-[#354666] grow"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div id="glucose-chart" class="mt-4"></div>
+                        <!-- Glucose Section -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-3xl shadow-lg p-4 mb-4 md:p-6">
+                                <div class="flex flex-col">
+                                    <p class="text-xl font-bold text-[#4f6495] mb-2">Glucose Counts</p>
+                                    <h5 id="glucose-count" class="leading-none text-2xl text-end font-semibold text-[#354666] pb-2"></h5>
+                                </div>
+                                <div id="glucose-chart" class="mt-4"></div>
+                            </div>
+                        </div>
+                        <!-- Calcium Section -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-3xl shadow-lg p-4 mb-4 md:p-6">
+                                <div class="flex flex-col">
+                                    <p class="text-xl font-bold text-[#4f6495] mb-2">Calcium Counts</p>
+                                    <h5 id="calcium-count" class="leading-none text-2xl text-end font-semibold text-[#354666] pb-2"></h5>
+                                </div>
+                                <div id="calcium-chart" class="mt-4"></div>
+                            </div>
+                        </div>
+                        <!-- Kidney Function Markers Section -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-3xl shadow-lg p-4 mb-4 md:p-6">
+                                <div class="flex flex-col">
+                                    <p class="text-xl font-bold text-[#4f6495] mb-2">Kidney Markers</p>
+                                    <h5 id="bun-count" class="leading-none text-2xl text-end font-semibold text-[#354666] mb-1"></h5>
+                                    <h5 id="creatinine-count" class="leading-none text-2xl text-end font-semibold text-[#354666]"></h5>
+                                </div>
+                                <div id="kidney-markers-chart" class="mt-4"></div>
+                            </div>
+                        </div>
+                        <!-- Liver Function Tests Section -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-3xl shadow-lg p-4 md:p-6">
+                                <div class="flex flex-col">
+                                    <p class="text-xl font-bold text-[#4f6495] mb-2">Liver Markers</p>
+                                    <h5 id="alt-count" class="leading-none text-2xl text-end font-semibold text-[#354666] mb-1"></h5>
+                                    <h5 id="ast-count" class="leading-none text-2xl text-end font-semibold text-[#354666]"></h5>
+                                </div>
+                                <div id="liver-markers-chart" class="mt-4"></div>
+                            </div>
+                        </div>
                     </div>
-                    <!-- Calcium Section -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 mb-4 md:p-6">
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <!-- <p class="text-normal font-normal text-gray-500 dark:text-gray-400">Calcium Counts</p> -->
-                                <h5 id="calcium-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white pb-2"></h5>
-                            </div>
-                            <div id="calcium-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="calcium-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div id="calcium-chart" class="mt-4"></div>
-                    </div>
-                    <!-- Kidney Function Markers Section -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 mb-4 md:p-6">
-                        <div class="flex justify-between items-center pb-4">
-                            <div>
-                                <h5 id="bun-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white"></h5>
-                            </div>
-                            <div id="bun-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="bun-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h5 id="creatinine-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white"></h5>
-                            </div>
-                            <div id="creatinine-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="creatinine-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div id="kidney-markers-chart" class="mt-4"></div>
-                    </div>
-
-
-                    <!-- Liver Function Tests Section -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
-                        <div class="flex justify-between items-center pb-4">
-                            <div>
-                                <h5 id="alt-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white"></h5>
-                            </div>
-                            <div id="alt-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="alt-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h5 id="ast-count" class="leading-none text-lg font-semibold text-gray-900 dark:text-white"></h5>
-                            </div>
-                            <div id="ast-count-change" class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 text-center">
-                                <div id="ast-count-change-number"></div>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div id="liver-markers-chart" class="mt-4"></div>
-                    </div>
-
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination relative mt-2"></div>
                 </div>
 
                 <!-- Lipid Panel Card -->
-                <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
-                    <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Lipid Panel</div>
-                    <!-- Total Cholesterol Chart and Text -->
-                    <div class="flex items-center">
-                        <div id="total-cholesterol-chart" class="chart"></div>
-                        <div class="flex flex-col items-center ml-4">
-                            <div id="total-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']"></div>
-                            <div class="text-xs font-bold text-slate-600 font-['Orbitron']">Total Cholesterol mg/dL
+                <div class="swiper-container overflow-hidden relative max-w-sm">
+                    <div class="swiper-wrapper">
+                        <!-- Lipid Panel Summary -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-3xl shadow-lg p-4 mb-4 md:p-6 space-y-2">
+                                <p class="text-xl font-bold text-[#4f6495] mb-6">Lipid Panel Summary</p>
+                                <div class="flex justify-between mb-2">
+                                    <div class="text-left w-1/2 text-lg font-semibold text-[#354666]">Last 7 days</div>
+                                    <div class="text-right w-1/2 text-lg font-semibold text-[#354666]">Today's Value</div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="total-cholesterol-sparkline" class="sparkline"></div>
+                                    <div id="total-cholesterol-summary-count" class="text-right w-1/2 text-lg font-semibold text-[#354666] grow"></div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="ldl-cholesterol-sparkline" class="sparkline"></div>
+                                    <div id="ldl-cholesterol-summary-count" class="text-right w-1/2 text-lg font-semibold text-[#354666] grow"></div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="hdl-cholesterol-sparkline" class="sparkline"></div>
+                                    <div id="hdl-cholesterol-summary-count" class="text-right w-1/2 text-lg font-semibold text-[#354666] grow"></div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="tri-cholesterol-sparkline" class="sparkline"></div>
+                                    <div id="tri-cholesterol-summary-count" class="text-right w-1/2 text-lg font-semibold text-[#354666] grow"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Total Cholesterol Section -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-3xl shadow-lg p-4 mb-4 md:p-6">
+                                <div class="flex flex-col">
+                                    <p class="text-xl font-bold text-[#4f6495] mb-2">Total Cholesterol Counts</p>
+                                    <h5 id="total-cholesterol-count" class="leading-none text-2xl text-end font-semibold text-[#354666] pb-2"></h5>
+                                </div>
+                                <div id="total-cholesterol-chart" class="mt-4"></div>
+                            </div>
+                        </div>
+                        <!-- LDL Cholesterol Section -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-3xl shadow-lg p-4 mb-4 md:p-6">
+                                <div class="flex flex-col">
+                                    <p class="text-xl font-bold text-[#4f6495] mb-2">LDL Cholesterol Counts</p>
+                                    <h5 id="ldl-cholesterol-count" class="leading-none text-2xl text-end font-semibold text-[#354666] pb-2"></h5>
+                                </div>
+                                <div id="ldl-cholesterol-chart" class="mt-4"></div>
+                            </div>
+                        </div>
+                        <!-- HDL Cholesterol Section -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-3xl shadow-lg p-4 mb-4 md:p-6">
+                                <div class="flex flex-col">
+                                    <p class="text-xl font-bold text-[#4f6495] mb-2">HDL Cholesterol Counts</p>
+                                    <h5 id="hdl-cholesterol-count" class="leading-none text-2xl text-end font-semibold text-[#354666] pb-2"></h5>
+                                </div>
+                                <div id="hdl-cholesterol-chart" class="mt-4"></div>
+                            </div>
+                        </div>
+                        <!-- Triglycerides Section -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-3xl shadow-lg p-4 mb-4 md:p-6">
+                                <div class="flex flex-col">
+                                    <p class="text-xl font-bold text-[#4f6495] mb-2">Triglycerides Counts</p>
+                                    <h5 id="tri-cholesterol-count" class="leading-none text-2xl text-end font-semibold text-[#354666] pb-2"></h5>
+                                </div>
+                                <div id="tri-cholesterol-chart" class="mt-4"></div>
+                            </div>
+                        </div>
+                        <!-- Pie Chart and Text -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-3xl shadow-lg p-4 mb-4 md:p-6 flex justify-center">
+                                <div class="flex flex-col items-center">
+                                    <div id="pie-cholesterol-chart" class="chart"></div>
+                                    <div id="pie-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron'] mt-4"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- LDL Cholesterol Chart and Text -->
-                    <div class="flex items-center mt-5">
-                        <div id="ldl-cholesterol-chart" class="chart"></div>
-                        <div class="flex flex-col items-center ml-4">
-                            <div id="ldl-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
-                            </div>
-                            <div class="text-xs font-bold text-slate-600 font-['Orbitron']">LDL Cholesterol mg/dL</div>
-                        </div>
-                    </div>
-                    <!-- HDL Cholesterol Chart and Text -->
-                    <div class="flex items-center mt-5">
-                        <div id="hdl-cholesterol-chart" class="chart"></div>
-                        <div class="flex flex-col items-center ml-4">
-                            <div id="hdl-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
-                            </div>
-                            <div class="text-xs font-bold text-slate-600 font-['Orbitron']">HDL Cholesterol mg/dL</div>
-                        </div>
-                    </div>
-                    <!-- Triglycerides Chart and Text -->
-                    <div class="flex items-center mt-5">
-                        <div id="tri-cholesterol-chart" class="chart"></div>
-                        <div class="flex flex-col items-center ml-4">
-                            <div id="tri-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
-                            </div>
-                            <div class="text-xs font-bold text-slate-600 font-['Orbitron']">Triglycerides mg/dL</div>
-                        </div>
-                    </div>
-                    <!-- Pie Chart and Text -->
-                    <div class="flex items-center mt-5">
-                        <div id="pie-cholesterol-chart" class="chart"></div>
-                        <div class="flex flex-col items-center ml-4">
-                            <div id="pie-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination relative mt-2"></div>
                 </div>
-
             </div>
         </div>
+    </div>
     </div>
 
     <%- include('partials/bottomNav.ejs') %>
 
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
-        /*
-        COMPLETE BLOOD COUNT:
-        -WBC: [4500,11000](cells/μL) 
-            - Low: Leukopenia - increased infection risk; fatigue
-            - High: Leukocytosis - possibly leukemia; infection or inflammation
-
-        -RBC: [4.2,6.1](million cells/μL)
-            - Low: Anemia - fatigue, weakness; risk of complications from blood loss.
-            - High: Polycythemia - increased clotting risk; potential for stroke or heart attack.
-            
-        -Platelets: [150000,450000](platelets/μL)
-            - Low: Thrombocytopenia - increased bleeding risk
-            - High: Thrombocytosis - increased clotting risk
-        */
-
-        // Generate random data within a given range
-        function generateData(min, max) {
-            const data = [];
-            for (let i = 1; i <= 7; i++) { // Data for 7 days
-                const value = Math.floor(Math.random() * (max - min + 1)) + min;
-                data.push(value);
-            }
-            return data;
-        }
-
-        // Data for WBC, RBC, and Platelets
-        const wbcData = generateData(4500, 11000);
-        const rbcData = generateData(4.2, 6.1);
-        const plateletsData = generateData(150000, 450000);
-
-        const latestWbcValue = wbcData[wbcData.length - 1];
-        const previousWbcValue = wbcData[wbcData.length - 2];
-        const percentageChangeWbc = ((latestWbcValue - previousWbcValue) / previousWbcValue) * 100;
-
-        const latestRbcValue = rbcData[rbcData.length - 1];
-        const previousRbcValue = rbcData[rbcData.length - 2];
-        const percentageChangeRbc = ((latestRbcValue - previousRbcValue) / previousRbcValue) * 100;
-
-        const latestPlateletsValue = plateletsData[plateletsData.length - 1];
-        const previousPlateletsValue = plateletsData[plateletsData.length - 2];
-        const percentageChangePlatelets = ((latestPlateletsValue - previousPlateletsValue) / previousPlateletsValue) * 100;
-
-        // Create ApexChart for WBC
-        const wbcApex = {
-            chart: {
-                height: 200,
-                type: 'line',
-                zoom: {
-                    enabled: false
-                },
-                toolbar: {
-                    show: false
-                }
+        // Initialize Swiper
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: false,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+                dynamicBullets: false,
             },
-            series: [{
-                name: 'WBC',
-                data: wbcData
-            }],
-            xaxis: {
-                categories: Array.from(Array(30), (_, i) => i + 1),
-                labels: {
-                    show: false
-                }
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
             },
-            yaxis: {
-            },
-            stroke: {
-                curve: 'straight',
-                width: 2
-            },
-            title: {
-                // text: 'White Blood Cells Counts',
-                // align: 'left',
-                // style: {
-                //     fontSize: '16px',
-                //     fontFamily: 'Orbitron',
-                //     fontWeight: 'bold',
-                //     color: '#334155'
-                // }
-            },
-            colors: ['#007bff']
-        };
-
-        // Create ApexChart for RBC
-        const rbcApex = {
-            chart: {
-                height: 200,
-                type: 'line',
-                zoom: {
-                    enabled: false
-                },
-                toolbar: {
-                    show: false
-                }
-            },
-            series: [{
-                name: 'RBC',
-                data: rbcData
-            }],
-            xaxis: {
-                categories: Array.from(Array(30), (_, i) => i + 1),
-                labels: {
-                    show: false
-                }
-            },
-            yaxis: {
-            },
-            stroke: {
-                curve: 'straight',
-                width: 2
-            },
-            title: {
-                // text: 'Red Blood Cells Counts',
-                // align: 'left',
-                // style: {
-                //     fontSize: '16px',
-                //     fontFamily: 'Orbitron',
-                //     fontWeight: 'bold',
-                //     color: '#334155'
-                // }
-            },
-            colors: ['#28a745']
-        };
-
-        // Create ApexChart for Platelets
-        const plateletsApex = {
-            chart: {
-                height: 200,
-                type: 'line',
-                zoom: {
-                    enabled: false
-                },
-                toolbar: {
-                    show: false
-                }
-            },
-            series: [{
-                name: 'Platelets',
-                data: plateletsData
-            }],
-            xaxis: {
-                categories: Array.from(Array(30), (_, i) => i + 1),
-                labels: {
-                    show: false
-                }
-            },
-            yaxis: {
-            },
-            stroke: {
-                curve: 'straight',
-                width: 2
-            },
-            title: {
-                // text: 'Platelets Counts',
-                // align: 'left',
-                // style: {
-                //     fontSize: '16px',
-                //     fontFamily: 'Orbitron',
-                //     fontWeight: 'bold',
-                //     color: '#334155'
-                // }
-            },
-            colors: ['#6c757d']
-        };
-
-        const wbcChart = new ApexCharts(document.querySelector("#wbc-chart"), wbcApex);
-        const rbcChart = new ApexCharts(document.querySelector("#rbc-chart"), rbcApex);
-        const plateletsChart = new ApexCharts(document.querySelector("#platelets-chart"), plateletsApex);
-
-        wbcChart.render();
-        rbcChart.render();
-        plateletsChart.render();
-
-        document.getElementById('wbc-count').innerText = wbcData[wbcData.length - 1] + ' WBC/μL';
-        document.getElementById('rbc-count').innerText = rbcData[rbcData.length - 1] + 'MIL RBC/μL'
-        document.getElementById('platelets-count').innerText = plateletsData[plateletsData.length - 1] + ' Plats/μL';
-        document.getElementById('wbc-count-change-number').textContent = `${percentageChangeWbc.toFixed(2)}%`;
-        document.getElementById('rbc-count-change-number').textContent = `${percentageChangeRbc.toFixed(2)}%`;
-        document.getElementById('platelets-count-change-number').textContent = `${percentageChangePlatelets.toFixed(2)}%`;
-
-        if (percentageChangeWbc < 0) {
-            document.getElementById('wbc-count-change').classList.add('text-red-500');
-        }
-
-        if (percentageChangeRbc < 0) {
-            document.getElementById('rbc-count-change').classList.add('text-red-500');
-        }
-
-        if (percentageChangePlatelets < 0) {
-            document.getElementById('platelets-count-change').classList.add('text-red-500');
-        }
-
-
-        /* 
-        BLOOD CHEMISTRY:
-        -Glucose: [70, 140]mg/dL 
-            - Low: Hypoglycemia - increased infection risk; fatigue.
-            - High: Hyperglycemia - possibly diabetes mellitus; increased thirst, frequent urination, fatigue.
-        
-        -Calcium: [8.5, 10.5]mg/dL 
-            - Low: Hypocalcemia - muscle cramps, numbness, tingling, seizures.
-            - High: Hypercalcemia - fatigue, nausea, vomiting, kidney stones. 
-        
-        -Kidney Function Markers:
-          - Blood Urea Nitrogen (BUN): [7,20] mg/dL
-          - Creatinine: [0.6,1.3] mg/dL
-            - Elevated BUN and Creatinine: Kidney dysfunction or dehydration.
-        
-        -Liver Function Tests:
-          - Alanine Aminotransferase (ALT): [7,56] U/L
-          - Aspartate Aminotransferase (AST): [10,40] U/L
-            - Elevated Liver Enzymes: Liver damage or disease.
-        */
-
-        // Generate random data within a given range
-        function generateData(min, max) {
-            const data = [];
-            for (let i = 1; i <= 7; i++) { // Data for 30 days
-                const value = Math.floor(Math.random() * (max - min + 1)) + min;
-                data.push(value);
-            }
-            return data;
-        }
-
-        // Data for Blood Chemistry
-        const glucoseData = generateData(70, 140);
-        const calciumData = generateData(8.5, 10.5);
-        const bunData = generateData(7, 20);
-        const creatinineData = generateData(0.6, 1.3);
-        const altData = generateData(7, 56);
-        const astData = generateData(10, 40);
-
-        const latestGlucoseValue = glucoseData[glucoseData.length - 1];
-        const previousGlucoseValue = glucoseData[glucoseData.length - 2];
-        const percentageChangeGlucose = ((latestGlucoseValue - previousGlucoseValue) / previousGlucoseValue) * 100;
-
-        const latestCalciumValue = calciumData[calciumData.length - 1];
-        const previousCalciumValue = calciumData[calciumData.length - 2];
-        const percentageChangeCalcium = ((latestCalciumValue - previousCalciumValue) / previousCalciumValue) * 100;
-
-        const latestBUNValue = bunData[bunData.length - 1];
-        const previousBUNValue = bunData[bunData.length - 2];
-        const percentageChangeBUN = ((latestBUNValue - previousBUNValue) / previousBUNValue) * 100;
-
-        const latestCreatinineValue = creatinineData[creatinineData.length - 1];
-        const previousCreatinineValue = creatinineData[creatinineData.length - 2];
-        const percentageChangeCreatinine = ((latestCreatinineValue - previousCreatinineValue) / previousCreatinineValue) * 100;
-
-        const latestALTValue = altData[altData.length - 1];
-        const previousALTValue = altData[altData.length - 2];
-        const percentageChangeALT = ((latestALTValue - previousALTValue) / previousALTValue) * 100;
-
-        const latestASTValue = astData[astData.length - 1];
-        const previousASTValue = astData[astData.length - 2];
-        const percentageChangeAST = ((latestASTValue - previousASTValue) / previousASTValue) * 100;
-
-        // Create ApexChart for Glucose
-        const glucoseApex = {
-            chart: {
-                height: 200,
-                type: 'line',
-                zoom: {
-                    enabled: false
-                },
-                toolbar: {
-                    show: false
-                }
-            },
-            series: [{
-                name: 'Glucose',
-                data: glucoseData
-            }],
-            xaxis: {
-                categories: Array.from(Array(30), (_, i) => i + 1),
-                labels: {
-                    show: false
-                }
-            },
-            yaxis: {
-            },
-            stroke: {
-                curve: 'straight',
-                width: 2
-            },
-            title: {
-                // text: 'Glucose Levels',
-                // align: 'left',
-                // style: {
-                //     fontSize: '16px',
-                //     fontFamily: 'Orbitron',
-                //     fontWeight: 'bold',
-                //     color: '#334155'
-                // }
-            },
-            colors: ['#007bff']
-        };
-
-        // Create ApexChart for Calcium
-        const calciumApex = {
-            chart: {
-                height: 200,
-                type: 'line',
-                zoom: {
-                    enabled: false
-                },
-                toolbar: {
-                    show: false
-                }
-            },
-            series: [{
-                name: 'Calcium',
-                data: calciumData
-            }],
-            xaxis: {
-                categories: Array.from(Array(30), (_, i) => i + 1),
-                labels: {
-                    show: false
-                }
-            },
-            yaxis: {
-            },
-            stroke: {
-                curve: 'straight',
-                width: 2
-            },
-            title: {
-                // text: 'Calcium Levels',
-                // align: 'left',
-                // style: {
-                //     fontSize: '16px',
-                //     fontFamily: 'Orbitron',
-                //     fontWeight: 'bold',
-                //     color: '#334155'
-                // }
-            },
-            colors: ['#007bff']
-        };
-
-        // Create ApexChart for Kidney Function Markers (BUN and Creatinine)
-        const kidneyMarkersApex = {
-            chart: {
-                height: 200,
-                type: 'line',
-                zoom: {
-                    enabled: false
-                },
-                toolbar: {
-                    show: false
-                }
-            },
-            series: [
-                {
-                    name: 'BUN',
-                    data: bunData
-                },
-                {
-                    name: 'Creatinine',
-                    data: creatinineData
-                }
-            ],
-            xaxis: {
-                categories: Array.from(Array(30), (_, i) => i + 1),
-                labels: {
-                    show: false
-                }
-            },
-            yaxis: {
-            },
-            stroke: {
-                curve: 'straight',
-                width: 2
-            },
-            title: {
-                // text: 'Kidney Function Markers (BUN and Creatinine)',
-                // align: 'left',
-                // style: {
-                //     fontSize: '16px',
-                //     fontFamily: 'Orbitron',
-                //     fontWeight: 'bold',
-                //     color: '#334155'
-                // }
-            },
-            colors: ['#007bff', '#28a745']
-        };
-
-        // Create ApexChart for Liver Function Tests (ALT and AST)
-        const liverMarkersApex = {
-            chart: {
-                height: 200,
-                type: 'line',
-                zoom: {
-                    enabled: false
-                },
-                toolbar: {
-                    show: false
-                }
-            },
-            series: [
-                {
-                    name: 'ALT',
-                    data: altData
-                },
-                {
-                    name: 'AST',
-                    data: astData
-                }
-            ],
-            xaxis: {
-                categories: Array.from(Array(30), (_, i) => i + 1),
-                labels: {
-                    show: false
-                }
-            },
-            yaxis: {
-            },
-            stroke: {
-                curve: 'straight',
-                width: 2
-            },
-            title: {
-                // text: 'Liver Function Tests (ALT and AST)',
-                // align: 'left',
-                // style: {
-                //     fontSize: '16px',
-                //     fontFamily: 'Orbitron',
-                //     fontWeight: 'bold',
-                //     color: '#334155'
-                // }
-            },
-            colors: ['#007bff', '#ffc107']
-        };
-
-
-        const glucoseChart = new ApexCharts(document.querySelector("#glucose-chart"), glucoseApex);
-        const calciumChart = new ApexCharts(document.querySelector("#calcium-chart"), calciumApex);
-        const kidneyMarkersChart = new ApexCharts(document.querySelector("#kidney-markers-chart"), kidneyMarkersApex);
-        const liverMarkersChart = new ApexCharts(document.querySelector("#liver-markers-chart"), liverMarkersApex);
-
-        glucoseChart.render();
-        calciumChart.render();
-        kidneyMarkersChart.render();
-        liverMarkersChart.render();
-
-        document.getElementById('glucose-count').innerText = glucoseData[glucoseData.length - 1] + ' mg/dL';
-        document.getElementById('calcium-count').innerText = calciumData[calciumData.length - 1] + ' mg/dL';
-        document.getElementById('bun-count').innerText = bunData[bunData.length - 1] + ' BUN mg/dL';
-        document.getElementById('creatinine-count').innerText = creatinineData[creatinineData.length - 1] + ' Creatinine mg/dL';
-        document.getElementById('alt-count').innerText = altData[altData.length - 1] + ' ALT U/L';
-        document.getElementById('ast-count').innerText = astData[astData.length - 1] + ' AST U/L';
-        document.getElementById('glucose-count-change-number').textContent = `${percentageChangeGlucose.toFixed(2)}%`;
-        document.getElementById('calcium-count-change-number').textContent = `${percentageChangeCalcium.toFixed(2)}%`;
-        document.getElementById('bun-count-change-number').textContent = `${percentageChangeBUN.toFixed(2)}%`;
-        document.getElementById('creatinine-count-change-number').textContent = `${percentageChangeCreatinine.toFixed(2)}%`;
-        document.getElementById('alt-count-change-number').textContent = `${percentageChangeALT.toFixed(2)}%`;
-        document.getElementById('ast-count-change-number').textContent = `${percentageChangeAST.toFixed(2)}%`;
-
-        if (percentageChangeGlucose < 0) {
-            document.getElementById('glucose-count-change').classList.add('text-red-500');
-        }
-
-        if (percentageChangeCalcium < 0) {
-            document.getElementById('calcium-count-change').classList.add('text-red-500');
-        }
-
-        if (percentageChangeBUN < 0) {
-            document.getElementById('bun-count-change').classList.add('text-red-500');
-        }
-
-        if (percentageChangeCreatinine < 0) {
-            document.getElementById('creatinine-count-change').classList.add('text-red-500');
-        }
-
-        if (percentageChangeALT < 0) {
-            document.getElementById('alt-count-change').classList.add('text-red-500');
-        }
-
-        if (percentageChangeAST < 0) {
-            document.getElementById('ast-count-change').classList.add('text-red-500');
-        }
-
-
-
-        /* 
-        LIPID PANEL:
-        - Total Cholesterol: HDL + LDL + 20% triglycerides
-        - Normal Range: Less than 200 mg/dL
-            - High: Increased cardiovascular disease risk; lifestyle modifications or medications may be recommended.
-
-        - LDL Cholesterol:
-        - Normal Range: Less than 100 mg/dL
-            - High: Increased cardiovascular disease risk; lifestyle modifications or medications may be recommended.
-
-        - HDL Cholesterol:
-        - Normal Range: Above 60 mg/dL
-            - Low: Increased cardiovascular disease risk; lifestyle modifications or medications may be recommended.
-
-        - Triglycerides:
-        - Normal Range: Less than 150 mg/dL
-            - Low: Increased cardiovascular disease risk; lifestyle modifications or medications may be recommended.
-
-        */
-
-        // Generate random data within a given range
-        function generateData(min, max) {
-            const data = [];
-            for (let i = 1; i <= 7; i++) { // Data for 30 days
-                const value = Math.floor(Math.random() * (max - min + 1)) + min;
-                data.push(value);
-            }
-            return data;
-        }
-
-        // Data for Lipid Panel
-        const ldlCholesterolData = generateData(70, 150);
-        const hdlCholesterolData = generateData(35, 65);
-        const triCholesterolData = generateData(95, 155)
-        const totalCholesterolData = ldlCholesterolData.map((num, index) =>
-            num + hdlCholesterolData[index] + triCholesterolData[index] * 0.2
-        );
-        const pieCholesterolData = [ldlCholesterolData[ldlCholesterolData.length - 1], hdlCholesterolData[hdlCholesterolData.length - 1], 0.2 * triCholesterolData[triCholesterolData.length - 1]];
-
-        // Create ApexChart for Total Cholesterol
-        const totalCholesterolApex = {
-            chart: {
-                height: 200,
-                type: 'line',
-                zoom: {
-                    enabled: false
-                },
-                toolbar: {
-                    show: false
-                }
-            },
-            series: [{
-                name: 'Total Cholesterol',
-                data: totalCholesterolData
-            }],
-            xaxis: {
-                categories: Array.from(Array(30), (_, i) => i + 1),
-                labels: {
-                    show: false
-                }
-            },
-            yaxis: {
-            },
-            stroke: {
-                curve: 'straight',
-                width: 2
-            },
-            title: {
-                text: 'Total Cholesterol Levels',
-                align: 'left',
-                style: {
-                    fontSize: '16px',
-                    fontFamily: 'Orbitron',
-                    fontWeight: 'bold',
-                    color: '#334155'
-                }
-            },
-            colors: ['#007bff']
-        };
-
-        // Create ApexChart for LDL Cholesterol
-        const ldlCholesterolApex = {
-            chart: {
-                height: 200,
-                type: 'line',
-                zoom: {
-                    enabled: false
-                },
-                toolbar: {
-                    show: false
-                }
-            },
-            series: [{
-                name: 'LDL Cholesterol',
-                data: ldlCholesterolData
-            }],
-            xaxis: {
-                categories: Array.from(Array(30), (_, i) => i + 1),
-                labels: {
-                    show: false
-                }
-            },
-            yaxis: {
-            },
-            stroke: {
-                curve: 'straight',
-                width: 2
-            },
-            title: {
-                text: 'LDL Cholesterol Levels',
-                align: 'left',
-                style: {
-                    fontSize: '16px',
-                    fontFamily: 'Orbitron',
-                    fontWeight: 'bold',
-                    color: '#334155'
-                }
-            },
-            colors: ['#28a745']
-        };
-
-        // Create ApexChart for HDL Cholesterol
-        const hdlCholesterolApex = {
-            chart: {
-                height: 200,
-                type: 'line',
-                zoom: {
-                    enabled: false
-                },
-                toolbar: {
-                    show: false
-                }
-            },
-            series: [{
-                name: 'HDL Cholesterol',
-                data: hdlCholesterolData
-            }],
-            xaxis: {
-                categories: Array.from(Array(30), (_, i) => i + 1),
-                labels: {
-                    show: false
-                }
-            },
-            yaxis: {
-            },
-            stroke: {
-                curve: 'straight',
-                width: 2
-            },
-            title: {
-                text: 'HDL Cholesterol Levels',
-                align: 'left',
-                style: {
-                    fontSize: '16px',
-                    fontFamily: 'Orbitron',
-                    fontWeight: 'bold',
-                    color: '#334155'
-                }
-            },
-            colors: ['#6c757d']
-        };
-
-        // Create ApexChart for Triglycerides
-        const triCholesterolApex = {
-            chart: {
-                height: 200,
-                type: 'line',
-                zoom: {
-                    enabled: false
-                },
-                toolbar: {
-                    show: false
-                }
-            },
-            series: [{
-                name: 'Triglycerides',
-                data: triCholesterolData
-            }],
-            xaxis: {
-                categories: Array.from(Array(30), (_, i) => i + 1),
-                labels: {
-                    show: false
-                }
-            },
-            yaxis: {
-            },
-            stroke: {
-                curve: 'straight',
-                width: 2
-            },
-            title: {
-                text: 'Triglycerides Levels',
-                align: 'left',
-                style: {
-                    fontSize: '16px',
-                    fontFamily: 'Orbitron',
-                    fontWeight: 'bold',
-                    color: '#334155'
-                }
-            },
-            colors: ['#23dd7d']
-        };
-
-        const pieCholesterolApex = {
-            chart: {
-                height: 400,
-                type: 'pie',
-                zoom: {
-                    enabled: false
-                },
-                toolbar: {
-                    show: false
-                }
-            },
-            series: pieCholesterolData,
-            labels: ['LDL', 'HDL', 'Triglycerides'],
-            title: {
-                text: 'Pie Cholesterol Data',
-                align: 'left',
-                style: {
-                    fontSize: '16px',
-                    fontFamily: 'Orbitron',
-                    fontWeight: 'bold',
-                }
-            },
-            legend: {
-                position: "bottom",
-            },
-            plotOptions: {
-                pie: {
-                    labels: {
-                        show: true,
-                    },
-                    size: "100%",
-                    dataLabels: {
-                        offset: -25
-                    }
-                },
-            },
-            colors: ["#1C64F2", "#16BDCA", "#9061F9"]
-        };
-
-        const totalCholesterolChart = new ApexCharts(document.querySelector("#total-cholesterol-chart"), totalCholesterolApex);
-        const ldlCholesterolChart = new ApexCharts(document.querySelector("#ldl-cholesterol-chart"), ldlCholesterolApex);
-        const hdlCholesterolChart = new ApexCharts(document.querySelector("#hdl-cholesterol-chart"), hdlCholesterolApex);
-        const triCholesterolChart = new ApexCharts(document.querySelector("#tri-cholesterol-chart"), triCholesterolApex);
-        const pieCholesterolChart = new ApexCharts(document.querySelector("#pie-cholesterol-chart"), pieCholesterolApex);
-        totalCholesterolChart.render();
-        ldlCholesterolChart.render();
-        hdlCholesterolChart.render();
-        triCholesterolChart.render();
-        pieCholesterolChart.render();
-        document.getElementById('total-cholesterol-count').innerText = totalCholesterolData[totalCholesterolData.length - 1];
-        document.getElementById('ldl-cholesterol-count').innerText = ldlCholesterolData[ldlCholesterolData.length - 1];
-        document.getElementById('hdl-cholesterol-count').innerText = hdlCholesterolData[hdlCholesterolData.length - 1];
-        document.getElementById('tri-cholesterol-count').innerText = triCholesterolData[triCholesterolData.length - 1];
+        });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <%- include('bloodPageCBC.ejs') %>
+    <%- include('bloodPageChemistry.ejs') %>
+    <%- include('bloodPageLipid.ejs') %>
 </body>
 
 </html>
