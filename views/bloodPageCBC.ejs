@@ -22,7 +22,7 @@
     const latestWbcValue = wbcData[wbcData.length - 1];
     const previousWbcValue = wbcData[wbcData.length - 2];
     const percentageChangeWbc = ((latestWbcValue - previousWbcValue) / previousWbcValue) * 100;
-    
+
     const latestRbcValue = rbcData[rbcData.length - 1];
     const previousRbcValue = rbcData[rbcData.length - 2];
     const percentageChangeRbc = ((latestRbcValue - previousRbcValue) / previousRbcValue) * 100;
@@ -30,6 +30,26 @@
     const latestPlateletsValue = plateletsData[plateletsData.length - 1];
     const previousPlateletsValue = plateletsData[plateletsData.length - 2];
     const percentageChangePlatelets = ((latestPlateletsValue - previousPlateletsValue) / previousPlateletsValue) * 100;
+
+    // Data for sparklines
+    const sparklineWbcData = <%= JSON.stringify(bloodData.wbc) %>;
+    const sparklineRbcData = <%= JSON.stringify(bloodData.rbc) %>;
+    const sparklinePlateletsData = <%= JSON.stringify(bloodData.platelets) %>;
+
+    // Function to determine if the count is within the optimal range
+    function isWithinOptimalRange(count, optimalMin, optimalMax) {
+        return count >= optimalMin && count <= optimalMax;
+    };
+
+    // Set color for ApexCharts based on whether the count is within the optimal range
+    const wbcColor = isWithinOptimalRange(latestWbcValue, 4000, 11000) ? '#28a745' : '#FF0000';
+    const rbcColor = isWithinOptimalRange(latestRbcValue, 4.2, 6.1) ? '#28a745' : '#FF0000';
+    const plateletsColor = isWithinOptimalRange(latestPlateletsValue, 150000, 450000) ? '#28a745' : '#FF0000';
+
+    // Set color for sparkline based on whether the count is within the optimal range
+    const wbcSparklineColor = isWithinOptimalRange(latestWbcValue, 4000, 11000) ? '#28a745' : '#FF0000';
+    const rbcSparklineColor = isWithinOptimalRange(latestRbcValue, 4.2, 6.1) ? '#28a745' : '#FF0000';
+    const plateletsSparklineColor = isWithinOptimalRange(latestPlateletsValue, 150000, 450000) ? '#28a745' : '#FF0000';
 
     // Create ApexChart for WBC
     const wbcApex = {
@@ -61,8 +81,7 @@
             width: 2
         },
         markers: {
-            size: 4, 
-            colors: ['#007bff']
+            size: 4,
         },
         annotations: {
             yaxis: [
@@ -98,7 +117,7 @@
                 }
             ]
         },
-        colors: ['#007bff']
+        colors: [wbcColor]
     };
 
     // Create ApexChart for RBC
@@ -131,8 +150,7 @@
             width: 2
         },
         markers: {
-            size: 4, 
-            colors: ['#28a745']
+            size: 4,
         },
         annotations: {
             yaxis: [
@@ -168,7 +186,7 @@
                 }
             ]
         },
-        colors: ['#28a745']
+        colors: [rbcColor]
     };
 
     // Create ApexChart for Platelets
@@ -201,8 +219,7 @@
             width: 2
         },
         markers: {
-            size: 4, 
-            colors: ['#6c757d']
+            size: 4,
         },
         annotations: {
             yaxis: [
@@ -238,20 +255,92 @@
                 }
             ]
         },
-        colors: ['#6c757d']
+        colors: [plateletsColor]
     };
 
+    // Sparkline configuration for WBC
+    const wbcSparklineConfig = {
+        chart: {
+            type: 'line',
+            height: 50,
+            width: 100,
+            sparkline: {
+                enabled: true
+            }
+        },
+        series: [{
+            data: sparklineWbcData
+        }],
+        stroke: {
+            width: 2,
+            curve: 'straight'
+        },
+        colors: [wbcSparklineColor]
+    };
+
+    // Sparkline configuration for RBC
+    const rbcSparklineConfig = {
+        chart: {
+            type: 'line',
+            height: 50,
+            width: 100,
+            sparkline: {
+                enabled: true
+            }
+        },
+        series: [{
+            data: sparklineRbcData
+        }],
+        stroke: {
+            width: 2,
+            curve: 'straight'
+        },
+        colors: [rbcSparklineColor]
+    };
+
+    // Sparkline configuration for Platelets
+    const plateletsSparklineConfig = {
+        chart: {
+            type: 'line',
+            height: 50,
+            width: 100,
+            sparkline: {
+                enabled: true
+            }
+        },
+        series: [{
+            data: sparklinePlateletsData
+        }],
+        stroke: {
+            width: 2,
+            curve: 'straight'
+        },
+        colors: [plateletsSparklineColor]
+    };
+
+    // Initialize ApexCharts
     const wbcChart = new ApexCharts(document.querySelector("#wbc-chart"), wbcApex);
     const rbcChart = new ApexCharts(document.querySelector("#rbc-chart"), rbcApex);
     const plateletsChart = new ApexCharts(document.querySelector("#platelets-chart"), plateletsApex);
+    const wbcSparkline = new ApexCharts(document.querySelector("#wbc-sparkline"), wbcSparklineConfig);
+    const rbcSparkline = new ApexCharts(document.querySelector("#rbc-sparkline"), rbcSparklineConfig);
+    const plateletsSparkline = new ApexCharts(document.querySelector("#platelets-sparkline"), plateletsSparklineConfig);
 
+    // Render ApexCharts
     wbcChart.render();
     rbcChart.render();
     plateletsChart.render();
+    wbcSparkline.render();
+    rbcSparkline.render();
+    plateletsSparkline.render();
 
+    // Set Counts with Units
     document.getElementById('wbc-count').innerText = wbcData[wbcData.length - 1] + ' WBC/μL';
-    document.getElementById('rbc-count').innerText = rbcData[rbcData.length - 1] + 'MIL RBC/μL'
+    document.getElementById('rbc-count').innerText = rbcData[rbcData.length - 1] + 'MIL RBC/μL';
     document.getElementById('platelets-count').innerText = plateletsData[plateletsData.length - 1] + ' Plats/μL';
+    document.getElementById('wbc-summary-count').innerText = sparklineWbcData[sparklineWbcData.length - 1] + ' WBC/μL';
+    document.getElementById('rbc-summary-count').innerText = sparklineRbcData[sparklineRbcData.length - 1] + 'MIL RBC/μL';
+    document.getElementById('platelets-summary-count').innerText = sparklinePlateletsData[sparklinePlateletsData.length - 1] + ' Plats/μL';
 
     const wbcCount = wbcData[wbcData.length - 1];
     const rbcCount = rbcData[rbcData.length - 1];
@@ -271,6 +360,4 @@
     } else {
         document.getElementById('hematology').style.display = 'none';
     }
-
-
 </script>
