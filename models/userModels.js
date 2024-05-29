@@ -11,10 +11,30 @@ const userSchema = new Schema({
     required: true,
     unique: true,
   },
+  verified: {
+    type: Boolean,
+    required: true,
+  },
   password: {
     type: String,
     required: true,
   },
+  recovery: {
+    type: String,
+    required: false,
+  },
+  recovery_key: {
+    type: String,
+    required: false,
+  },
+  sex: {
+    type: String,
+    required: false,
+  },
+  dob: {
+    type: Date,
+    required: false,
+  }
 });
 
 const userModel = mongoose.model('users', userSchema);
