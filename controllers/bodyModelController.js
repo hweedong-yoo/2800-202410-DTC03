@@ -2,7 +2,7 @@ const Blood = require('../models/bloodModels');
 const BodyComp = require('../models/bodyCompModels');
 const Vitals = require('../models/vitalsModel');
 
-const displayPage = async (req, res) => {
+const displayBodyModelPage = async (req, res) => {
   try {
     const userID = req.session.userID;
     console.log(userID);
@@ -22,5 +22,5 @@ const displayPage = async (req, res) => {
 };
 
 module.exports = {
-  displayPage,
+  displayBodyModelPage,
 };

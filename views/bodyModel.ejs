@@ -24,7 +24,7 @@
                         let you know
                     </p>
                     <div class="relative">
-                        <img src="/images/Body_Model.png" alt="">
+                        <img src="/images/Body_Model.png" alt="" class="mx-auto">
                         <% for (let i=0; i < vitalsVul.length; i++) { %>
                             <% if (vitalsVul[i]==='Irregular heartbeat' ) { %>
                                 <%= renderButton('heart', 'heart-modal' , '44%' , '44%' ) %>
@@ -43,8 +43,8 @@
                                                                                 <% } %>
                                                                                     <% for (let i=0; i <
                                                                                         bodyCompVul.length; i++) { %>
-                                                                                        <% if (bodyCompVul[i]==='bones' )
-                                                                                            { %>
+                                                                                        <% if (bodyCompVul[i]==='bones'
+                                                                                            ) { %>
                                                                                             <%= renderButton('bone', 'bone-modal'
                                                                                                 , '90%' , '55%' ) %>
                                                                                                 <% } %>
