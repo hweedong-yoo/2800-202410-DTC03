@@ -53,14 +53,17 @@ const authenticateUser = async (req, res) => {
         
         if (validationResult.error) {
             console.error('Error in authenticateUser:', validationResult.error.details[0].message);
-            return res.render('loginPage', {authenticated: req.session.authenticated, error: true });
+            return res.render('loginPage', { authenticated: req.session.authenticated, error: true,});
         }
 
         const user = await User.findOne({ email });
 
         if (!user) {
             console.log('User not found');
-            return res.render('loginPage', {authenticated: req.session.authenticated, error: true });
+            return res.render('loginPage', {
+                authenticated: req.session.authenticated,
+                error: true,
+                email: email});
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
