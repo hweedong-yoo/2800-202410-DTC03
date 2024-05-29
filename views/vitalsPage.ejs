@@ -1,31 +1,23 @@
 <%- include('partials/header.ejs') %>
     <section class="my-auto bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
-        <div class="mx-10">
-
+        <div class="mx-5">
+            <div class="font-bold text-4xl text-slate-800 text-center mt-4">Vitals Graphs</div>
             <!-- notification card -->
-            <div class="py-4 ">
+            <div class="py-4">
                 <div class="flex justify-evenly bg-white text-center shadow-lg rounded-full">
                     <span class="flex py-2 text-6xl material-symbols-outlined text-[#EA3323]">
                         ecg_heart
-                    </span>
-                    <span class="flex py-2 text-6xl material-symbols-outlined text-[#EA3323]">
-                        device_thermostat
                     </span>
                 </div>
             </div>
 
             <div class="flex flex-col ">
-                <div class="rounded-lg  ">
+                <div class="rounded-lg">
                     <!-- bpm chart -->
                     <div class="mx-max max-w-md w-full bg-white rounded-lg dark:bg-gray-800 p-4 shadow-lg">
-                        <div class="flex justify-between mb-5">
-                            <div>
-                                <h5 id="BPM" class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
-
-                                </h5>
-                                <p class="text-base font-normal text-gray-500 dark:text-gray-400">This week
-                                </p>
-                            </div>
+                        <div class="leading-none text-md font-bold text-slate-600 dark:text-white pb-2">
+                                <div class="text-center mb-4 text-xl">Heart rate</div>
+                                <div id="BPM" class="text-2xl text-end"></div>
                         </div>
                         <!-- actual chart -->
                         <div id="bpm-chart" class=""></div>
@@ -33,15 +25,9 @@
                     <!-- body temp chart -->
                     <div class="pt-4">
                         <div class="mx-max max-w-md w-full bg-white rounded-lg dark:bg-gray-800 p-4 shadow-lg">
-                            <div class="flex justify-between mb-5">
-                                <div>
-                                    <h5 id="Temperature"
-                                        class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
-                                    </h5>
-                                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">This
-                                        week
-                                    </p>
-                                </div>
+                            <div class="leading-none text-md font-bold text-slate-600 dark:text-white pb-2">
+                                    <div class="text-center mb-4 text-xl">Body Temperature</div>
+                                    <div id="Temperature"class="text-2xl text-end"></div>
                             </div>
                             <!-- actual chart -->
                             <div id="temp-chart" class=""></div>
@@ -50,15 +36,9 @@
                     <!-- RRP chart -->
                     <div class="py-4 mb-[100px]">
                         <div class="mx-max max-w-md w-full bg-white rounded-lg dark:bg-gray-800 p-4 shadow-lg">
-                            <div class="flex justify-between mb-5">
-                                <div>
-                                    <h5 id="RRP"
-                                        class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
-                                    </h5>
-                                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">This
-                                        week
-                                    </p>
-                                </div>
+                            <div class="leading-none text-md font-bold text-slate-600 dark:text-white pb-2">
+                                    <div class="text-center mb-4 text-xl">Respitory rate</div>
+                                    <div id="RRP" class="text-2xl text-end"></div>
                             </div>
                             <!-- actual chart -->
                             <div id="breath-chart" class=""></div>
@@ -104,7 +84,7 @@
                 width: 6,
             },
             grid: {
-                show: false,
+                show: true,
                 strokeDashArray: 4,
                 padding: {
                     left: 2,
@@ -136,11 +116,11 @@
             },
             yaxis: {
                 labels: {
+                    align: 'left',
                     show: true,
                     style: {
                         fontFamily: "Inter, sans-serif",
-                        cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400 rotate-30',
-                        rotate: -30,
+                        cssClass: 'text-xs font-normal fill-gray-500 text-start',
                     },
                     formatter: function (value) {
                         return value;
@@ -186,7 +166,7 @@
                 width: 6,
             },
             grid: {
-                show: false,
+                show: true,
                 strokeDashArray: 4,
                 padding: {
                     left: 2,
@@ -218,10 +198,11 @@
             },
             yaxis: {
                 labels: {
+                    align: 'left',
                     show: true,
                     style: {
                         fontFamily: "Inter, sans-serif",
-                        cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400 rotate-30',
+                        cssClass: 'text-xs font-normal fill-gray-500',
                     },
                     formatter: function (value) {
                         return value;
@@ -267,7 +248,7 @@
                 width: 6,
             },
             grid: {
-                show: false,
+                show: true,
                 strokeDashArray: 4,
                 padding: {
                     left: 2,
@@ -299,16 +280,16 @@
             },
             yaxis: {
                 labels: {
+                    align: 'left',
                     show: true,
                     style: {
                         fontFamily: "Inter, sans-serif",
-                        cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400 rotate-30',
+                        cssClass: 'text-xs font-normal fill-gray-500',
                     },
                     formatter: function (value) {
                         return value;
                     },
                 },
-                rotate: 30,
                 show: true,
                 min: 10,
             },

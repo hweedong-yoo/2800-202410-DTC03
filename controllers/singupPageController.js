@@ -1,68 +1,104 @@
-    const userModel = require('../models/userModels');
-    const sendEmail = require('../utils/sendEmail');
-    const { signUpSchema } = require('../validation/authValidation');
-    const bcrypt = require('bcrypt');
-    const nodemailer = require('nodemailer');
-    const jwt = require('jsonwebtoken');
+/**
+ * Express controller functions for user sign-up functionality.
+ * 
+ * This module contains functions to handle user sign-up requests,
+ * including rendering the sign-up page, validating user input,
+ * adding users to the database, and sending confirmation emails.
+ * 
+ */
 
-    const jwtSecret = process.env.JWT_SECRET;
+// Import necessary modules
+const userModel = require('../models/userModels');
+const sendEmail = require('../utils/sendEmail');
+const { signUpSchema } = require('../validation/authValidation');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-    const expireTime = 60 * 60 * 1000;
+// Base URL for generating confirmation links
+const baseUrl = process.env.BASE_URL;
 
-    const displayPage = async (req, res) => {
-        try {
-            res.render('signupPage', { authenticated: req.session.authenticated });
-        } catch (error) {
-            res.status(500).send(error);
-        }
-    };
+// Secret key for JWT token generation
+const jwtSecret = process.env.JWT_SECRET;
 
-    const addUser = async (req, res) => {
-        const { name, email, password } = req.body;
+// Token expiration time in milliseconds
+const expireTime = 60 * 60 * 1000; // 1 hour
 
-        const validationResult = signUpSchema.validate({ name, email, password });
-        if (validationResult.error != null) {
-            console.log(validationResult.error.details[0].context.key);
-            res.redirect(`/signup?missing=${validationResult.error.details[0].context.key}`);
-            return;
-        }
-        
-        try {
-            const hashedPassword = await bcrypt.hash(password, 8);
+/**
+ * Displays the sign up page.
+ * 
+ * @returns {Promise<void>} - A promise that resolves when the page is rendered successfully.
+ * @throws {Error} - If an error occurs while rendering the page.
+ */
+const displayPage = async (req, res) => {
+    try {
+        res.render('signupPage', { authenticated: req.session.authenticated });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};
 
-            const newUser = new userModel({
-                name: name,
-                email: email,
-                verified: false,
-                password: hashedPassword,
-            });
+/**
+ * Adds users to the database and sends a confirmation email.
+ * 
+ * @returns {Promise<void>} - A promise that resolves when the user is added successfully.
+ * @throws {Error} - If an error occurs while adding the user or sending confirmation email.
+ */
+const addUser = async (req, res) => {
+    const { name, email, password } = req.body;
 
-            await newUser.save();
+    // Validate user input
+    const validationResult = signUpSchema.validate({ name, email, password });
+    if (validationResult.error != null) {
+        // Redirect if validation fails
+        const missingKey = validationResult.error.details[0].context.key;
+        console.log('Validation error:', missingKey);
+        return res.redirect(`/signup?missing=${missingKey}`);
+    }
 
-            const secret = jwtSecret + email
-            const payload = { email: email };
-            const token = jwt.sign(payload, secret, { expiresIn: '1d' });
+    try {
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 8);
 
-            subject = 'Biolink account email confirmation';
-            body = `Please click the following link to confirm your email: http://localhost:3000/verify/email/${token}.`;
+        // Create a new user object
+        const newUser = new userModel({
+            name,
+            email,
+            verified: false,
+            password: hashedPassword,
+        });
 
-            sendEmail(email, subject, body)
+        // Save the new user to the database
+        await newUser.save();
 
-            req.session.authenticated = true;
-            req.session.userID = newUser._id;
-            req.session.name = name;
-            req.session.email = email;
-            req.session.cookie.maxAge = expireTime;
+        // Generate email confirmation token
+        const secret = jwtSecret + email;
+        const payload = { email };
+        const token = jwt.sign(payload, secret, { expiresIn: '1d' });
 
-            return res.redirect('/home');
-        } catch (error) {
-            console.error("Error adding user:", error);
-            res.status(500).send("Error adding user");
-        }
-    };
+        // Compose email message
+        const confirmationLink = `${baseUrl}/verify/email/${token}`;
+        const subject = 'Biolink account email confirmation';
+        const body = `Please click the following link to confirm your email: ${confirmationLink}`;
 
-    module.exports = {
-        displayPage,
-        addUser,
+        // Send confirmation email
+        sendEmail(email, subject, body);
 
-    };
+        // Set session variables
+        req.session.authenticated = true;
+        req.session.userID = newUser._id;
+        req.session.name = name;
+        req.session.email = email;
+        req.session.cookie.maxAge = expireTime;
+
+        // Redirect user to home page
+        return res.redirect('/home');
+    } catch (error) {
+        console.error('Error adding user:', error);
+        return res.status(500).send('Error adding user');
+    }
+};
+
+module.exports = {
+    displayPage,
+    addUser,
+};

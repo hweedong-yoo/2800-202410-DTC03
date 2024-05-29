@@ -34,7 +34,8 @@ const vitalsSchema = new mongoose.Schema({
             type: Number,
             required: true
         }
-    }]
+    }],
+    vulnerabilities: [String]
 });
 
 const Vitals = mongoose.model('vitals', vitalsSchema);
