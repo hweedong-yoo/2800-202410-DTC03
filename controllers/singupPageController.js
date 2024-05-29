@@ -46,16 +46,18 @@ const displayPage = async (req, res) => {
 const addUser = async (req, res) => {
     const { name, email, password } = req.body;
 
-    // Validate user input
-    const validationResult = signUpSchema.validate({ name, email, password });
-    if (validationResult.error != null) {
-        // Redirect if validation fails
-        const missingKey = validationResult.error.details[0].context.key;
-        console.log('Validation error:', missingKey);
-        return res.redirect(`/signup?missing=${missingKey}`);
-    }
-
     try {
+        // Check if the email already exists in the database
+        const existingUser = await userModel.findOne({ email });
+        if (existingUser) {
+            // If the email is already in use, render the sign-up page again with an error message
+            return res.render('signupPage', {
+                authenticated: req.session.authenticated,
+                error: 'Email already registered',
+                formData: { name, email }
+            });
+        }
+
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 8);
 
@@ -97,6 +99,7 @@ const addUser = async (req, res) => {
         return res.status(500).send('Error adding user');
     }
 };
+
 
 module.exports = {
     displayPage,
