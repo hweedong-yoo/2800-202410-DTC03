@@ -37,6 +37,47 @@
     );
     const pieCholesterolData = [ldlCholesterolData[ldlCholesterolData.length - 1], hdlCholesterolData[hdlCholesterolData.length - 1], 0.2 * triCholesterolData[triCholesterolData.length - 1]];
 
+    const latestTotalCholesterolValue = totalCholesterolData[totalCholesterolData.length - 1];
+    const previousTotalCholesterolValue = totalCholesterolData[totalCholesterolData.length - 2];
+    const percentageChangeTotalCholesterol = ((latestTotalCholesterolValue - previousTotalCholesterolValue) / previousTotalCholesterolValue) * 100;
+
+    const latestLDLCholesterolValue = ldlCholesterolData[ldlCholesterolData.length - 1];
+    const previousLDLCholesterolValue = ldlCholesterolData[ldlCholesterolData.length - 2];
+    const percentageChangeLDLCholesterol = ((latestLDLCholesterolValue - previousLDLCholesterolValue) / previousLDLCholesterolValue) * 100;
+
+    const latestHDLCholesterolValue = hdlCholesterolData[hdlCholesterolData.length - 1];
+    const previousHDLCholesterolValue = hdlCholesterolData[hdlCholesterolData.length - 2];
+    const percentageChangeHDLCholesterol = ((latestHDLCholesterolValue - previousHDLCholesterolValue) / previousHDLCholesterolValue) * 100;
+
+    const latestTriCholesterolValue = triCholesterolData[triCholesterolData.length - 1];
+    const previousTriCholesterolValue = triCholesterolData[triCholesterolData.length - 2];
+    const percentageChangeTriCholesterol = ((latestTriCholesterolValue - previousTriCholesterolValue) / previousTriCholesterolValue) * 100;
+
+    // Data for Sparklines
+    const sparklineLDLCholesterolData = <%= JSON.stringify(bloodData.ldl) %>;
+    const sparklineHDLCholesterolData = <%= JSON.stringify(bloodData.hdl) %>;
+    const sparklineTriCholesterolData = <%= JSON.stringify(bloodData.tri) %>;
+    const sparklineTotalCholesterolData = ldlCholesterolData.map((num, index) =>
+        num + hdlCholesterolData[index] + triCholesterolData[index] * 0.2
+    );
+
+    // Function to determine if the count is within the optimal range
+    function isWithinOptimalRange(count, optimalMin, optimalMax) {
+        return count >= optimalMin && count <= optimalMax;
+    };
+
+    // Set color for sparkline based on whether the count is within the optimal range
+    const totalCholesterolColor = isWithinOptimalRange(latestTotalCholesterolValue, 0, 200) ? '#28a745' : '#FF0000';
+    const ldlCholesterolColor = isWithinOptimalRange(latestLDLCholesterolValue, 0, 100) ? '#28a745' : '#FF0000';
+    const hdlCholesterolColor = isWithinOptimalRange(latestHDLCholesterolValue, 60, 100) ? '#28a745' : '#FF0000';
+    const triCholesterolColor = isWithinOptimalRange(latestTriCholesterolValue, 0, 150) ? '#28a745' : '#FF0000';
+
+    // Set color for sparkline based on whether the count is within the optimal range
+    const totalCholesterolSparklineColor = isWithinOptimalRange(latestTotalCholesterolValue, 0, 200) ? '#28a745' : '#FF0000';
+    const ldlCholesterolSparklineColor = isWithinOptimalRange(latestLDLCholesterolValue, 0, 100) ? '#28a745' : '#FF0000';
+    const hdlCholesterolSparklineColor = isWithinOptimalRange(latestHDLCholesterolValue, 60, 100) ? '#28a745' : '#FF0000';
+    const triCholesterolSparklineColor = isWithinOptimalRange(latestTriCholesterolValue, 0, 150) ? '#28a745' : '#FF0000';
+
     // Create ApexChart for Total Cholesterol
     const totalCholesterolApex = {
         chart: {
@@ -68,7 +109,7 @@
             width: 2
         },
         markers: {
-            size: 4, 
+            size: 4,
         },
         annotations: {
             yaxis: [
@@ -89,7 +130,7 @@
                 },
             ]
         },
-        colors: ['#007bff']
+        colors: [totalCholesterolColor]
     };
 
     // Create ApexChart for LDL Cholesterol
@@ -123,7 +164,7 @@
             width: 2
         },
         markers: {
-            size: 4, 
+            size: 4,
         },
         annotations: {
             yaxis: [
@@ -144,7 +185,7 @@
                 },
             ]
         },
-        colors: ['#28a745']
+        colors: [ldlCholesterolColor]
     };
 
     // Create ApexChart for HDL Cholesterol
@@ -178,7 +219,7 @@
             width: 2
         },
         markers: {
-            size: 4, 
+            size: 4,
         },
         annotations: {
             yaxis: [
@@ -199,7 +240,7 @@
                 },
             ]
         },
-        colors: ['#6c757d']
+        colors: [hdlCholesterolColor]
     };
 
     // Create ApexChart for Triglycerides
@@ -233,7 +274,7 @@
             width: 2
         },
         markers: {
-            size: 4, 
+            size: 4,
         },
         annotations: {
             yaxis: [
@@ -254,7 +295,7 @@
                 },
             ]
         },
-        colors: ['#23dd7d']
+        colors: [triCholesterolColor]
     };
 
     const pieCholesterolApex = {
@@ -296,18 +337,115 @@
         colors: ["#1C64F2", "#16BDCA", "#9061F9"]
     };
 
+    // Sparkline configuration for Total Cholesterol
+    const totalCholesterolSparklineConfig = {
+        chart: {
+            type: 'line',
+            height: 50,
+            width: 100,
+            sparkline: {
+                enabled: true
+            }
+        },
+        series: [{
+            data: totalCholesterolData
+        }],
+        stroke: {
+            width: 2,
+            curve: 'straight'
+        },
+        colors: [totalCholesterolSparklineColor]
+    };
+
+    // Sparkline configuration for LDL Cholesterol
+    const ldlCholesterolSparklineConfig = {
+        chart: {
+            type: 'line',
+            height: 50,
+            width: 100,
+            sparkline: {
+                enabled: true
+            }
+        },
+        series: [{
+            data: ldlCholesterolData
+        }],
+        stroke: {
+            width: 2,
+            curve: 'straight'
+        },
+        colors: [ldlCholesterolSparklineColor]
+    };
+
+    // Sparkline configuration for HDL Cholesterol
+    const hdlCholesterolSparklineConfig = {
+        chart: {
+            type: 'line',
+            height: 50,
+            width: 100,
+            sparkline: {
+                enabled: true
+            }
+        },
+        series: [{
+            data: hdlCholesterolData
+        }],
+        stroke: {
+            width: 2,
+            curve: 'straight'
+        },
+        colors: [hdlCholesterolSparklineColor]
+    };
+
+    // Sparkline configuration for Triglycerides
+    const triCholesterolSparklineConfig = {
+        chart: {
+            type: 'line',
+            height: 50,
+            width: 100,
+            sparkline: {
+                enabled: true
+            }
+        },
+        series: [{
+            data: triCholesterolData
+        }],
+        stroke: {
+            width: 2,
+            curve: 'straight'
+        },
+        colors: [triCholesterolSparklineColor]
+    };
+
+    // Initialize ApexCharts
     const totalCholesterolChart = new ApexCharts(document.querySelector("#total-cholesterol-chart"), totalCholesterolApex);
     const ldlCholesterolChart = new ApexCharts(document.querySelector("#ldl-cholesterol-chart"), ldlCholesterolApex);
     const hdlCholesterolChart = new ApexCharts(document.querySelector("#hdl-cholesterol-chart"), hdlCholesterolApex);
     const triCholesterolChart = new ApexCharts(document.querySelector("#tri-cholesterol-chart"), triCholesterolApex);
     const pieCholesterolChart = new ApexCharts(document.querySelector("#pie-cholesterol-chart"), pieCholesterolApex);
+    const totalCholesterolSparkline = new ApexCharts(document.querySelector("#total-cholesterol-sparkline"), totalCholesterolSparklineConfig);
+    const ldlCholesterolSparkline = new ApexCharts(document.querySelector("#ldl-cholesterol-sparkline"), ldlCholesterolSparklineConfig);
+    const hdlCholesterolSparkline = new ApexCharts(document.querySelector("#hdl-cholesterol-sparkline"), hdlCholesterolSparklineConfig);
+    const triCholesterolSparkline = new ApexCharts(document.querySelector("#tri-cholesterol-sparkline"), triCholesterolSparklineConfig);
+
+    // Render ApexCharts
     totalCholesterolChart.render();
     ldlCholesterolChart.render();
     hdlCholesterolChart.render();
     triCholesterolChart.render();
     pieCholesterolChart.render();
-    document.getElementById('total-cholesterol-count').innerText = totalCholesterolData[totalCholesterolData.length - 1 ] + ' mg/dL';
-    document.getElementById('ldl-cholesterol-count').innerText = ldlCholesterolData[ldlCholesterolData.length - 1] + ' mg/dL';;
-    document.getElementById('hdl-cholesterol-count').innerText = hdlCholesterolData[hdlCholesterolData.length - 1] + ' mg/dL';;
-    document.getElementById('tri-cholesterol-count').innerText = triCholesterolData[triCholesterolData.length - 1] + ' mg/dL';;
+    totalCholesterolSparkline.render();
+    ldlCholesterolSparkline.render();
+    hdlCholesterolSparkline.render();
+    triCholesterolSparkline.render();
+
+    // Set Counts with Units
+    document.getElementById('total-cholesterol-count').innerText = totalCholesterolData[totalCholesterolData.length - 1] + ' mg/dL';
+    document.getElementById('ldl-cholesterol-count').innerText = ldlCholesterolData[ldlCholesterolData.length - 1] + ' mg/dL';
+    document.getElementById('hdl-cholesterol-count').innerText = hdlCholesterolData[hdlCholesterolData.length - 1] + ' mg/dL';
+    document.getElementById('tri-cholesterol-count').innerText = triCholesterolData[triCholesterolData.length - 1] + ' mg/dL';
+    document.getElementById('total-cholesterol-summary-count').innerText = totalCholesterolData[totalCholesterolData.length - 1] + ' mg/dL';
+    document.getElementById('ldl-cholesterol-summary-count').innerText = ldlCholesterolData[ldlCholesterolData.length - 1] + ' mg/dL';
+    document.getElementById('hdl-cholesterol-summary-count').innerText = hdlCholesterolData[hdlCholesterolData.length - 1] + ' mg/dL';
+    document.getElementById('tri-cholesterol-summary-count').innerText = triCholesterolData[triCholesterolData.length - 1] + ' mg/dL';
 </script>

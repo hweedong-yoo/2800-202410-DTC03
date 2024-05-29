@@ -103,7 +103,7 @@
                 <!-- Blood Chemistry Card -->
                 <div class="swiper-container overflow-hidden relative w-full max-w-sm">
                     <div class="swiper-wrapper">
-                        <!-- CBC Summary -->
+                        <!-- Blood Chemistry Summary -->
                         <div class="swiper-slide">
                             <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6 space-y-2">
                                 <p class="text-xl font-bold text-gray-600 mb-6">Blood Chemistry Statistics Summary</p>
@@ -179,48 +179,87 @@
                 </div>
 
                 <!-- Lipid Panel Card -->
-                <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
-                    <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Lipid Panel</div>
-                    <!-- Total Cholesterol Chart and Text -->
-                    <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
-                        <div class="flex flex-col">
-                            <p class="text-normal font-bold text-gray-600 mb-2">Total Cholesterol</p>
-                            <h5 id="total-cholesterol-count" class="leading-none text-normal font-semibold text-gray-600 pb-2">
+                <div class="swiper-container overflow-hidden relative w-full max-w-sm">
+                    <div class="swiper-wrapper">
+                        <!-- Lipid Panel Summary -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6 space-y-2">
+                                <p class="text-xl font-bold text-gray-600 mb-6">Blood Chemistry Statistics Summary</p>
+                                <div class="flex justify-between mb-2">
+                                    <div class="text-left w-1/2 text-lg font-semibold text-gray-600">Last 7 days</div>
+                                    <div class="text-right w-1/2 text-lg font-semibold text-gray-600">Today's Value</div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="total-cholesterol-sparkline" class="sparkline"></div>
+                                    <div id="total-cholesterol-summary-count" class="text-right w-1/2 text-lg font-semibold text-gray-600 grow"></div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="ldl-cholesterol-sparkline" class="sparkline"></div>
+                                    <div id="ldl-cholesterol-summary-count" class="text-right w-1/2 text-lg font-semibold text-gray-600 grow"></div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="hdl-cholesterol-sparkline" class="sparkline"></div>
+                                    <div id="hdl-cholesterol-summary-count" class="text-right w-1/2 text-lg font-semibold text-gray-600 grow"></div>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t-2">
+                                    <div id="tri-cholesterol-sparkline" class="sparkline"></div>
+                                    <div id="tri-cholesterol-summary-count" class="text-right w-1/2 text-lg font-semibold text-gray-600 grow"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div id="total-cholesterol-chart" class="mt-4"></div>
-                    </div>
-                </div>
-                <!-- LDL Cholesterol Chart and Text -->
-                <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
-                    <div class="flex flex-col">
-                        <p class="text-normal font-bold text-gray-600 mb-2">LDL Cholesterol</p>
-                        <div id="ldl-cholesterol-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></div>
-                    </div>
-                    <div id="ldl-cholesterol-chart" class="mt-4"></div>
-                </div>
-                <!-- HDL Cholesterol Chart and Text -->
-                <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
-                    <div class="flex flex-col">
-                        <p class="text-normal font-bold text-gray-600 mb-2">HDL Cholesterol</p>
-                        <div id="hdl-cholesterol-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></div>
-                    </div>
-                    <div id="hdl-cholesterol-chart" class="mt-4"></div>
-                </div>
-                <!-- Triglycerides Chart and Text -->
-                <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
-                    <div class="flex flex-col">
-                        <p class="text-normal font-bold text-gray-600 mb-2">Triglycerides</p>
-                        <div id="tri-cholesterol-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></div>
-                    </div>
-                    <div id="tri-cholesterol-chart" class="mt-4"></div>
-                </div>
-                <!-- Pie Chart and Text -->
-                <div class="flex items-center mt-5">
-                    <div id="pie-cholesterol-chart" class="chart"></div>
-                    <div class="flex flex-col items-center ml-4">
-                        <div id="pie-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
+                        <!-- Total Cholesterol Section -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
+                                <div class="flex flex-col">
+                                    <p class="text-normal font-bold text-gray-600 mb-2">Total Cholesterol Counts</p>
+                                    <h5 id="total-cholesterol-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></h5>
+                                </div>
+                                <div id="total-cholesterol-chart" class="mt-4"></div>
+                            </div>
+                        </div>
+                        <!-- LDL Cholesterol Section -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
+                                <div class="flex flex-col">
+                                    <p class="text-normal font-bold text-gray-600 mb-2">LDL Cholesterol Counts</p>
+                                    <h5 id="ldl-cholesterol-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></h5>
+                                </div>
+                                <div id="ldl-cholesterol-chart" class="mt-4"></div>
+                            </div>
+                        </div>
+                        <!-- HDL Cholesterol Section -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
+                                <div class="flex flex-col">
+                                    <p class="text-normal font-bold text-gray-600 mb-2">HDL Cholesterol Counts</p>
+                                    <h5 id="hdl-cholesterol-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></h5>
+                                </div>
+                                <div id="hdl-cholesterol-chart" class="mt-4"></div>
+                            </div>
+                        </div>
+                        <!-- Triglycerides Section -->
+                        <div class="swiper-slide">
+                            <div class="max-w-sm w-full bg-white rounded-lg shadow p-4 mb-4 md:p-6">
+                                <div class="flex flex-col">
+                                    <p class="text-normal font-bold text-gray-600 mb-2">Triglycerides Counts</p>
+                                    <h5 id="tri-cholesterol-count" class="leading-none text-normal font-semibold text-gray-600 pb-2"></h5>
+                                </div>
+                                <div id="tri-cholesterol-chart" class="mt-4"></div>
+                            </div>
+                        </div>
+                        <!-- Pie Chart and Text -->
+                        <div class="swiper-slide">
+                            <div class="flex items-center mt-5">
+                                <div id="pie-cholesterol-chart" class="chart"></div>
+                                <div class="flex flex-col items-center ml-4">
+                                    <div id="pie-cholesterol-count" class="text-2xl font-semibold text-slate-600 font-['Orbitron']">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination relative mt-2"></div>
                 </div>
             </div>
         </div>
