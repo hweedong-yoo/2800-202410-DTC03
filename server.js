@@ -54,7 +54,8 @@ const sessionValidationMiddlewares = require('./middlewares/sessionValidation');
 const accountSetUpMiddlewares = require('./middlewares/accountSetUp');
 const emailVerification = accountSetUpMiddlewares.emailVerification;
 const sessionValidation = sessionValidationMiddlewares.sessionValidation;
-const hasSecurityAnswer = sessionValidationMiddlewares.hasSecurityAnswer;
+const haveSecurityAnswer = sessionValidationMiddlewares.haveSecurityAnswer;
+const profileSetup = accountSetUpMiddlewares.profileSetup;
 
 // Define routes
 const landingPageRoute = require('./routes/landingPage');
@@ -62,7 +63,6 @@ const homePageRoute = require('./routes/home');
 const signupRoute = require('./routes/signupPage');
 const loginRoute = require('./routes/loginPage');
 const profilePageRoute = require('./routes/profilePage');
-const securityQuestionRoute = require('./routes/securityQuestionPage.js')
 const recoverPageRoute = require('./routes/recoverPage');
 const editProfilePageRoute = require('./routes/editProfilePage');
 const bodyModelRoute = require('./routes/bodyModelPage');
@@ -71,7 +71,7 @@ const contactPageRoute = require('./routes/contactPage');
 const aboutPageRoute = require('./routes/aboutPage');
 const termsPageRoute = require('./routes/termsPage');
 const logoutRoute = require('./routes/logout');
-const emailVerificationRoute = require('./routes/emailVerificationPage');
+const setUpRoute = require('./routes/setUpPage');
 
 
 // Use routes
@@ -81,14 +81,13 @@ app.use('/login', loginRoute);
 app.use('/contact', contactPageRoute)
 app.use('/about', aboutPageRoute);
 app.use('/terms', termsPageRoute);
-app.use('/security_question', securityQuestionRoute);
 app.use('/recover', recoverPageRoute);
-app.use('/verify', sessionValidation, emailVerificationRoute);
-app.use('/home', sessionValidation, emailVerification, hasSecurityAnswer, homePageRoute);
-app.use('/profile', sessionValidation, emailVerification, hasSecurityAnswer, profilePageRoute);
-app.use('/edit_profile', sessionValidation, emailVerification, hasSecurityAnswer, editProfilePageRoute);
-app.use('/bodyModel', sessionValidation, emailVerification, hasSecurityAnswer, bodyModelRoute);
-app.use('/logout', sessionValidation, hasSecurityAnswer, logoutRoute);
+app.use('/setup', setUpRoute);
+app.use('/home', sessionValidation, emailVerification, haveSecurityAnswer, profileSetup, homePageRoute);
+app.use('/profile', sessionValidation, emailVerification, haveSecurityAnswer, profilePageRoute);
+app.use('/edit_profile', sessionValidation, emailVerification, haveSecurityAnswer, editProfilePageRoute);
+app.use('/bodyModel', sessionValidation, emailVerification, haveSecurityAnswer, profileSetup, bodyModelRoute);
+app.use('/logout', sessionValidation, logoutRoute);
 app.use('*', NotFoundController);
 
 // Start the server

@@ -24,9 +24,9 @@ const displayHomePage = async (req, res) => {
 
     const user = {
       name: userData?.name || "",
-      bpm: vitalsData?.BPM?.[vitalsData.BPM.length - 1]?._doc["1"] ?? "--",
-      temp: vitalsData?.temperature?.[vitalsData.temperature.length - 1]?._doc["1"] ?? "--",
-      rrp: vitalsData?.respiratoryRate?.[vitalsData.respiratoryRate.length - 1]?._doc["1"] ?? "--",
+      bpm: vitalsData?.BPM?.[vitalsData.BPM.length - 1]?.value ?? "--",
+      temp: vitalsData?.temperature?.[vitalsData.temperature.length - 1]?.value ?? "--",
+      rrp: vitalsData?.respiratoryRate?.[vitalsData.respiratoryRate.length - 1]?.value ?? "--",
       bmi: bodyCompData?.BMI ?? "--",
       bf: bodyCompData?.BF ?? "--",
       weight: bodyCompData?.weight ?? "--",

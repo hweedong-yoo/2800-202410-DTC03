@@ -1,27 +1,78 @@
 <%- include('partials/header.ejs') %>
 
-<div  class="flex-grow flex justify-center items-center bg-white dark:bg-gray-900">
-  <form class="max-w-sm mx-auto flex flex-col justify-center items-center rounded-lg shadow-lg bg-gray-100 dark:bg-gray-800 p-5" method="post">
-      <div class="mb-5">
-        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-        <input name="email" type="text" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="example@gmail.com" required />
+  <div class="flex-grow flex justify-center items-center bg-white dark:bg-gray-900">
+    <form
+      class="max-w-sm mx-auto flex flex-col justify-center items-center rounded-xl shadow-xl bg-gray-100 dark:bg-gray-800 p-5"
+      method="post">
+      <div class="w-full mb-4 text-center">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Log in</h1>
       </div>
-      <div class="mb-5">
-        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-        <input name="password" type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+
+      <div class="relative mb-4">
+        <input id="email" name="email" type="text" id="floating_outlined"
+          value="<%= typeof email !== 'undefined' ? email : '' %>"
+          class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=" " />
+        <label for="floating_outlined"
+          class="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-100 dark:bg-gray-800 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Email
+          address</label>
       </div>
-      <div class="flex items-start mb-3">
+
+      <div class="relative mb-4">
+        <input id="password" name="password" type="password" id="floating_outlined"
+          class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=" " required />
+        <label for="floating_outlined"
+          class="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-100 dark:bg-gray-800 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Password</label>
       </div>
-      <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Log in</button>
-      <div>
-        <a href="/recover" class="mt-4 block mb-2 text-sm font-medium text-gray-900 dark:text-white" onclick="window.location.href='/recover'">forgot password?</a>
+
+      <div class="w-full text-end mb-2">
+        <a href="/recover" class="block mb-2 text-xs font-medium text-gray-800 dark:text-white underline">Forgot
+          password?</a>
       </div>
-      <% if (error) { %>
-        <p class="text-red-500 text-sm mt-2">
-            <%= "Invalid password." %>
-        </p>
-    <% } %>
+
+      <div class="flex justify-center">
+        <button type="submit"
+          class="text-white bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:focus:ring-blue-800 mb-4 opacity-75"
+          disabled>Log in</button>
+      </div>
+
+      <div class="w-full text-center mb-4">
+        <div class="text-xs font-medium text-gray-500 dark:text-white">Don't have an account? <a href="/signup"
+            class="underline text-gray-800 dark:text-white">Sign up</a></div>
+      </div>
+
+      <% if (typeof error !=='undefined' && error) { %>
+        <div class="text-sm text-red-800 rounded-lg dark:text-red-400 w-full text-center" role="alert">
+          <span class="font-semibold">Invalid</span> password or email.
+        </div>
+        <% } %>
     </form>
-</div>
-  
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const emailInput = document.getElementById('email');
+      const submitButton = document.querySelector('button[type="submit"]');
+
+      // Function to check if the email is valid
+      const checkEmailValidity = () => {
+        // Regular expression to check if the email is valid
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+        if (!emailRegex.test(emailInput.value)) {
+          submitButton.classList.add('opacity-75'); // Reduce the opacity of the submit button
+          // Disable the submit button since the email is invalid
+          submitButton.disabled = true;
+        } else {
+          submitButton.classList.remove('opacity-75'); // Revert the opacity of the submit button
+          // Enable the submit button
+          submitButton.disabled = false;
+        }
+      };
+
+      emailInput.addEventListener('input', checkEmailValidity);
+    });
+  </script>
+
   <%- include('partials/footer.ejs') %>

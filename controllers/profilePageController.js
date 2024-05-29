@@ -12,14 +12,22 @@ const displayPage = async (req, res) => {
       id: userData._id.toString().substring(3, 13) || "--",
       dob: userData.dob ? userData.dob.toISOString().substring(0, 10) : "--",
       sex: userData.sex || "--",
-      weight: bodyCompData && bodyCompData.weight ? bodyCompData.weight : "--",
-      height: bodyCompData && bodyCompData.height ? bodyCompData.height : "--"
+      weight: bodyCompData?.weight ?? "--",
+      height: bodyCompData?.height ?? "--"
     }
     
     res.render('profile',{
       user,
       authenticated : req.session.authenticated,
     });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+const displaySetupPage = async (req, res) => {
+  try {
+    res.render('profileSetUp', { authenticated: req.session.authenticated })
   } catch (error) {
     res.status(500).send(error);
   }
@@ -36,5 +44,6 @@ const logout = async (req, res) => {
 
 module.exports = {
   displayPage,
+  displaySetupPage,
   logout,
 };
