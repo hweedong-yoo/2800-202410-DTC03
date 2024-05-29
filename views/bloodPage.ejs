@@ -16,22 +16,22 @@
                 <div class="flex flex-col bg-white rounded-3xl p-5 w-96">
                     <div class="text-xl font-extrabold text-slate-600 font-['Orbitron'] mb-4">Overview</div>
                     <div class="flex flex-wrap justify-evenly items-center">
-                        <div id="immunity" class="flex flex-col items-center bg-slate-100 rounded-3xl p-4">
+                        <div id="immunity" class="flex flex-col items-center bg-red-100 rounded-3xl p-4">
                             <span class="text-6xl material-symbols-outlined text-red-700 mb-2">immunology</span>
                             <span class="text-lg font-semibold text-red-700 mb-2">Immunity</span>
                             <span class="text-sm font-semibold text-red-700">Vulnerable</span>
                         </div>
-                        <div id="kidney" class="flex flex-col items-center bg-slate-100 rounded-3xl p-4">
+                        <div id="kidney" class="flex flex-col items-center bg-red-100 rounded-3xl p-4">
                             <span class="text-6xl material-symbols-outlined text-red-700 mb-2">nephrology</span>
                             <span class="text-lg font-semibold text-red-700 mb-2">Kidney</span>
                             <span class="text-sm font-semibold text-red-700">Vulnerable</span>
                         </div>
-                        <div id="hematology" class="flex flex-col items-center bg-slate-100 rounded-3xl p-4">
+                        <div id="hematology" class="flex flex-col items-center bg-red-100 rounded-3xl p-4">
                             <span class="text-6xl material-symbols-outlined text-red-700 mb-2">hematology</span>
                             <span class="text-lg font-semibold text-red-700 mb-2">Hematology</span>
                             <span class="text-sm font-semibold text-red-700">Vulnerable</span>
                         </div>
-                        <div id="liver" class="flex flex-col items-center bg-slate-100 rounded-3xl p-4">
+                        <div id="liver" class="flex flex-col items-center bg-red-100 rounded-3xl p-4">
                             <span class="text-6xl material-symbols-outlined text-red-700 mb-2">emergency</span>
                             <span class="text-lg font-semibold text-red-700 mb-2">Liver</span>
                             <span class="text-sm font-semibold text-red-700">Vulnerable</span>
@@ -121,13 +121,17 @@
                                 </div>
                                 <div class="flex items-center justify-between pt-2 border-t-2">
                                     <div id="kidney-markers-sparkline" class="sparkline"></div>
-                                    <div id="bun-summary-count" class="text-right w-1/2 text-lg font-semibold text-gray-600 grow"></div>
-                                    <div id="creatinine-summary-count" class="text-right w-1/2 text-lg font-semibold text-gray-600 grow"></div>
+                                    <div class="flex flex-col text-right">
+                                        <div id="bun-summary-count" class="text-lg font-semibold text-gray-600"></div>
+                                        <div id="creatinine-summary-count" class="text-lg font-semibold text-gray-600"></div>
+                                    </div>
                                 </div>
                                 <div class="flex items-center justify-between pt-2 border-t-2">
                                     <div id="liver-markers-sparkline" class="sparkline"></div>
-                                    <div id="alt-summary-count" class="text-right w-1/2 text-lg font-semibold text-gray-600 grow"></div>
-                                    <div id="ast-summary-count" class="text-right w-1/2 text-lg font-semibold text-gray-600 grow"></div>
+                                    <div class="flex flex-col text-right">
+                                        <div id="alt-summary-count" class="text-lg font-semibold text-gray-600 grow"></div>
+                                        <div id="ast-summary-count" class="text-lg font-semibold text-gray-600 grow"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -268,27 +272,27 @@
 
     <%- include('partials/bottomNav.ejs') %>
 
-        <script>
-            // Initialize Swiper
-            var swiper = new Swiper('.swiper-container', {
-                slidesPerView: 1,
-                spaceBetween: 30,
-                loop: false,
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                    dynamicBullets: false,
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-            });
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-        <%- include('bloodPageCBC.ejs') %>
-            <%- include('bloodPageChemistry.ejs') %>
-                <%- include('bloodPageLipid.ejs') %>
-                    </body>
+    <script>
+        // Initialize Swiper
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: false,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+                dynamicBullets: false,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <%- include('bloodPageCBC.ejs') %>
+    <%- include('bloodPageChemistry.ejs') %>
+    <%- include('bloodPageLipid.ejs') %>
+</body>
 
-                    </html>
+</html>
