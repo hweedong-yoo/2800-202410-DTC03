@@ -1,34 +1,51 @@
 
-<!DOCTYPE html>
-<html lang="en">
+  <!DOCTYPE html>
+  <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BioLink</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioLink</title>
 
-  <link rel="icon" href="/images/icon.png">
+    <link rel="icon" href="/images/icon.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
 
-  <link href="/styles/output.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <!-- Tailwind CSS & Flowbite -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Swiper CSS and JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <!-- Use custom font in tailwind -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              orbitron: ['Orbitron', 'sans-serif'],
+            },
+          }
+        }
+      }
+    </script>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  </head>
 
-<body class="font-orbitron flex flex-col min-h-screen">
+<body class="font-orbitron flex flex-col min-h-screen pt-[60px] md:pt-[52px]">
 
-  <nav class="bg-white border-gray-200 dark:bg-gray-900">
+  <nav class="bg-white border-gray-200 dark:bg-gray-900 fixed top-0 w-full z-50">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 py-2.5 static">
-      <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+      <a href="<% if (authenticated) { %> /home <% } else { %> / <% } %>" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="/images/logo.svg" class="h-8 text-blue-700">
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">BIOLINK</span>
       </a>
@@ -57,7 +74,7 @@
               name="loginBtn" id="loginBtn">Login</a>
           </li>
 
-          <% } %>
+            <% } %>
 
           <li>
             <a href="/contact"
@@ -69,7 +86,15 @@
               class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
               name="loginBtn" id="loginBtn">About</a>
           </li>
+          <% if (authenticated) { %>
+          <li>
+            <form id="logoutForm" method="post" action="/logout">
+              <button type="submit"
+                class="blovk w-full text-left py-2 px-3 text-red-600 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                name="logoutBtn" id="logoutBtn">Logout</button>
+            </form>
+          </li>
+          <% } %>
         </ul>
       </div>
-    </div>
-  </nav>
+    </nav>

@@ -1,6 +1,5 @@
 const userModel = require('../models/userModels');
 const { securityAnswerSchema } = require('../validation/authValidation');
-const session = require('express-session');
 const bcrypt = require('bcrypt');
 
 const displayPage = async (req, res) => {

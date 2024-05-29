@@ -1,0 +1,276 @@
+<script>
+    /*
+    COMPLETE BLOOD COUNT:
+    -WBC: [4000,11000](cells/μL) 
+        - Low: Leukopenia - increased infection risk; fatigue
+        - High: Leukocytosis - possibly leukemia; infection or inflammation
+
+    -RBC: [4.2,6.1](million cells/μL)
+        - Low: Anemia - fatigue, weakness; risk of complications from blood loss.
+        - High: Polycythemia - increased clotting risk; potential for stroke or heart attack.
+        
+    -Platelets: [150000,450000](platelets/μL)
+        - Low: Thrombocytopenia - increased bleeding risk
+        - High: Thrombocytosis - increased clotting risk
+    */
+
+    // Data for WBC, RBC, and Platelets
+    const wbcData = <%= JSON.stringify(bloodData.wbc) %>;
+    const rbcData = <%= JSON.stringify(bloodData.rbc) %>;
+    const plateletsData = <%= JSON.stringify(bloodData.platelets) %>;
+
+    const latestWbcValue = wbcData[wbcData.length - 1];
+    const previousWbcValue = wbcData[wbcData.length - 2];
+    const percentageChangeWbc = ((latestWbcValue - previousWbcValue) / previousWbcValue) * 100;
+    
+    const latestRbcValue = rbcData[rbcData.length - 1];
+    const previousRbcValue = rbcData[rbcData.length - 2];
+    const percentageChangeRbc = ((latestRbcValue - previousRbcValue) / previousRbcValue) * 100;
+
+    const latestPlateletsValue = plateletsData[plateletsData.length - 1];
+    const previousPlateletsValue = plateletsData[plateletsData.length - 2];
+    const percentageChangePlatelets = ((latestPlateletsValue - previousPlateletsValue) / previousPlateletsValue) * 100;
+
+    // Create ApexChart for WBC
+    const wbcApex = {
+        chart: {
+            height: 200,
+            type: 'line',
+            zoom: {
+                enabled: false
+            },
+            toolbar: {
+                show: false
+            }
+        },
+        series: [{
+            name: 'WBC',
+            data: wbcData
+        }],
+        xaxis: {
+            categories: Array.from(Array(30), (_, i) => i + 1),
+            labels: {
+                show: false
+            },
+        },
+        yaxis: {
+            min: 3000,
+            max: 12000
+        },
+        stroke: {
+            width: 2
+        },
+        markers: {
+            size: 4, 
+            colors: ['#007bff']
+        },
+        annotations: {
+            yaxis: [
+                {
+                    y: 4000,
+                    borderColor: '#FF4560',
+                    label: {
+                        borderColor: '#FF4560',
+                        style: {
+                            color: '#fff',
+                            background: '#FF4560',
+                            fontSize: '8px'
+                        },
+                        text: 'Optimal Above',
+                        position: 'left',
+                        offsetX: 10,
+                    }
+                },
+                {
+                    y: 11000,
+                    borderColor: '#FF4560',
+                    label: {
+                        borderColor: '#FF4560',
+                        style: {
+                            color: '#fff',
+                            background: '#FF4560',
+                            fontSize: '8px'
+                        },
+                        text: 'Optimal Less',
+                        position: 'left',
+                        offsetX: 10,
+                    }
+                }
+            ]
+        },
+        colors: ['#007bff']
+    };
+
+    // Create ApexChart for RBC
+    const rbcApex = {
+        chart: {
+            height: 200,
+            type: 'line',
+            zoom: {
+                enabled: false
+            },
+            toolbar: {
+                show: false
+            }
+        },
+        series: [{
+            name: 'RBC',
+            data: rbcData
+        }],
+        xaxis: {
+            categories: Array.from(Array(30), (_, i) => i + 1),
+            labels: {
+                show: false
+            }
+        },
+        yaxis: {
+            min: 3,
+            max: 7
+        },
+        stroke: {
+            width: 2
+        },
+        markers: {
+            size: 4, 
+            colors: ['#28a745']
+        },
+        annotations: {
+            yaxis: [
+                {
+                    y: 4.2,
+                    borderColor: '#FF4560',
+                    label: {
+                        borderColor: '#FF4560',
+                        style: {
+                            color: '#fff',
+                            background: '#FF4560',
+                            fontSize: '8px'
+                        },
+                        text: 'Optimal Above',
+                        position: 'left',
+                        offsetX: 10,
+                    }
+                },
+                {
+                    y: 6.1,
+                    borderColor: '#FF4560',
+                    label: {
+                        borderColor: '#FF4560',
+                        style: {
+                            color: '#fff',
+                            background: '#FF4560',
+                            fontSize: '8px'
+                        },
+                        text: 'Optimal Less',
+                        position: 'left',
+                        offsetX: 10,
+                    }
+                }
+            ]
+        },
+        colors: ['#28a745']
+    };
+
+    // Create ApexChart for Platelets
+    const plateletsApex = {
+        chart: {
+            height: 200,
+            type: 'line',
+            zoom: {
+                enabled: false
+            },
+            toolbar: {
+                show: false
+            }
+        },
+        series: [{
+            name: 'Platelets',
+            data: plateletsData
+        }],
+        xaxis: {
+            categories: Array.from(Array(30), (_, i) => i + 1),
+            labels: {
+                show: false
+            }
+        },
+        yaxis: {
+            min: 100000,
+            max: 500000
+        },
+        stroke: {
+            width: 2
+        },
+        markers: {
+            size: 4, 
+            colors: ['#6c757d']
+        },
+        annotations: {
+            yaxis: [
+                {
+                    y: 150000,
+                    borderColor: '#FF4560',
+                    label: {
+                        borderColor: '#FF4560',
+                        style: {
+                            color: '#fff',
+                            background: '#FF4560',
+                            fontSize: '8px'
+                        },
+                        text: 'Optimal Above',
+                        position: 'left',
+                        offsetX: 10,
+                    }
+                },
+                {
+                    y: 450000,
+                    borderColor: '#FF4560',
+                    label: {
+                        borderColor: '#FF4560',
+                        style: {
+                            color: '#fff',
+                            background: '#FF4560',
+                            fontSize: '8px'
+                        },
+                        text: 'Optimal Less',
+                        position: 'left',
+                        offsetX: 10,
+                    }
+                }
+            ]
+        },
+        colors: ['#6c757d']
+    };
+
+    const wbcChart = new ApexCharts(document.querySelector("#wbc-chart"), wbcApex);
+    const rbcChart = new ApexCharts(document.querySelector("#rbc-chart"), rbcApex);
+    const plateletsChart = new ApexCharts(document.querySelector("#platelets-chart"), plateletsApex);
+
+    wbcChart.render();
+    rbcChart.render();
+    plateletsChart.render();
+
+    document.getElementById('wbc-count').innerText = wbcData[wbcData.length - 1] + ' WBC/μL';
+    document.getElementById('rbc-count').innerText = rbcData[rbcData.length - 1] + 'MIL RBC/μL'
+    document.getElementById('platelets-count').innerText = plateletsData[plateletsData.length - 1] + ' Plats/μL';
+
+    const wbcCount = wbcData[wbcData.length - 1];
+    const rbcCount = rbcData[rbcData.length - 1];
+    const plateletsCount = plateletsData[plateletsData.length - 1];
+
+    const showImmunity = wbcCount < 4000 || wbcCount > 11000;
+    const showHematology = rbcCount < 4.2 || rbcCount > 6.1 || plateletsCount < 150000 || plateletsCount > 450000;
+
+    if (showImmunity) {
+        document.getElementById('immunity').style.display = 'flex';
+    } else {
+        document.getElementById('immunity').style.display = 'none';
+    }
+
+    if (showHematology) {
+        document.getElementById('hematology').style.display = 'flex';
+    } else {
+        document.getElementById('hematology').style.display = 'none';
+    }
+
+
+</script>

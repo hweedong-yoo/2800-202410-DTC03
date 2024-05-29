@@ -1,22 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const vitalsSchema = new mongoose.Schema({
-  sex: {
-    type: String,
-  },
-  weight: {
-    type: Number,
-  },
-  height: {
-    type: Number,
-  },
-  dob: {
-    type: Date,
-  },
-});
-
-
 const userSchema = new Schema({
   name: {
     type: String,
@@ -26,6 +10,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
+  },
+  verified: {
+    type: Boolean,
+    required: true,
   },
   password: {
     type: String,
@@ -39,7 +27,14 @@ const userSchema = new Schema({
     type: String,
     required: false,
   },
-  profile: {vitalsSchema},
+  sex: {
+    type: String,
+    required: false,
+  },
+  dob: {
+    type: Date,
+    required: false,
+  }
 });
 
 const userModel = mongoose.model('users', userSchema);
