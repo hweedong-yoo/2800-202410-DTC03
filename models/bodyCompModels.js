@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const bodyCompSchema = new Schema({
   userID: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   weight: {
     type: Number,

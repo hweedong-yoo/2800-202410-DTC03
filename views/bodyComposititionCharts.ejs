@@ -123,6 +123,11 @@
         },
     }
 
+    if (!tempBMI) {
+        console.log("deleted BMIOptions annotations.");
+        delete BMIOptions.annotations;
+    }
+
     if (document.getElementById("bmi-chart") && typeof ApexCharts !== 'undefined') {
         const BMIchart = new ApexCharts(document.getElementById("bmi-chart"), BMIOptions);
         BMIchart.render();
@@ -252,6 +257,11 @@
         },
     }
 
+    if (!tempBF) {
+        console.log("deleted BFOptions annotations.");
+        delete BFOptions.annotations;
+    }
+
     if (document.getElementById("bf-chart") && typeof ApexCharts !== 'undefined') {
         const BFchart = new ApexCharts(document.getElementById("bf-chart"), BFOptions);
         BFchart.render();
@@ -301,6 +311,10 @@
 
     };
 
+    if (!tempBF) {
+        console.log("deleted BFOptions annotations.");
+        delete BFOptions.annotations;
+    }
 
     if (document.getElementById("t-score-chart") && typeof ApexCharts !== 'undefined') {
         const TScoreChart = new ApexCharts(document.getElementById("t-score-chart"), TScoreOptions);

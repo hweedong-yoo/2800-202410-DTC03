@@ -27,7 +27,7 @@ const displayPage = async (req, res) => {
 
 const displaySetUpPage = async (req, res) => {
   try {
-    userID = req.session.userID;
+    const userID = req.session.userID;
 
     const user = await User.findOne({ email: req.session.email });
     if (user.dob) {
@@ -63,7 +63,6 @@ const addInitialInformation = async (req, res) => {
     const userID = req.session.userID;
 
     let updateUserData = {};
-
     if (birthday) updateUserData.dob = birthday;
     if (gender) updateUserData.sex = gender;
 
@@ -76,12 +75,11 @@ const addInitialInformation = async (req, res) => {
 
 
     let updateBodyCompData = {};
-
-    if (weight) updateBodyCompData.weight = weight;
-    if (height) updateBodyCompData.height = height;
+    if (weight && weight > 0 && weight < 300) updateBodyCompData.weight = weight;
+    if (height && height > 0 && height < 300) updateBodyCompData.height = height;
 
     //Calculate BMI
-    if (weight && height) {
+    if (updateBodyCompData.weight && updateBodyCompData.height) {
       const bmi = ((weight / height / height) * 10000).toFixed(1);
       updateBodyCompData.BMI = bmi;
 
@@ -134,11 +132,11 @@ const editInformation = async (req, res) => {
 
 
     let updateBodyCompData = {};
-    if (weight) updateBodyCompData.weight = weight;
-    if (height) updateBodyCompData.height = height;
+    if (weight && weight > 0 && weight < 300) updateBodyCompData.weight = weight;
+    if (height && height > 0 && height < 300) updateBodyCompData.height = height;
 
     //Calculate BMI
-    if (weight && height) {
+    if (updateBodyCompData.weight && updateBodyCompData.height) {
       const bmi = ((weight / height / height) * 10000).toFixed(1);
       updateBodyCompData.BMI = bmi;
 

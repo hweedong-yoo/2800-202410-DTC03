@@ -3,8 +3,6 @@ const BodyComp = require('../models/bodyCompModels');
 const Blood = require('../models/bloodModels');
 const Vitals = require('../models/vitalsModel');
 
-const moment = require('moment');
-
 const displayHomePage = async (req, res) => {
   try {
     const userData = await User.findOne({ email: req.session.email });
@@ -12,18 +10,18 @@ const displayHomePage = async (req, res) => {
     const BloodData = await Blood.findOne({ userID: req.session.userID });
     const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
 
-    const goodHealth = {
+    const goodStats = {
       icon: 'check_circle',
       colour: '#289322'
     }
 
-    const badHealth = {
+    const badStats = {
       icon: 'cancel',
       colour: '#B22F2F'
     }
 
     const user = {
-      name: userData?.name || "",
+      name: userData.name || "",
       bpm: vitalsData?.BPM?.[vitalsData.BPM.length - 1]?.value ?? "--",
       temp: vitalsData?.temperature?.[vitalsData.temperature.length - 1]?.value ?? "--",
       rrp: vitalsData?.respiratoryRate?.[vitalsData.respiratoryRate.length - 1]?.value ?? "--",
@@ -32,9 +30,9 @@ const displayHomePage = async (req, res) => {
       weight: bodyCompData?.weight ?? "--",
       wbc: BloodData?.wbc?.[BloodData.wbc.length - 1] ?? "--",
       rbc: BloodData?.rbc?.[BloodData.rbc.length - 1] ?? "--",
-      vitalsStatus: vitalsData?.vulnerabilities?.length > 0 ? badHealth : goodHealth,
-      bloodStatus: BloodData?.vulnerabilities?.length > 0 ? badHealth : goodHealth,
-      bodyStatus: bodyCompData?.vulnerabilities?.length > 0 ? badHealth : goodHealth
+      vitalsStatus: vitalsData?.vulnerabilities?.length > 0 ? badStats : goodStats,
+      bloodStatus: BloodData?.vulnerabilities?.length > 0 ? badStats : goodStats,
+      bodyStatus: bodyCompData?.vulnerabilities?.length > 0 ? badStats : goodStats
     }
 
     res.render('home', {
@@ -61,34 +59,33 @@ const displayBodyCompPage = async (req, res) => {
     const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
     const userData = await User.findOne({ _id: req.session.userID });
 
-    var tempTScore;
-    if (!bodyCompData.tScore) {
-      tempTScore = 1;
+    if (!bodyCompData) {
+      const newData = new BodyComp({
+        userID: req.session.userID,
+        tScore: 1,
+      })
+      await newData.save();
+
     }
-    else {
-      tempTScore = bodyCompData.tScore;
+
+    if (bodyCompData && bodyCompData.tScore < 1) {
+      let tempVulnerabilities = "bones";
+      await BodyComp.findOneAndUpdate({ userID: req.session.userID },
+        {
+          vulnerabilities: [tempVulnerabilities],
+        },
+      );
     }
-    var tempVulnerabilities = '';
-    if (tempTScore < 1) {
-      tempVulnerabilities += "bones";
-    }
-    var updatedBodyComp = await BodyComp.findOneAndUpdate({ userID: req.session.userID },
-      {
-        BMI: bodyCompData.BMI ,
-        BF:  bodyCompData.BF  ,
-        tScore: tempTScore,
-        vulnerabilities: [tempVulnerabilities]
-      }, { new: true }
-    );
+
     res.render('bodyComposition', {
       authenticated: req.session.authenticated,
       userId: req.session.userID,
-      userBMI: updatedBodyComp.BMI || "--",
-      userBF: updatedBodyComp.BF || "--",
-      userWeight: updatedBodyComp.weight|| "--",
-      userHeight: updatedBodyComp.height|| "--",
-      userTscore: updatedBodyComp.tScore|| "--",
-      userGender: userData.sex || "--",
+      userBMI:     bodyCompData?.BMI    ?? "undefined",
+      userBF:      bodyCompData?.BF     ?? "undefined",
+      userWeight:  bodyCompData?.weight ?? "undefined",
+      userHeight:  bodyCompData?.height ?? "undefined",
+      userTscore:  bodyCompData?.tScore ?? "undefined",
+      userGender:  userData?.sex ?? "M",
     });
   } catch (error) {
     console.log(error)
