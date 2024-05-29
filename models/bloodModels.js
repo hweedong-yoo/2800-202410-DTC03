@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const bloodSchema = new Schema({
   userID: {
     type: String, 
-    required: true
+    required: true,
+    unique: true
   },
   wbc: [Number], 
   rbc: [Number], 
