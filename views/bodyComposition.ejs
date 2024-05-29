@@ -7,20 +7,18 @@
 </script>
 <%- include('partials/header.ejs') %>
 
-    <section class="flex justify-center my-auto bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
+    <section class="flex justify-center my-auto bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE] text-[#455780] font-bold">
         <div class="max-w-full">
             <!-- hero -->
-            <div class="py-4 my-4 text-center">
-                <h1 class="font-extrabold text-3xl">
-                    Body Composition
-                </h1>
-            </div>
+            <h1 class="text-center py-6 text-4xl font-extrabold text-[#354666]">Body Composition</h1>
             <!-- beginning of cards -->
             <div class="flex flex-col mx-auto box-border">
                 <div class="m-4 p-3 bg-[#FCFEFE] rounded-lg shadow-lg">
                     <!-- chart header -->
-                    <h1 class="text-3xl text-center pb-10 pt-5">
-                        Body mass index
+                    <h1 class="text-3xl text-center pb-10 pt-5 text-[#4f6495]">
+                        Body Mass
+                        <br>
+                        Index
                     </h1>
                     <!-- actual chart -->
                     <div id="bmi-chart"></div>
@@ -73,10 +71,8 @@
                 <!-- body fat percentage -->
 
                 <div class="m-4 p-3 bg-[#FCFEFE] rounded-lg shadow-lg">
-
-                    <!-- chart html -->
                     <!-- chart header -->
-                    <h1 class="text-3xl text-center pb-10 pt-5">
+                    <h1 class="text-3xl text-center pb-10 pt-5 px-5 text-[#4f6495]">
                         Body Fat Percentage
                     </h1>
                     <!-- actual chart -->
@@ -86,7 +82,7 @@
                         <% if (userBF=="undefined" ) { %>
                             You have not entered your details yet!
                             <br>
-    
+
                             <a href="/edit_profile" class="text-slate-500">Click here to edit.</a>
                             <% } else {%>
                                 Your BF%: <%= userBF %>%
@@ -94,7 +90,8 @@
                                     <% if (userGender==='F' ) { %>
                                         <% if (userBF>= 32) { %>
                                             <br>
-                                            Your body fat is <span class="text-red-400">higher</span> than normal ranges.
+                                            Your body fat is <span class="text-red-400">higher</span> than normal
+                                            ranges.
                                             <% } else if (userBF> 21 && userBF < 32 ) {%>
                                                     Your body fat is <span class="text-green-400">within</span> normal
                                                     ranges.
@@ -110,7 +107,8 @@
                                                                     ranges.
                                                                     <% } else if (userBF> 8 && userBF < 19 ) {%>
                                                                             Your body fat is <span
-                                                                                class="text-green-400">within</span> normal
+                                                                                class="text-green-400">within</span>
+                                                                            normal
                                                                             ranges.
                                                                             <% } else {%>
                                                                                 Your body fat is <span
@@ -121,11 +119,11 @@
                                                                                         <% } %>
                     </p>
                 </div>
-
-                <div class="flex mx-auto">
+                <!-- weight and height cards -->
+                <div class="flex max-w-full">
 
                     <div class="m-4 bg-[#FCFEFE] rounded-lg shadow-lg flex-auto">
-                        <h1 class="text-2xl text-center pb-10 pt-5">
+                        <h1 class="text-2xl text-center pb-10 pt-5 text-[#4f6495]">
                             Weight
                         </h1>
 
@@ -134,7 +132,7 @@
                                 <br>
                         </p>
                     </div>
-                    <div class="m-4  bg-[#FCFEFE] rounded-lg shadow-lg flex-auto">
+                    <div class="m-4  bg-[#FCFEFE] rounded-lg shadow-lg flex-auto text-[#4f6495]">
                         <h1 class="text-2xl text-center pb-10 pt-5">
                             Height
                         </h1>
@@ -147,7 +145,7 @@
                 </div>
 
                 <div class="m-4 p-3 mb-[80px] bg-[#FCFEFE] rounded-lg shadow-lg">
-                    <h1 class="text-3xl text-center pb-10 pt-5">
+                    <h1 class="text-3xl text-center pb-10 pt-5 text-[#4f6495]">
                         Bone Density
                     </h1>
 
@@ -164,12 +162,12 @@
                                         <br>
                                         This means that your are more likely to have
                                         osteopenia. A pre-osteoporosis condition.
-    
+
                                         <% }else {%>
                                             You have a <span class="text-red-400">very low</span> T-score range.
                                             <br>You are much more prone to breaking bones.
                                             <br>You most likely have osteoporosis.
-    
+
                                             <% }%>
                     </p>
                 </div>
