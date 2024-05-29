@@ -61,33 +61,34 @@ const displayBodyCompPage = async (req, res) => {
     const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
     const userData = await User.findOne({ _id: req.session.userID });
 
-    if (!bodyCompData) {
-      const newData = new BodyComp({
-        userID: req.session.userID,
-        tScore: 1,
-      })
-      await newData.save();
-
+    var tempTScore;
+    if (!bodyCompData.tScore) {
+      tempTScore = 1;
     }
-
-    if (bodyCompData && bodyCompData.tScore < 1) {
-      let tempVulnerabilities = "bones";
-      await BodyComp.findOneAndUpdate({ userID: req.session.userID },
-        {
-          vulnerabilities: [tempVulnerabilities],
-        },
-      );
+    else {
+      tempTScore = bodyCompData.tScore;
     }
-
+    var tempVulnerabilities = '';
+    if (tempTScore < 1) {
+      tempVulnerabilities += "bones";
+    }
+    var updatedBodyComp = await BodyComp.findOneAndUpdate({ userID: req.session.userID },
+      {
+        BMI: bodyCompData.BMI ,
+        BF:  bodyCompData.BF  ,
+        tScore: tempTScore,
+        vulnerabilities: [tempVulnerabilities]
+      }, { new: true }
+    );
     res.render('bodyComposition', {
       authenticated: req.session.authenticated,
       userId: req.session.userID,
-      userBMI:     bodyCompData?.BMI    ?? "undefined",
-      userBF:      bodyCompData?.BF     ?? "undefined",
-      userWeight:  bodyCompData?.weight ?? "undefined",
-      userHeight:  bodyCompData?.height ?? "undefined",
-      userTscore:  bodyCompData?.tScore ?? "undefined",
-      userGender:  userData?.sex ?? "M",
+      userBMI: updatedBodyComp.BMI || "--",
+      userBF: updatedBodyComp.BF || "--",
+      userWeight: updatedBodyComp.weight|| "--",
+      userHeight: updatedBodyComp.height|| "--",
+      userTscore: updatedBodyComp.tScore|| "--",
+      userGender: userData.sex || "--",
     });
   } catch (error) {
     console.log(error)

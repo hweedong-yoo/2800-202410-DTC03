@@ -12,8 +12,8 @@
             show: true,
             strokeDashArray: 6,
             padding: {
-                left: 10,
-                right: 10,
+                left: 5,
+                right: 5,
                 top: -10
             },
         },
@@ -40,7 +40,8 @@
             },
         ],
         chart: {
-            height: 200,
+            height: "200px",
+            maxWidth: "100%",
             type: "line",
             fontFamily: "Inter, sans-serif",
             dropShadow: {
@@ -70,7 +71,7 @@
                 colorStops: [
                     {
                         offset: 0,
-                        color: "#B22F2F",
+                        color: "red",
                         opacity: 1
                     },
                     {
@@ -80,7 +81,7 @@
                     },
                     {
                         offset: 50,
-                        color: "#289322",
+                        color: "green",
                         opacity: 1
                     },
                     {
@@ -90,7 +91,7 @@
                     },
                     {
                         offset: 100,
-                        color: "#B22F2F",
+                        color: "red",
                         opacity: 1
                     }
                 ]
@@ -101,15 +102,15 @@
             width: 6,
         },
         xaxis: {
-            categories: ['Underweight', 'Underweight', 'Normal', 'Normal', 'Overweight', 'Overweight'],
+            categories: ['Extremely Underweight', 'Underweight', 'Normal', 'Normal', 'Overweight', 'Extremely Overweight'],
             labels: {
                 show: false,
             },
             axisBorder: {
-                show: true,
+                show: false,
             },
             axisTicks: {
-                show: true,
+                show: false,
             },
         },
         yaxis: {
@@ -120,11 +121,6 @@
                 }
             }
         },
-    }
-
-    if (!tempBMI) {
-        console.log("deleted BMIOptions annotations.");
-        delete BMIOptions.annotations;
     }
 
     if (document.getElementById("bmi-chart") && typeof ApexCharts !== 'undefined') {
@@ -173,7 +169,8 @@
             },
         ],
         chart: {
-            height: 200,
+            height: "200px",
+            maxWidth: "100%",
             type: "line",
             fontFamily: "Inter, sans-serif",
             dropShadow: {
@@ -203,7 +200,7 @@
                 colorStops: [
                     {
                         offset: 0,
-                        color: "#B22F2F",
+                        color: "red",
                         opacity: 1
                     },
                     {
@@ -213,7 +210,7 @@
                     },
                     {
                         offset: 50,
-                        color: "#289322",
+                        color: "green",
                         opacity: 1
                     },
                     {
@@ -234,7 +231,7 @@
             width: 6,
         },
         xaxis: {
-            categories: ['low', 'low', 'Normal', 'Normal', 'Normal', 'Overweight', 'Overweight'],
+            categories: ['Extremely low', 'low', 'Normal', 'Normal', 'Normal', 'Overweight', 'Overweight'],
             labels: {
                 show: false,
             },
@@ -255,18 +252,13 @@
         },
     }
 
-    if (!tempBF) {
-        console.log("deleted BFOptions annotations.");
-        delete BFOptions.annotations;
-    }
-
     if (document.getElementById("bf-chart") && typeof ApexCharts !== 'undefined') {
         const BFchart = new ApexCharts(document.getElementById("bf-chart"), BFOptions);
         BFchart.render();
     }
 
     // T-score bar graph
-    const TScoreOptions = {
+    var TScoreOptions = {
         series: [{
             data: [{
                 x: 'Test Range',
@@ -308,6 +300,7 @@
         },
 
     };
+
 
     if (document.getElementById("t-score-chart") && typeof ApexCharts !== 'undefined') {
         const TScoreChart = new ApexCharts(document.getElementById("t-score-chart"), TScoreOptions);
