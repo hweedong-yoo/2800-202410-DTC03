@@ -1,15 +1,13 @@
-<% if (!userTscore) {%>
-    <% userTscore=0 %>
-        <% } %>
+
             <script>
                 const tempBMI = <%= userBMI  %>;
                 const tempTScore = <%= userTscore %>;
                 const tempBF = <%= userBF  %>;
-                console.log(tempBMI, 'userBMI')
-                console.log(tempTScore, 'tempTScore')
+                console.log(tempBMI, 'userBMI');
+                console.log(tempTScore, 'tempTScore');
             </script>
             <%- include('partials/header.ejs') %>
-                <section class="flex justify-center my-auto bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
+                <section class="flex justify-center my-auto mx-auto bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
                     <div class="max-w-lg flex flex-col">
                         <!-- hero -->
                         <div class="mx-auto  py-4 my-4 ">
@@ -28,7 +26,9 @@
                                 <div id="bmi-chart"></div>
                                 <p class="text-xl p-4">
                                     <% if (userBMI=="undefined" ) { %>
-                                        You have not entered your details yet!
+                                        You have not entered your details yet! 
+                                        <br>
+                                        <a href="/edit_profile" class="text-slate-500 text-center">Click here to edit.</a>
                                         <% } else {%>
                                             Your BMI: <%= userBMI %>
                                                 <br>
@@ -85,6 +85,9 @@
                                     <!-- female bf% conditions different from male -->
                                     <% if (userBF=="undefined" ) { %>
                                         You have not entered your details yet!
+                                        <br>
+                                        
+                                        <a href="/edit_profile" class="text-slate-500">Click here to edit.</a>
                                     <% } else {%>
                                         Your BF%: <%= userBF %>%
                                             <br>

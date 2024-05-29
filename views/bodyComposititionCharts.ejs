@@ -40,8 +40,7 @@
             },
         ],
         chart: {
-            height: "200px",
-            maxWidth: "320px",
+            height: 200,
             type: "line",
             fontFamily: "Inter, sans-serif",
             dropShadow: {
@@ -123,7 +122,8 @@
         },
     }
 
-    if (BMIOptions == "undefined") {
+    if (!tempBMI) {
+        console.log("deleted BMIOptions annotations.");
         delete BMIOptions.annotations;
     }
 
@@ -173,8 +173,7 @@
             },
         ],
         chart: {
-            height: "200px",
-            maxWidth: "100%",
+            height: 200,
             type: "line",
             fontFamily: "Inter, sans-serif",
             dropShadow: {
@@ -256,7 +255,8 @@
         },
     }
 
-    if (tempBF == "undefined") {
+    if (!tempBF) {
+        console.log("deleted BFOptions annotations.");
         delete BFOptions.annotations;
     }
 
@@ -308,10 +308,6 @@
         },
 
     };
-    if (tempTScore == "undefined") {
-        delete TScoreOptions.annotations;
-    }
-
 
     if (document.getElementById("t-score-chart") && typeof ApexCharts !== 'undefined') {
         const TScoreChart = new ApexCharts(document.getElementById("t-score-chart"), TScoreOptions);
