@@ -3,8 +3,6 @@ const BodyComp = require('../models/bodyCompModels');
 const Blood = require('../models/bloodModels');
 const Vitals = require('../models/vitalsModel');
 
-const moment = require('moment');
-
 const displayHomePage = async (req, res) => {
   try {
     const userData = await User.findOne({ email: req.session.email });
@@ -12,18 +10,18 @@ const displayHomePage = async (req, res) => {
     const BloodData = await Blood.findOne({ userID: req.session.userID });
     const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
 
-    const goodHealth = {
+    const goodStats = {
       icon: 'check_circle',
       colour: '#289322'
     }
 
-    const badHealth = {
+    const badStats = {
       icon: 'cancel',
       colour: '#B22F2F'
     }
 
     const user = {
-      name: userData?.name || "",
+      name: userData.name || "",
       bpm: vitalsData?.BPM?.[vitalsData.BPM.length - 1]?.value ?? "--",
       temp: vitalsData?.temperature?.[vitalsData.temperature.length - 1]?.value ?? "--",
       rrp: vitalsData?.respiratoryRate?.[vitalsData.respiratoryRate.length - 1]?.value ?? "--",
@@ -32,9 +30,9 @@ const displayHomePage = async (req, res) => {
       weight: bodyCompData?.weight ?? "--",
       wbc: BloodData?.wbc?.[BloodData.wbc.length - 1] ?? "--",
       rbc: BloodData?.rbc?.[BloodData.rbc.length - 1] ?? "--",
-      vitalsStatus: vitalsData?.vulnerabilities?.length > 0 ? badHealth : goodHealth,
-      bloodStatus: BloodData?.vulnerabilities?.length > 0 ? badHealth : goodHealth,
-      bodyStatus: bodyCompData?.vulnerabilities?.length > 0 ? badHealth : goodHealth
+      vitalsStatus: vitalsData?.vulnerabilities?.length > 0 ? badStats : goodStats,
+      bloodStatus: BloodData?.vulnerabilities?.length > 0 ? badStats : goodStats,
+      bodyStatus: bodyCompData?.vulnerabilities?.length > 0 ? badStats : goodStats
     }
 
     res.render('home', {
