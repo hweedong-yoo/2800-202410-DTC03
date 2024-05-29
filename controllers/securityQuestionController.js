@@ -10,7 +10,7 @@ const displayPage = async (req, res) => {
     }
 };
 
-const addSecurityQuestion = async (req, res) => {
+const saveSecurityQuestion = async (req, res) => {
     try {
         const { securityAnswer, securityQuestion } = req.body;
 
@@ -36,5 +36,5 @@ const addSecurityQuestion = async (req, res) => {
 
 module.exports = {
     displayPage,
-    addSecurityQuestion,
+    saveSecurityQuestion,
 };
