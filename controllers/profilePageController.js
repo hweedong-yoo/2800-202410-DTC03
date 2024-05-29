@@ -25,6 +25,14 @@ const displayPage = async (req, res) => {
   }
 };
 
+const displaySetupPage = async (req, res) => {
+  try {
+    res.render('profileSetUp', { authenticated: req.session.authenticated })
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 const logout = async (req, res) => {
   try {
     req.session.destroy();
@@ -36,5 +44,6 @@ const logout = async (req, res) => {
 
 module.exports = {
   displayPage,
+  displaySetupPage,
   logout,
 };

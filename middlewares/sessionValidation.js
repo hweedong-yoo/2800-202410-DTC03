@@ -36,13 +36,13 @@ async function recoveryAnswerValidation(req, res, next) {
     }
 }
 
-async function hasSecurityAnswer(req, res, next) {
+async function haveSecurityAnswer(req, res, next) {
     const email = req.session.email;
     let user = await User.findOne({ email: email, recovery: { $exists: true }});
     if (user) {
         next();
     } else {
-        res.redirect('/security_question');
+        res.redirect('/setup/securityquestion');
     }
 }
 
@@ -50,5 +50,5 @@ module.exports = {
     sessionValidation,
     validateToken,
     recoveryAnswerValidation,
-    hasSecurityAnswer,
+    haveSecurityAnswer,
 }
