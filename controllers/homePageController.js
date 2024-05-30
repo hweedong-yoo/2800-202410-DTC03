@@ -70,8 +70,7 @@ const displayBodyCompPage = async (req, res) => {
     const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
     const userData = await User.findOne({ _id: req.session.userID });
 
-    // Create new body composition data if none exists
-    if (!bodyCompData) {
+    if (!bodyCompData.tScore) {
       const newData = new BodyComp({
         userID: req.session.userID,
         tScore: 1,
