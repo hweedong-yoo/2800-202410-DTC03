@@ -1,180 +1,155 @@
+<!-- Temporary variables for user BMI, T-Score, and Body Fat Percentage used in relative charts ejs file -->
 <script>
-    const tempBMI = <%= userBMI  %>;
+    const tempBMI = <%= userBMI %>;
     const tempTScore = <%= userTscore %>;
-    const tempBF = <%= userBF  %>;
-    console.log(tempBMI, 'userBMI')
-    console.log(tempTScore, 'tempTScore')
+    const tempBF = <%= userBF %>;
+
+    // Logs the values to the console for debugging purposes
+    console.log(tempBMI, 'userBMI');
+    console.log(tempTScore, 'tempTScore');
 </script>
+
+<!-- Include header -->
 <%- include('partials/header.ejs') %>
 
-    <section class="flex justify-center my-auto bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE] text-[#455780] font-bold">
-        <div class="max-w-full">
-            <!-- hero -->
-            <h1 class="text-center py-6 text-4xl font-extrabold text-[#354666]">Body Composition</h1>
-            <!-- beginning of cards -->
-            <div class="flex flex-col mx-auto box-border">
-                <div class="m-4 p-3 bg-[#FCFEFE] rounded-3xl shadow-lg">
-                    <!-- chart header -->
-                    <h1 class="text-3xl text-center pb-10 pt-5 text-[#4f6495]">
-                        Body Mass
+<section class="flex justify-center my-auto bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE] text-[#455780] font-bold">
+    <div class="max-w-full">
+        <!-- header -->
+        <h1 class="text-center py-6 text-4xl font-extrabold text-[#354666]">Body Composition</h1>
+
+        <!-- Beginning of cards -->
+        <div class="flex flex-col mx-auto box-border">
+            <!-- BMI Card -->
+            <div class="m-4 p-3 bg-[#FCFEFE] rounded-3xl shadow-lg">
+                <h1 class="text-3xl text-center pb-10 pt-5 text-[#4f6495]">
+                    Body Mass
+                    <br>
+                    Index
+                </h1>
+                <!-- BMI chart -->
+                <div id="bmi-chart"></div>
+                <!-- BMI description and info based on user value -->
+                <p class="text-xl p-4 text-center">
+                    <% if (userBMI == "undefined") { %>
+                        You have not entered your details yet!
                         <br>
-                        Index
-                    </h1>
-                    <!-- actual chart -->
-                    <div id="bmi-chart"></div>
-                    <p class="text-xl p-4 text-center">
-                        <% if (userBMI=="undefined" ) { %>
-                            You have not entered your details yet!
-                            <br>
-                            <a href="/edit_profile" class="text-slate-500">Click here to edit.</a>
-                            <% } else {%>
-                                Your BMI: <%= userBMI %>
-                                    <br>
-                                    <% if (userBMI < 18.5) { %>
-                                        You are <span class="text-red-400"> underweight </span>. Risks
-                                        associated with being underweight
-                                        are:
-                                        <ul>
-                                            <li class="px-3">- Malnutrition</li>
-                                            <li class="px-3">- Osteoporosis</li>
-                                            <li class="px-3">- Decreased muscle strength</li>
-                                            <li class="px-3">- Hypothermia</li>
-                                            <li class="px-3">- Lowered immunity</li>
-                                        </ul>
-                                        <% } else if (userBMI>= 18.5 && userBMI < 26) {%>
-                                                You are <span class="text-green-400">normal weight</span>
-                                                relative to your height.
-                                                <% }else {%>
-                                                    You are <span class="text-red-400">Overweight</span>.
-                                                    Risks associated with being
-                                                    overweight
-                                                    are:
-                                                    <ul>
-                                                        <li class="px-3">- heart disease</li>
-                                                        <li class="px-3">- diabetes</li>
-                                                        <li class="px-3">- high blood pressure</li>
-                                                        <li class="px-3">- high cholesterol</li>
-                                                        <li class="px-3">- liver disease</li>
-                                                        <li class="px-3">- sleep apnea</li>
-                                                        <li class="px-3">- certain cancers</li>
-                                                    </ul>
-                                                    <% }%>
-                                                        <% }%>
-                                                            <br>
-                                                            <p class=" text-center pb-4">
-                                                                *BMI rating are not accurate for people
-                                                                with
-                                                                physical conditioning.
-                                                            </p>
+                        <a href="/edit_profile" class="text-slate-500">Click here to edit.</a>
+                    <% } else { %>
+                        Your BMI: <%= userBMI %>
+                        <br>
+                        <% if (userBMI < 18.5) { %>
+                            You are <span class="text-red-400">underweight</span>. Risks associated with being underweight are:
+                            <ul>
+                                <li class="px-3">- Malnutrition</li>
+                                <li class="px-3">- Osteoporosis</li>
+                                <li class="px-3">- Decreased muscle strength</li>
+                                <li class="px-3">- Hypothermia</li>
+                                <li class="px-3">- Lowered immunity</li>
+                            </ul>
+                        <% } else if (userBMI >= 18.5 && userBMI < 26) { %>
+                            You are <span class="text-green-400">normal weight</span> relative to your height.
+                        <% } else { %>
+                            You are <span class="text-red-400">Overweight</span>. Risks associated with being overweight are:
+                            <ul>
+                                <li class="px-3">- Heart disease</li>
+                                <li class="px-3">- Diabetes</li>
+                                <li class="px-3">- High blood pressure</li>
+                                <li class="px-3">- High cholesterol</li>
+                                <li class="px-3">- Liver disease</li>
+                                <li class="px-3">- Sleep apnea</li>
+                                <li class="px-3">- Certain cancers</li>
+                            </ul>
+                        <% } %>
+                    <% } %>
+                    <br>
+                    <p class="text-center pb-4">
+                        *BMI ratings are not accurate for people with physical conditioning.
+                    </p>
+                </p>
+            </div>
+
+            <!-- Body Fat Percentage Card -->
+            <div class="m-4 p-3 bg-[#FCFEFE] rounded-3xl shadow-lg">
+                <!-- Card header -->
+                <h1 class="text-3xl text-center pb-10 pt-5 px-5 text-[#4f6495]">Body Fat Percentage</h1>
+                <!-- BF chart -->
+                <div id="bf-chart"></div>
+                <!-- BF description and info based on user value -->
+                <p class="text-xl p-4 text-center">
+                    <% if (userBF == "undefined") { %>
+                        You have not entered your details yet!
+                        <br>
+                        <a href="/edit_profile" class="text-slate-500">Click here to edit.</a>
+                    <% } else { %>
+                        Your BF%: <%= userBF %>%
+                        <br>
+                        <% if (userGender === 'F') { %>
+                            <% if (userBF >= 32) { %>
+                                <br>Your body fat is <span class="text-red-400">higher</span> than normal ranges.
+                            <% } else if (userBF > 21 && userBF < 32) { %>
+                                Your body fat is <span class="text-green-400">within</span> normal ranges.
+                            <% } else { %>
+                                Your body fat is <span class="text-red-400">below</span> average ranges.
+                            <% } %>
+                        <% } else { %>
+                            <% if (userBF >= 19) { %>
+                                <br>Your body fat is <span class="text-red-400">higher</span> than normal ranges.
+                            <% } else if (userBF > 8 && userBF < 19) { %>
+                                Your body fat is <span class="text-green-400">within</span> normal ranges.
+                            <% } else { %>
+                                Your body fat is <span class="text-red-400">below</span> average ranges.
+                            <% } %>
+                        <% } %>
+                    <% } %>
+                </p>
+            </div>
+
+            <!-- Weight and Height Cards -->
+            <div class="flex max-w-full">
+                <div class="m-4 bg-[#FCFEFE] rounded-3xl shadow-lg flex-auto">
+                    <h1 class="text-2xl text-center pb-10 pt-5 text-[#4f6495]">Weight</h1>
+                    <p class="text-2xl p-4 text-center">
+                        <%= userWeight %> kg
+                        <br>
                     </p>
                 </div>
-                <!-- body fat percentage -->
-
-                <div class="m-4 p-3 bg-[#FCFEFE] rounded-3xl shadow-lg">
-                    <!-- chart header -->
-                    <h1 class="text-3xl text-center pb-10 pt-5 px-5 text-[#4f6495]">
-                        Body Fat Percentage
-                    </h1>
-                    <!-- actual chart -->
-                    <div id="bf-chart"></div>
-                    <p class="text-xl p-4  text-center">
-                        <!-- female bf% conditions different from male -->
-                        <% if (userBF=="undefined" ) { %>
-                            You have not entered your details yet!
-                            <br>
-
-                            <a href="/edit_profile" class="text-slate-500">Click here to edit.</a>
-                            <% } else {%>
-                                Your BF%: <%= userBF %>%
-                                    <br>
-                                    <% if (userGender==='F' ) { %>
-                                        <% if (userBF>= 32) { %>
-                                            <br>
-                                            Your body fat is <span class="text-red-400">higher</span> than normal
-                                            ranges.
-                                            <% } else if (userBF> 21 && userBF < 32 ) {%>
-                                                    Your body fat is <span class="text-green-400">within</span> normal
-                                                    ranges.
-                                                    <% } else {%>
-                                                        Your body fat is <span class="text-red-400">below</span> average
-                                                        ranges.
-                                                        <% } %>
-                                                            <% } else {%>
-                                                                <% if (userBF>= 19) { %>
-                                                                    <br>
-                                                                    Your body fat is <span
-                                                                        class="text-red-400">higher</span> than normal
-                                                                    ranges.
-                                                                    <% } else if (userBF> 8 && userBF < 19 ) {%>
-                                                                            Your body fat is <span
-                                                                                class="text-green-400">within</span>
-                                                                            normal
-                                                                            ranges.
-                                                                            <% } else {%>
-                                                                                Your body fat is <span
-                                                                                    class="text-red-400">below</span>
-                                                                                average ranges.
-                                                                                <% } %>
-                                                                                    <% } %>
-                                                                                        <% } %>
-                    </p>
-                </div>
-                <!-- weight and height cards -->
-                <div class="flex max-w-full">
-
-                    <div class="m-4 bg-[#FCFEFE] rounded-3xl shadow-lg flex-auto">
-                        <h1 class="text-2xl text-center pb-10 pt-5 text-[#4f6495]">
-                            Weight
-                        </h1>
-
-                        <p class="text-2xl p-4 text-center ">
-                            <%= userWeight %> kg
-                                <br>
-                        </p>
-                    </div>
-                    <div class="m-4  bg-[#FCFEFE] rounded-3xl shadow-lg flex-auto text-[#4f6495]">
-                        <h1 class="text-2xl text-center pb-10 pt-5">
-                            Height
-                        </h1>
-
-                        <p class="text-2xl p-4 text-center">
-                            <%= userHeight %> cm
-                                <br>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="m-4 p-3 mb-[80px] bg-[#FCFEFE] rounded-3xl shadow-lg">
-                    <h1 class="text-3xl text-center pb-10 pt-5 text-[#4f6495]">
-                        Bone Density
-                    </h1>
-
-                    <div id="t-score-chart"></div>
-                    <p class="text-xl p-4">
-
-                        Your Bone Density T-score: <%= userTscore%>
-                            <br>
-                            <br>
-                            <% if (userTscore> -1) { %>
-                                Your T-score is <span class="text-green-400">within normal ranges</span>.
-                                <% } else if (userTscore> -2.5 && userTscore <= -1) {%>
-                                        Your T-score is <span class="text-red-400">within a lower range</span>.
-                                        <br>
-                                        This means that your are more likely to have
-                                        osteopenia. A pre-osteoporosis condition.
-
-                                        <% }else {%>
-                                            You have a <span class="text-red-400">very low</span> T-score range.
-                                            <br>You are much more prone to breaking bones.
-                                            <br>You most likely have osteoporosis.
-
-                                            <% }%>
+                <div class="m-4 bg-[#FCFEFE] rounded-3xl shadow-lg flex-auto text-[#4f6495]">
+                    <h1 class="text-2xl text-center pb-10 pt-5">Height</h1>
+                    <p class="text-2xl p-4 text-center">
+                        <%= userHeight %> cm
+                        <br>
                     </p>
                 </div>
             </div>
+
+            <!-- Bone Density Card -->
+            <div class="m-4 p-3 mb-[80px] bg-[#FCFEFE] rounded-3xl shadow-lg">
+                <h1 class="text-3xl text-center pb-10 pt-5 text-[#4f6495]">Bone Density</h1>
+                <!-- T-score chart -->
+                <div id="t-score-chart"></div>
+                <!-- T-score description and info based on user value -->
+                <p class="text-xl p-4">
+                    Your Bone Density T-score: <%= userTscore %>
+                    <br>
+                    <br>
+                    <% if (userTscore > -1) { %>
+                        Your T-score is <span class="text-green-400">within normal ranges</span>.
+                    <% } else if (userTscore > -2.5 && userTscore <= -1) { %>
+                        Your T-score is <span class="text-red-400">within a lower range</span>.
+                        <br>This means that you are more likely to have osteopenia, a pre-osteoporosis condition.
+                    <% } else { %>
+                        You have a <span class="text-red-400">very low</span> T-score range.
+                        <br>You are much more prone to breaking bones.
+                        <br>You most likely have osteoporosis.
+                    <% } %>
+                </p>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <%- include('bodyComposititionCharts.ejs') %>
+<!-- Include body composition charts -->
+<%- include('bodyComposititionCharts.ejs') %>
 
-        <%- include('partials/bottomNav.ejs') %>
+<!-- Include bottom nav -->
+<%- include('partials/bottomNav.ejs') %>
