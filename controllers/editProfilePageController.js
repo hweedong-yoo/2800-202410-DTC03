@@ -57,7 +57,6 @@ function calculateAge(dob) {
 }
 
 const addInitialInformation = async (req, res) => {
-  console.log("addInitialInformation")
   try {
     const { birthday, gender, weight, height } = req.body;
     const userID = req.session.userID;
