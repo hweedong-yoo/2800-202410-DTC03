@@ -1,3 +1,11 @@
+/**
+ * Express controller function for displaying the 404 error page.
+ * 
+ * This module contains a function to handle the request to render the 404 error page.
+ * 
+ */
+
+// Display the 404 error page
 const displayPage = async (req, res) => {
     console.log('404 page');
     try {

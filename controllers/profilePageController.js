@@ -1,3 +1,10 @@
+/**
+ * Express controller function for handling frontend profile page such as displaying it along with interactions with MongoDB.
+ * 
+ * This module contains functions to display the profile page along with the setup page.
+ * 
+ */
+
 // Import required models
 const User = require('../models/userModels');
 const BodyComp = require('../models/bodyCompModels');
