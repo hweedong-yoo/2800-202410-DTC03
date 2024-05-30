@@ -71,11 +71,12 @@ const displayBodyCompPage = async (req, res) => {
     const userData = await User.findOne({ _id: req.session.userID });
 
     if (!bodyCompData.tScore) {
-      const newData = new BodyComp({
-        userID: req.session.userID,
-        tScore: 1,
-      });
-      await newData.save();
+      await bodyCompData.findOneAndUpdate({ userID: req.session.userID },
+        {
+          tScore: 1,
+        },
+      );
+
     }
 
     // Update vulnerabilities if tScore is less than 1
