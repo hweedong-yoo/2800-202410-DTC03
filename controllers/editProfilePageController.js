@@ -1,48 +1,59 @@
+// Import required models and mock data
 const User = require('../models/userModels');
 const BodyComp = require('../models/bodyCompModels');
 const addMockData = require('../utils/mockData');
 
+// Import the moment library for date manipulation
 const moment = require('moment');
 
+// Controller to display the profile editing page
 const displayPage = async (req, res) => {
   try {
+    // Fetch user and body composition data from the database
     const userData = await User.findOne({ email: req.session.email });
     const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
 
+    // Create a user object with necessary details
     const user = {
       dob: userData.dob ? userData.dob.toISOString().substring(0, 10) : "yyyy-mm-dd",
       sex: userData.sex ? userData.sex : "",
       weight: bodyCompData?.weight ?? null,
       height: bodyCompData?.height ?? null
-    }
+    };
 
+    // Render the editProfile view with user data and authentication status
     res.render('editProfile', {
       user,
       authenticated: req.session.authenticated,
     });
   } catch (error) {
+    // Handle any errors and send a 500 status response
     res.status(500).send(error);
   }
 };
 
+// Controller to display the profile setup page
 const displaySetUpPage = async (req, res) => {
   try {
-    const userID = req.session.userID;
-
+    // Fetch user data based on session email
     const user = await User.findOne({ email: req.session.email });
+    // Redirect to home page if date of birth is already set
     if (user.dob) {
       res.redirect('/home');
     }
 
+    // Render the setUpProfile view with user data and authentication status
     res.render('setUpProfile', {
       user,
       authenticated: req.session.authenticated,
     });
   } catch (error) {
+    // Handle any errors and send a 500 status response
     res.status(500).send(error);
   }
 };
 
+// Utility function to calculate age from date of birth
 function calculateAge(dob) {
   const birthDate = moment(dob);
   const today = moment();
@@ -56,6 +67,7 @@ function calculateAge(dob) {
   return age;
 }
 
+// Controller to handle adding initial information to the user profile
 const addInitialInformation = async (req, res) => {
   try {
     const { birthday, gender, weight, height } = req.body;
@@ -65,6 +77,7 @@ const addInitialInformation = async (req, res) => {
     if (birthday) updateUserData.dob = birthday;
     if (gender) updateUserData.sex = gender;
 
+    // Update users collection with birthday and/or gender if provided
     if (Object.keys(updateUserData).length > 0) {
       await User.findOneAndUpdate(
         { email: req.session.email },
@@ -72,30 +85,29 @@ const addInitialInformation = async (req, res) => {
       );
     }
 
-
     let updateBodyCompData = {};
     if (weight && weight > 0 && weight < 300) updateBodyCompData.weight = weight;
     if (height && height > 0 && height < 300) updateBodyCompData.height = height;
 
-    //Calculate BMI
+    // Calculate BMI if both weight and height are provided
     if (updateBodyCompData.weight && updateBodyCompData.height) {
       const bmi = ((weight / height / height) * 10000).toFixed(1);
       updateBodyCompData.BMI = bmi;
 
-      //Calculate Body Fat percentage
+      // Calculate Body Fat percentage if BMI, gender, and birthday are provided
       if (bmi && gender && birthday) {
         let age = calculateAge(birthday);
         if (gender === 'F') {
           updateBodyCompData.BF = ((1.39 * bmi) + (0.16 * age) - 9).toFixed(1);
-        }
-        else {
+        } else {
           updateBodyCompData.BF = ((1.39 * bmi) + (0.16 * age) - (10.34 * 1) - 9).toFixed(1);
         }
       }
     }
 
-    console.log("updateBodyCompData", updateBodyCompData)
+    console.log("updateBodyCompData", updateBodyCompData);
 
+    // Update body_compositions collection with the calculated data
     if (Object.keys(updateBodyCompData).length > 0) {
       await BodyComp.findOneAndUpdate(
         { userID: req.session.userID },
@@ -103,16 +115,18 @@ const addInitialInformation = async (req, res) => {
         { upsert: true }
       );
     }
-    
+
+    // Add mock data for the user
     await addMockData(userID);
-    res.redirect('/home')
+    res.redirect('/home');
 
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(400).send(error);
   }
 };
 
+// Controller to handle editing user information
 const editInformation = async (req, res) => {
   try {
     const { birthday, gender, weight, height } = req.body;
@@ -121,7 +135,7 @@ const editInformation = async (req, res) => {
     if (birthday) updateUserData.dob = birthday;
     if (gender) updateUserData.sex = gender;
 
-    // Update users collection with birthday and/or gender if the user entered it
+    // Update users collection with birthday and/or gender if provided
     if (Object.keys(updateUserData).length > 0) {
       await User.findOneAndUpdate(
         { email: req.session.email },
@@ -129,30 +143,29 @@ const editInformation = async (req, res) => {
       );
     }
 
-
     let updateBodyCompData = {};
     if (weight && weight > 0 && weight < 300) updateBodyCompData.weight = weight;
     if (height && height > 0 && height < 300) updateBodyCompData.height = height;
 
-    //Calculate BMI
+    // Calculate BMI if both weight and height are provided
     if (updateBodyCompData.weight && updateBodyCompData.height) {
       const bmi = ((weight / height / height) * 10000).toFixed(1);
       updateBodyCompData.BMI = bmi;
 
-      //Calculate Body Fat percentage
+      // Calculate Body Fat percentage if BMI, gender, and birthday are provided
       if (bmi && gender && birthday) {
         let age = calculateAge(birthday);
         if (gender === 'F') {
           updateBodyCompData.BF = ((1.39 * bmi) + (0.16 * age) - 9).toFixed(1);
-        }
-        else {
+        } else {
           updateBodyCompData.BF = ((1.39 * bmi) + (0.16 * age) - (10.34 * 1) - 9).toFixed(1);
         }
       }
     }
 
-    console.log("updateBodyCompData", updateBodyCompData)
-// Update body_compositions collection with weight, height, bmi, and/or bf if the user entered it
+    console.log("updateBodyCompData", updateBodyCompData);
+
+    // Update body_compositions collection with the calculated data
     if (Object.keys(updateBodyCompData).length > 0) {
       await BodyComp.findOneAndUpdate(
         { userID: req.session.userID },
@@ -161,13 +174,14 @@ const editInformation = async (req, res) => {
       );
     }
 
-    res.redirect('/profile')
+    res.redirect('/profile');
 
   } catch (error) {
     res.status(400).send(error);
   }
 };
 
+// Export the controller functions
 module.exports = {
   displayPage,
   displaySetUpPage,
