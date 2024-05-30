@@ -9,7 +9,7 @@
 // Import necessary modules
 const express = require('express');
 const router = express.Router();
-const signupPageController = require('../controllers/singupPageController');
+const signupPageController = require('../controllers/signUpPageController');
 
 // Define routes for signup page
 router.get('/', signupPageController.displayPage);
