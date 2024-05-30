@@ -60,11 +60,11 @@ const displayBodyCompPage = async (req, res) => {
     const userData = await User.findOne({ _id: req.session.userID });
 
     if (!bodyCompData.tScore) {
-      const newData = new BodyComp({
-        userID: req.session.userID,
-        tScore: 1,
-      })
-      await newData.save();
+      await bodyCompData.findOneAndUpdate({ userID: req.session.userID },
+        {
+          tScore: 1,
+        },
+      );
 
     }
 
@@ -80,12 +80,12 @@ const displayBodyCompPage = async (req, res) => {
     res.render('bodyComposition', {
       authenticated: req.session.authenticated,
       userId: req.session.userID,
-      userBMI:     bodyCompData?.BMI    ?? "undefined",
-      userBF:      bodyCompData?.BF     ?? "undefined",
-      userWeight:  bodyCompData?.weight ?? "undefined",
-      userHeight:  bodyCompData?.height ?? "undefined",
-      userTscore:  bodyCompData?.tScore ?? "undefined",
-      userGender:  userData?.sex ?? "M",
+      userBMI: bodyCompData?.BMI ?? "undefined",
+      userBF: bodyCompData?.BF ?? "undefined",
+      userWeight: bodyCompData?.weight ?? "undefined",
+      userHeight: bodyCompData?.height ?? "undefined",
+      userTscore: bodyCompData?.tScore ?? "undefined",
+      userGender: userData?.sex ?? "M",
     });
   } catch (error) {
     console.log(error)
