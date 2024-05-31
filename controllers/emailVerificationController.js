@@ -46,7 +46,7 @@ const displayPage = async (req, res) => {
  */
 const sendConfirmationEmail = async (req, res) => {
     const email = req.session.email;
-    console.log(email);
+    // console.log(email);
     try {
         const secret = jwtSecret + email;
         const payload = { email: email };

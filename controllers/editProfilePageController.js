@@ -114,7 +114,7 @@ const addInitialInformation = async (req, res) => {
       }
     }
 
-    console.log("updateBodyCompData", updateBodyCompData);
+    // console.log("updateBodyCompData", updateBodyCompData);
 
     // Update body_compositions collection with the calculated data
     if (Object.keys(updateBodyCompData).length > 0) {
@@ -172,7 +172,7 @@ const editInformation = async (req, res) => {
       }
     }
 
-    console.log("updateBodyCompData", updateBodyCompData);
+    // console.log("updateBodyCompData", updateBodyCompData);
 
     // Update body_compositions collection with the calculated data
     if (Object.keys(updateBodyCompData).length > 0) {

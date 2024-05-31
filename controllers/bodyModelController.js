@@ -15,7 +15,7 @@ const displayBodyModelPage = async (req, res) => {
   try {
     // Retrieve the user ID from the session
     const userID = req.session.userID;
-    console.log(userID);
+    // console.log(userID);
 
     // Fetch blood data for the user from the Blood model
     const bloodData = await Blood.findOne({ userID });
