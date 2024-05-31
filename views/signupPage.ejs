@@ -40,7 +40,7 @@
       </div>
 
       <div class="mb-3 w-full">
-        <p class="text-[10px] text-gray-500 dark:text-white text-ellipsis overflow-hidden">Must be at least 8 to 50
+        <p class="text-[10px] text-gray-500 dark:text-white text-ellipsis overflow-hidden">Must be at least 5 to 50
           characters long.</p>
       </div>
 
@@ -118,6 +118,7 @@
         }
       };
 
+      passwordInput.addEventListener('input', checkPasswordMatch);
       repeatPasswordInput.addEventListener('input', checkPasswordMatch);
       emailInput.addEventListener('input', checkEmailValidity);
     });

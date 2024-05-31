@@ -77,7 +77,7 @@ const displayVitalsPage = async (req, res) => {
 const displayBodyCompPage = async (req, res) => {
   try {
     // Fetch body composition data and user data from the database
-    const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
+    var bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
     const userData = await User.findOne({ _id: req.session.userID });
 
     if (!bodyCompData.tScore) {
@@ -86,7 +86,7 @@ const displayBodyCompPage = async (req, res) => {
           tScore: 1,
         },
       );
-
+      bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
     }
 
     // Update vulnerabilities if tScore is less than 1
@@ -97,6 +97,7 @@ const displayBodyCompPage = async (req, res) => {
           vulnerabilities: [tempVulnerabilities],
         },
       );
+      bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
     }
 
     // Render the body composition page with user data
