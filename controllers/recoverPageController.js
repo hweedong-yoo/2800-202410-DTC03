@@ -15,6 +15,9 @@ const { emailSchema, securityAnswerSchema, passwordSchema } = require('../valida
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+// Base URL for the email links
+const baseUrl = process.env.BASE_URL;
+
 // Secret key for JWT token generation
 const jwtSecret = process.env.JWT_SECRET;
 
@@ -40,34 +43,33 @@ const displayPageEmail = async (req, res) => {
  */
 const validateEmail = async (req, res) => {
   try {
-    const email = req.body.email;
+    const email = req.body.email.toLowerCase(); // Ensure email is lowercase
     const validateEmail = emailSchema.validate({ email });
 
     if (validateEmail.error) {
-      return res.redirect('/recover?error=Invalid-email');
+      return res.render('recoveryEmail', { authenticated: req.session.authenticated, error: 'Invalid Email.', email: email });
     }
 
     const user = await userModel.findOne({ email });
 
     if (user) {
-      const secret = jwtSecret + user.password;
-      const payload = { email, id: user._id };
-      const token = jwt.sign(payload, secret, { expiresIn: '15m' });
-      const link = `http://localhost:3000/recover/securityQuestion/${user._id}/${token}`;
+      const secret = jwtSecret  + user.password;
+      const token = jwt.sign({}, secret, { expiresIn: '15m' });
+      const link = `${baseUrl}/recover/securityQuestion/${user._id}/${token}`;
 
       const subject = 'Password Recovery';
       const body = `Please click the following link to recover your password: ${link}`;
 
       sendEmail(email, subject, body);
 
-      res.redirect(`/recover/?message=Please-check-your-email-for-the-recovery-link`);
+      return res.render('recoveryEmail', { authenticated: req.session.authenticated, message: 'Recovery email sent.', email: email });
     } else {
       req.session.recoveryEmail = false;
-      res.redirect('/recover?error=Invalid-email');
+      return res.render('recoveryEmail', { authenticated: req.session.authenticated, error: 'Email not found.', email: email });
     }
   } catch (error) {
     console.error('Error validating email:', error);
-    res.status(500).send(error);
+    return res.status(500).render('recoveryEmail', { authenticated: req.session.authenticated, error: 'An error occurred while sending the recovery email.', email: email });
   }
 };
 
@@ -79,12 +81,12 @@ const validateEmail = async (req, res) => {
  */
 const displayPageSecurityQuestion = async (req, res) => {
   try {
-    const { id, token } = req.params;
+    const { id } = req.params;
     const user = await userModel.findById(id);
 
     res.render('recoverySecurityQuestion', { authenticated: req.session.authenticated, error: req.query.error, recovery: user.recovery });
   } catch (error) {
-    res.status(500).send(error);
+    return res.status(500).render('recoveryEmail', { authenticated: req.session.authenticated, error: 'userID invalid.', email: email });
   }
 };
 
@@ -102,11 +104,11 @@ const validateSecurityQuestionAnswer = async (req, res) => {
     const validateAnswer = securityAnswerSchema.validate({ answer });
 
     if (validateAnswer.error) {
-      return res.redirect(`/recover/securityQuestion/${id}/${token}?error=Invalid-answer`);
+      return res.redirect(`/recover/securityQuestion/${id}/${token}`);
     }
 
     const user = await userModel.findById(id);
-    const isMatch = await bcrypt.compare(answer, user.recovery_key);
+    const isMatch = bcrypt.compare(answer, user.recovery_key);
 
     if (isMatch) {
       req.session.recoveryAnswer = true;
@@ -118,7 +120,7 @@ const validateSecurityQuestionAnswer = async (req, res) => {
     }
   } catch (error) {
     console.error('Error validating security question answer:', error);
-    res.status(500).send(error);
+    res.status(500).send('An error occurred while validating the security question answer.');
   }
 };
 
