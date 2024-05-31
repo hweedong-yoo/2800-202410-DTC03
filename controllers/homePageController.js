@@ -71,7 +71,7 @@ const displayBodyCompPage = async (req, res) => {
     const userData = await User.findOne({ _id: req.session.userID });
 
     if (!bodyCompData.tScore) {
-      await bodyCompData.findOneAndUpdate({ userID: req.session.userID },
+      await BodyComp.findOneAndUpdate({ userID: req.session.userID },
         {
           tScore: 1,
         },
