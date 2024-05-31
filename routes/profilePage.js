@@ -14,7 +14,4 @@ const profilePageController = require('../controllers/profilePageController');
 // Define route for displaying the profile page
 router.get('/', profilePageController.displayPage);
 
-// Define route for logging out from the profile page
-router.post('/', profilePageController.logout); 
-
 module.exports = router;

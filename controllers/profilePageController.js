@@ -49,21 +49,8 @@ const displaySetupPage = async (req, res) => {
   }
 };
 
-// Function to log out the user
-const logout = async (req, res) => {
-  try {
-    // Destroy the session and redirect to login page
-    req.session.destroy();
-    res.redirect('/login');
-  } catch (error) {
-    // Send 500 status code on error
-    res.status(500).send(error);
-  }
-};
-
 // Export the functions
 module.exports = {
   displayPage,
   displaySetupPage,
-  logout,
 };
