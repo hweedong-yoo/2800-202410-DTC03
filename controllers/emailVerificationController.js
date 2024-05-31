@@ -34,7 +34,8 @@ const displayPage = async (req, res) => {
     try {
         res.render('emailVerification', { authenticated: req.session.authenticated, name: req.session.name, email: req.session.email });
     } catch (error) {
-        res.status(500).send(error);
+        console.log('Error rendering email verification page:', error);
+        res.status(500).render('home', { authenticated: req.session.authenticated });
     }
 };
 
@@ -59,8 +60,8 @@ const sendConfirmationEmail = async (req, res) => {
 
         res.redirect('/home');
     } catch (error) {
-        console.error('Error sending confirmation email:', error);
-        res.status(500).send('An error occurred while sending the confirmation email.');
+        console.log('Error sending confirmation email:', error);
+        res.status(500).render('home', { authenticated: req.session.authenticated });
     }
 };
 
@@ -85,7 +86,7 @@ const verifyEmail = async (req, res) => {
         }
 
     } catch (error) {
-        console.error('Error verifying email:', error);
+        console.log('Error verifying email:', error);
     }
     res.redirect('/home');
 };

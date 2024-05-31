@@ -11,7 +11,8 @@ const displayPage = async (req, res) => {
     try {
         res.render('404', {authenticated : req.session.authenticated});
     } catch (error) {
-        res.status(500).send(error);
+        console.log('Error rendering 404 page:', error);
+        res.status(500).send('home', {authenticated : req.session.authenticated})
     }
 };
 

@@ -68,7 +68,7 @@ const validateEmail = async (req, res) => {
       return res.render('recoveryEmail', { authenticated: req.session.authenticated, error: 'Email not found.', email: email });
     }
   } catch (error) {
-    console.error('Error validating email:', error);
+    console.log('Error validating email:', error);
     return res.status(500).render('recoveryEmail', { authenticated: req.session.authenticated, error: 'An error occurred while sending the recovery email.', email: email });
   }
 };
@@ -119,7 +119,7 @@ const validateSecurityQuestionAnswer = async (req, res) => {
       res.redirect(`/recover/securityQuestion/${id}/${token}?error=Invalid-answer`);
     }
   } catch (error) {
-    console.error('Error validating security question answer:', error);
+    console.log('Error validating security question answer:', error);
     res.status(500).send('An error occurred while validating the security question answer.');
   }
 };
@@ -134,7 +134,8 @@ const displayPageResetPassword = async (req, res) => {
   try {
     res.render('recoveryResetPassword', { authenticated: req.session.authenticated, error: req.query.error });
   } catch (error) {
-    res.status(500).send(error);
+    console.log('Error rendering reset password page:', error);
+    res.status(500).redirect(`/recover/securityQuestion/${id}/${token}?error=An-error-occurred.`);
   }
 };
 
@@ -160,8 +161,8 @@ const resetUserPassword = async (req, res) => {
 
     res.redirect('/login');
   } catch (error) {
-    console.error('Error resetting user password:', error);
-    res.status(500).send('An error occurred while resetting the password.');
+    console.log('Error resetting user password:', error);
+    return res.status(500).redirect(`/recover/resetpassword/${id}/${token}?error=An-error-occurred.`);
   }
 };
 

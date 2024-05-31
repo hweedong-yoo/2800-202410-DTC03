@@ -56,9 +56,8 @@ const displayHomePage = async (req, res) => {
       authenticated: req.session.authenticated
     });
   } catch (error) {
-    // Log error and send 500 status code
-    console.log(error);
-    res.status(500).send(error);
+    console.log('Error rendering home page:', error);
+    res.status(500).render('landingPage', { authenticated: req.session.authenticated })
   }
 };
 
@@ -68,8 +67,8 @@ const displayVitalsPage = async (req, res) => {
     // Render the vitals page with authentication status
     res.render('vitalsPage', { authenticated: req.session.authenticated, userID: req.session.userID });
   } catch (error) {
-    // Send 400 status code on error
-    res.status(400).send(error);
+    console.log('Error rendering vitals page:', error);
+    res.status(500).render('home', { authenticated: req.session.authenticated })
   }
 };
 
@@ -113,8 +112,8 @@ const displayBodyCompPage = async (req, res) => {
     });
   } catch (error) {
     // Log error and send 400 status code
-    console.log(error);
-    res.status(400).send(error);
+    console.log('Error rendering body composition page:', error);
+    res.status(500).render('home', { authenticated: req.session.authenticated })
   }
 };
 
@@ -175,7 +174,8 @@ const displayBloodPage = async (req, res) => {
     res.render('bloodPage', { authenticated: req.session.authenticated, bloodData });
   } catch (error) {
     // Send 400 status code on error
-    res.status(400).send(error);
+    console.log('Error rendering blood page:', error)
+    res.status(400).render('home', { authenticated: req.session.authenticated })
   }
 };
 
@@ -188,8 +188,8 @@ const getUserInfo = async (req, res) => {
     res.send(userVitalInfo);
   } catch (error) {
     // Log error and send 400 status code
-    console.log(error);
-    res.status(400).send(error);
+    console.log('Error fetching user information:', error);
+    res.status(400).render('home', { authenticated: req.session.authenticated })
   }
 };
 

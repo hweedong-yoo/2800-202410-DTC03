@@ -14,7 +14,8 @@ const displayPage = async (req, res) => {
     try {
         res.render('contactPage', {authenticated : req.session.authenticated});
     } catch (error) {
-        res.status(400).send(error);
+        console.log('Error rendering contact page:', error);
+        res.status(500).render('home', {authenticated : req.session.authenticated});
     }
 };
 
@@ -31,7 +32,7 @@ const sendEmailPost = async (req, res) => {
         sendEmail(companyEmail, subject, newMessage);
         res.render('contactPage', {authenticated : req.session.authenticated});
     } catch (error) {
-        console.log(error);
+        console.log('Error sending email:', error);
         res.render('contactPage', {authenticated : req.session.authenticated});
     }
 };

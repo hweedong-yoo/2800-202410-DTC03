@@ -41,7 +41,8 @@ const displayBodyModelPage = async (req, res) => {
     });
   } catch (error) {
     // If an error occurs, send a 400 status with the error message
-    res.status(400).send(error);
+    console.log('Error rendering body model page:', error);
+    res.status(500).render('home', { authenticated: req.session.authenticated });
   }
 };
 

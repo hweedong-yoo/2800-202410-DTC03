@@ -34,7 +34,8 @@ const displayPage = async (req, res) => {
     });
   } catch (error) {
     // Send 500 status code on error
-    res.status(500).send(error);
+    console.log('Error rendering profile page:', error);
+    res.status(500).render('home', { authenticated: req.session.authenticated })
   }
 };
 
@@ -45,6 +46,7 @@ const displaySetupPage = async (req, res) => {
     res.render('profileSetUp', { authenticated: req.session.authenticated });
   } catch (error) {
     // Send 500 status code on error
+    console.log('Error rendering profile setup page:', error);
     res.status(500).send(error);
   }
 };

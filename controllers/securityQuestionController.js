@@ -16,7 +16,8 @@ const displayPage = async (req, res) => {
     try {
         res.render('securityQuestion', { authenticated: req.session.authenticated });
     } catch (error) {
-        res.status(400).send(error);
+        console.log("Error rendering security question page:", error);
+        res.status(500).render('home', { authenticated: req.session.authenticated })
     }
 };
 
@@ -38,8 +39,8 @@ const saveSecurityQuestion = async (req, res) => {
 
         res.redirect('/home');
     } catch (error) {
-        console.error(error);
-        res.status(500).send(error);
+        console.log("Error saving security question:", error);
+        res.status(500).render('home', { authenticated: req.session.authenticated });
     }
 };
 

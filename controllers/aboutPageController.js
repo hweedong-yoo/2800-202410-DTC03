@@ -10,7 +10,8 @@ const displayPage = async (req, res) => {
   try {
       res.render('aboutPage', {authenticated : req.session.authenticated});
   } catch (error) {
-      res.status(400).send(error);
+      console.log('Error rendering about page:', error);
+      res.status(500).render('home', {authenticated : req.session.authenticated});
   }
 };
 

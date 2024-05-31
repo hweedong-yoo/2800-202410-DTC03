@@ -33,7 +33,8 @@ const displayPage = async (req, res) => {
     try {
         res.render('signupPage', { authenticated: req.session.authenticated });
     } catch (error) {
-        res.status(500).send(error);
+        console.log('Error rendering sign-up page:', error);
+        res.status(500).render('home', { authenticated: req.session.authenticated })
     }
 };
 
@@ -95,8 +96,8 @@ const addUser = async (req, res) => {
         // Redirect user to home page
         return res.redirect('/home');
     } catch (error) {
-        console.error('Error adding user:', error);
-        return res.status(500).send('Error adding user');
+        console.log('Error adding user:', error);
+        res.status(500).render('signupPage', { authenticated: req.session.authenticated, error: 'Error adding user', formData: { name, email }});
     }
 };
 

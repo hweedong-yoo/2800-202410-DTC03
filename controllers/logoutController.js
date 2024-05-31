@@ -11,7 +11,8 @@ const logout = async (req, res) => {
     req.session.destroy();
     res.redirect('/login');
   } catch (error) {
-    res.status(500).send(error);
+    console.log('Error logging out:', error);
+    res.status(500).render('home', { authenticated: req.session.authenticated });
   }
 };
 

@@ -10,6 +10,7 @@ const displayPage = async (req, res) => {
     try {
         res.render('landingPage', {authenticated : req.session.authenticated});
     } catch (error) {
+        console.log('Error rendering landing page:', error)
         res.status(500).send(error);
     }
 };

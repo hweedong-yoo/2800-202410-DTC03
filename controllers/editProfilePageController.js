@@ -37,7 +37,8 @@ const displayPage = async (req, res) => {
     });
   } catch (error) {
     // Handle any errors and send a 500 status response
-    res.status(500).send(error);
+    console.log('Error rendering edit profile page:', error);
+    res.status(500).render('home', { authenticated: req.session.authenticated });
   }
 };
 
@@ -58,7 +59,8 @@ const displaySetUpPage = async (req, res) => {
     });
   } catch (error) {
     // Handle any errors and send a 500 status response
-    res.status(500).send(error);
+    console.log('Error rendering set up profile page:', error);
+    res.status(500).render('home', { authenticated: req.session.authenticated });
   }
 };
 
@@ -130,8 +132,8 @@ const addInitialInformation = async (req, res) => {
     res.redirect('/home');
 
   } catch (error) {
-    console.log(error);
-    res.status(400).send(error);
+    console.log('Error adding initial information to profile:', error);
+    res.status(500).render('home', { authenticated: req.session.authenticated });
   }
 };
 
@@ -186,7 +188,8 @@ const editInformation = async (req, res) => {
     res.redirect('/profile');
 
   } catch (error) {
-    res.status(400).send(error);
+    console.log('Error editing information:', error);
+    res.status(500).render('home', { authenticated: req.session.authenticated });
   }
 };
 

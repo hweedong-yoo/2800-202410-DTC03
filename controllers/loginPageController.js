@@ -52,7 +52,7 @@ const authenticateUser = async (req, res) => {
         const validationResult = schema.validate({ password, email });
         
         if (validationResult.error) {
-            console.error('Error in authenticateUser:', validationResult.error.details[0].message);
+            console.log('Error in authenticateUser:', validationResult.error.details[0].message);
             return res.render('loginPage', { authenticated: req.session.authenticated, error: true,});
         }
 
@@ -79,7 +79,7 @@ const authenticateUser = async (req, res) => {
             res.redirect('/home');
         }
     } catch (error) {
-        console.error('Error in authenticateUser:', error);
+        console.log('Error in authenticateUser:', error);
         return res.render('loginPage', {authenticated: req.session.authenticated, error: true });
     }
 };
