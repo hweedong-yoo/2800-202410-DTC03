@@ -13,5 +13,6 @@ const contactPageController = require('../controllers/contactPageController');
 
 // Define route for contact page
 router.get('/', contactPageController.displayPage);
+router.post('/', contactPageController.sendEmailPost);
 
 module.exports = router;
