@@ -81,17 +81,22 @@ const displayBodyCompPage = async (req, res) => {
     const userData = await User.findOne({ _id: req.session.userID });
 
     if (!bodyCompData.tScore) {
-      await bodyCompData.update({
-        tScore: 1,
-      });
+      await BodyComp.findOneAndUpdate({ userID: req.session.userID },
+        {
+          tScore: 1,
+        },
+      );
+
     }
-    
+
     // Update vulnerabilities if tScore is less than 1
     if (bodyCompData && bodyCompData.tScore < 1) {
       let tempVulnerabilities = "bones";
-      await bodyCompData.update({
-        vulnerabilities: [tempVulnerabilities],
-      });
+      await BodyComp.findOneAndUpdate({ userID: req.session.userID },
+        {
+          vulnerabilities: [tempVulnerabilities],
+        },
+      );
     }
 
     // Render the body composition page with user data
