@@ -96,11 +96,11 @@ Run the  following command to host the web app on your own machine. Double check
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- [@hweedong-yoo](https://github.com/hweedong-yoo)
-- [@winsonl28](https://github.com/winsonl28)
-- [@mariko13](https://github.com/mariko13)
-- [@err0l-g](https://github.com/err0l-g)
-- [@homy-khoshi](https://github.com/homy-khoshi)
+- [@hweedong-yoo](https://github.com/hweedong-yoo) - [Email](jyoo33@my.bcit.ca)
+- [@winsonl28](https://github.com/winsonl28) - [Email](mhockertz@my.bcit.ca )
+- [@mariko13](https://github.com/mariko13) - [Email](wliang43@my.bcit.ca)
+- [@err0l-g](https://github.com/err0l-g) - [Email](egalang6@my.bcit.ca)
+- [@homy-khoshi](https://github.com/homy-khoshi) - [Email](hkhoshi@my.bcit.ca)
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 Majority of front end design templates were from [Flowbite](https://flowbite.com/).
