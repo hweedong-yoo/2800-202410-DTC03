@@ -1,11 +1,22 @@
+/**
+ * Express controller function for handling frontend profile page such as displaying it along with interactions with MongoDB.
+ * 
+ * This module contains functions to display the profile page along with the setup page.
+ * 
+ */
+
+// Import required models
 const User = require('../models/userModels');
 const BodyComp = require('../models/bodyCompModels');
 
+// Function to display the profile page
 const displayPage = async (req, res) => {
   try {
+    // Fetch user and body composition data from the database
     const userData = await User.findOne({ email: req.session.email });
     const bodyCompData = await BodyComp.findOne({ userID: req.session.userID });
 
+    // Construct user object with fetched data
     const user = {
       username: userData.name || "--",
       email: userData.email || "--",
@@ -14,34 +25,43 @@ const displayPage = async (req, res) => {
       sex: userData.sex || "--",
       weight: bodyCompData?.weight ?? "--",
       height: bodyCompData?.height ?? "--"
-    }
-    
-    res.render('profile',{
+    };
+
+    // Render the profile page with user data
+    res.render('profile', {
       user,
-      authenticated : req.session.authenticated,
+      authenticated: req.session.authenticated,
     });
   } catch (error) {
+    // Send 500 status code on error
     res.status(500).send(error);
   }
 };
 
+// Function to display the profile setup page
 const displaySetupPage = async (req, res) => {
   try {
-    res.render('profileSetUp', { authenticated: req.session.authenticated })
+    // Render the profile setup page with authentication status
+    res.render('profileSetUp', { authenticated: req.session.authenticated });
   } catch (error) {
+    // Send 500 status code on error
     res.status(500).send(error);
   }
 };
 
+// Function to log out the user
 const logout = async (req, res) => {
   try {
+    // Destroy the session and redirect to login page
     req.session.destroy();
     res.redirect('/login');
   } catch (error) {
+    // Send 500 status code on error
     res.status(500).send(error);
   }
 };
 
+// Export the functions
 module.exports = {
   displayPage,
   displaySetupPage,

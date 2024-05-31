@@ -1,44 +1,48 @@
 <script>
+    // Object for Body Mass Index (BMI) chart configuration
     const BMIOptions = {
-        // enable and customize data labels using the following example, learn more from here: https://apexcharts.com/docs/datalabels/
+        // Data labels configuration
         dataLabels: {
-            enabled: false,
-            // offsetX: 10,
+            enabled: false, // Disable data labels
             style: {
-                cssClass: 'text-xs text-white font-medium'
+                cssClass: 'text-xs text-white font-medium' // Custom CSS class for labels
             },
         },
+        // Grid configuration
         grid: {
-            show: true,
-            strokeDashArray: 6,
+            show: true, // Show grid
+            strokeDashArray: 6, // Dash array for grid lines
             padding: {
                 left: 20,
                 right: 20,
                 top: -10
             },
         },
+        // Annotations configuration
         annotations: {
             yaxis: [{
-                y: tempBMI,
-                strokeDashArray: 0,
-                borderColor: '#775DD0',
+                y: tempBMI, // Value of userBMI from DB
+                strokeDashArray: 0, // Solid line
+                borderColor: '#775DD0', // Line color
                 label: {
                     borderColor: '#775DD0',
                     style: {
                         color: '#fff',
                         background: '#775DD0',
                     },
-                    text: 'Your BMI',
+                    text: 'Your BMI', // Annotation label text
                 }
             }]
         },
+        // Series data
         series: [
             {
                 name: "Average BMI",
-                data: [10, 15, 20, 25, 30, 35],
+                data: [10, 15, 20, 25, 30, 35], // BMI data points
                 color: "#1A56DB",
             },
         ],
+        // Chart configuration
         chart: {
             height: "200px",
             maxWidth: "100%",
@@ -51,15 +55,18 @@
                 show: false,
             },
         },
+        // Tooltip configuration
         tooltip: {
             enabled: true,
             x: {
                 show: true,
             },
         },
+        // Legend configuration
         legend: {
             show: false
         },
+        // Fill configuration
         fill: {
             type: "gradient",
             gradient: {
@@ -69,38 +76,20 @@
                 type: 'vertical',
                 gradientToColors: ["#1C64F2"],
                 colorStops: [
-                    {
-                        offset: 0,
-                        color: "red",
-                        opacity: 1
-                    },
-                    {
-                        offset: 25,
-                        color: "yellow",
-                        opacity: 1
-                    },
-                    {
-                        offset: 50,
-                        color: "green",
-                        opacity: 1
-                    },
-                    {
-                        offset: 80,
-                        color: "yellow",
-                        opacity: 1
-                    },
-                    {
-                        offset: 100,
-                        color: "red",
-                        opacity: 1
-                    }
+                    { offset: 0, color: "red", opacity: 1 },
+                    { offset: 25, color: "yellow", opacity: 1 },
+                    { offset: 50, color: "green", opacity: 1 },
+                    { offset: 80, color: "yellow", opacity: 1 },
+                    { offset: 100, color: "red", opacity: 1 }
                 ]
             },
         },
+        // Stroke configuration
         stroke: {
             curve: 'straight',
             width: 6,
         },
+        // X-axis ranges
         xaxis: {
             categories: ['Underweight', 'Underweight', 'Normal', 'Normal', 'Overweight', 'Overweight'],
             labels: {
@@ -113,6 +102,7 @@
                 show: false,
             },
         },
+        // Y-axis configuration
         yaxis: {
             show: true,
             labels: {
@@ -123,56 +113,62 @@
         },
     }
 
+    // Remove annotations if tempBMI is not defined
     if (!tempBMI) {
         console.log("deleted BMIOptions annotations.");
         delete BMIOptions.annotations;
     }
 
+    // Render BMI chart if element exists and ApexCharts is available
     if (document.getElementById("bmi-chart") && typeof ApexCharts !== 'undefined') {
         const BMIchart = new ApexCharts(document.getElementById("bmi-chart"), BMIOptions);
         BMIchart.render();
     }
 
+    // Object for Body Fat (BF) chart configuration
     const BFOptions = {
-        // enable and customize data labels using the following example, learn more from here: https://apexcharts.com/docs/datalabels/
+        // Data labels configuration
         dataLabels: {
-            enabled: false,
-            // offsetX: 10,
+            enabled: false, // Disable data labels
             style: {
-                cssClass: 'text-xs text-white font-medium'
+                cssClass: 'text-xs text-white font-medium' // Custom CSS class for labels
             },
         },
+        // Grid configuration
         grid: {
-            show: true,
-            strokeDashArray: 6,
+            show: true, // Show grid
+            strokeDashArray: 6, // Dash array for grid lines
             padding: {
                 left: 20,
                 right: 20,
                 top: -10
             },
         },
+        // Annotations configuration
         annotations: {
             yaxis: [{
-                y: tempBF,
-                strokeDashArray: 0,
-                borderColor: '#775DD0',
+                y: tempBF, // Value of userBF from DB
+                strokeDashArray: 0, // Solid line
+                borderColor: '#775DD0', // Line color
                 label: {
                     borderColor: '#775DD0',
                     style: {
                         color: '#fff',
                         background: '#775DD0',
                     },
-                    text: 'Your BF%',
+                    text: 'Your BF%', // Annotation label text
                 }
             }]
         },
+        // Series data
         series: [
             {
                 name: "Average BF%",
-                data: [5, 10, 15, 20, 25, 30, 35],
-                color: "#1A56DB",
+                data: [5, 10, 15, 20, 25, 30, 35], // BF% data points
+                color: "#1A56DB", // Line color
             },
         ],
+        // Chart configuration
         chart: {
             height: "200px",
             maxWidth: "100%",
@@ -185,15 +181,18 @@
                 show: false,
             },
         },
+        // Tooltip configuration
         tooltip: {
             enabled: true,
             x: {
                 show: true,
             },
         },
+        // Legend configuration
         legend: {
             show: true
         },
+        // Fill configuration
         fill: {
             type: "gradient",
             gradient: {
@@ -203,31 +202,11 @@
                 type: 'vertical',
                 gradientToColors: ["#1C64F2"],
                 colorStops: [
-                    {
-                        offset: 0,
-                        color: "red",
-                        opacity: 1
-                    },
-                    {
-                        offset: 25,
-                        color: "yellow",
-                        opacity: 1
-                    },
-                    {
-                        offset: 50,
-                        color: "green",
-                        opacity: 1
-                    },
-                    {
-                        offset: 80,
-                        color: "green",
-                        opacity: 1
-                    },
-                    {
-                        offset: 100,
-                        color: "yellow",
-                        opacity: 1
-                    }
+                    { offset: 0, color: "red", opacity: 1 },
+                    { offset: 25, color: "yellow", opacity: 1 },
+                    { offset: 50, color: "green", opacity: 1 },
+                    { offset: 80, color: "green", opacity: 1 },
+                    { offset: 100, color: "yellow", opacity: 1 }
                 ]
             },
         },
@@ -235,6 +214,7 @@
             curve: 'straight',
             width: 6,
         },
+        // X-axis ranges
         xaxis: {
             categories: ['Low', 'Low', 'Normal', 'Normal', 'Normal', 'Overweight', 'Overweight'],
             labels: {
@@ -247,6 +227,7 @@
                 show: false,
             },
         },
+
         yaxis: {
             show: true,
             labels: {
@@ -257,26 +238,28 @@
         },
     }
 
+    // Remove annotations if tempBF is not defined
     if (!tempBF) {
         console.log("deleted BFOptions annotations.");
         delete BFOptions.annotations;
     }
 
+    // Render BF chart if element exists and ApexCharts is available
     if (document.getElementById("bf-chart") && typeof ApexCharts !== 'undefined') {
         const BFchart = new ApexCharts(document.getElementById("bf-chart"), BFOptions);
         BFchart.render();
     }
 
-    // T-score bar graph
-    var TScoreOptions = {
+    // Object for T-Score bar graph configuration
+    const TScoreOptions = {
         series: [{
             data: [{
                 x: 'Test Range',
-                y: [-5, 2],
+                y: [-5, 2], // Range for T-Score
             }]
         }],
         chart: {
-            toolbar: { show: false },
+            toolbar: { show: false }, // Hide toolbar
             type: 'rangeBar',
             height: 120,
             maxWidth: "100%",
@@ -287,41 +270,36 @@
                 bottom: 10,
             },
         },
+        // Annotations configuration
         annotations: {
             xaxis: [{
-                x: tempTScore,
-                strokeDashArray: 0,
+                x: tempTScore, // Value of userTScore from DB
+                strokeDashArray: 0, // Solid line
                 borderWidth: 4,
                 stroke: 2,
-                borderColor: '#775DD0',
+                borderColor: '#775DD0', // Line color
             }]
         },
+        // Plot options configuration
         plotOptions: {
             bar: {
-                horizontal: true,
+                horizontal: true, // Horizontal bar
             }
         },
+        // Data labels configuration
         dataLabels: {
             enabled: false
         },
+        // X-axis configuration
         xaxis: {
-            min: -6,
-            max: 4,
+            min: -6, // Minimum value for X-axis
+            max: 4, // Maximum value for X-axis
         },
-
     };
 
-    if (!tempBF) {
-        console.log("deleted BFOptions annotations.");
-        delete BFOptions.annotations;
-    }
-
+    // Render T-Score chart if element exists and ApexCharts is available
     if (document.getElementById("t-score-chart") && typeof ApexCharts !== 'undefined') {
         const TScoreChart = new ApexCharts(document.getElementById("t-score-chart"), TScoreOptions);
         TScoreChart.render();
     }
-
-
-
-
 </script>

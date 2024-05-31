@@ -1,3 +1,10 @@
+/**
+ * Express controller function for rendering the body model page.
+ * 
+ * This module contains a function to handle the request to render the bpdy model page.
+ * 
+ */
+
 // Import the necessary models for blood, body composition, and vitals data
 const Blood = require('../models/bloodModels');
 const BodyComp = require('../models/bodyCompModels');
