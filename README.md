@@ -31,7 +31,9 @@
 
 ## 🧐 About <a name = "about"></a>
 
-// needs to be filled
+We are DTC-03, a dedicated team from BCIT’s COMP2800 course, committed to transforming the landscape of health insights through our innovative application. 
+
+At BioLink, our mission is to seamlessly integrate the latest in bio-technology with user-friendly digital solutions to empower individuals to take control of their health like never before. Our web app core features include Body Model Avatar, Vitals Tracking, Blood Analysis Tracking, and Body Composition Tracking. 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -63,7 +65,7 @@ Run the  following command to host the web app on your own machine. Double check
    ```
 
 ## 🎈 Usage <a name="usage"></a>
-// needs to be filled
+The BioLink web app was designed with the future in mind; the future where every individual would be equipped with computer implants that would send their biological data to our app. For the purpose of this project, we had created a mockdata on MongoDB to act as such computer implant. Using our app today currently just requires either creating an account or logging in with an existing account. It should be noted that the mockdata established on our database on exists for the dummy account created for project assessment. 
 #### Entering the web app
 1. Create an account
    1. Verify email
