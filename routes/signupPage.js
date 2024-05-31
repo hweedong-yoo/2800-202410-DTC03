@@ -1,8 +1,18 @@
+/**
+ * Express router for signup page and related functionality.
+ * 
+ * This module defines routes for displaying the signup page
+ * and adding new user accounts.
+ * 
+ */
+
+// Import necessary modules
 const express = require('express');
 const router = express.Router();
-const singupPageController = require('../controllers/singupPageController');
+const signupPageController = require('../controllers/signUpPageController');
 
-router.get('/', singupPageController.displayPage);
-router.post('/', singupPageController.addUser);
+// Define routes for signup page
+router.get('/', signupPageController.displayPage);
+router.post('/', signupPageController.addUser);
 
 module.exports = router;

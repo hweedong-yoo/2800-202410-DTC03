@@ -1,28 +1,28 @@
 <%- include('partials/header.ejs') %>
 
-  <div class="p-4 font-[Orbitron] text-[#455780] font-bold bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
+  <div class="p-4 font-[Orbitron] text-[#455780] font-bold bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE] mb-[70px]">
 
-    <h1 class="text-center py-2 text-4xl font-[Orbitron] font-extrabold">Profile</h1>
+    <h1 class="text-center py-2 text-4xl font-[Orbitron] font-extrabold text-[#354666]">Profile</h1>
 
     <!-- Name, Email, and Implant ID card -->
-    <div class="rounded-3xl shadow-lg px-2 py-4 mx-2 my-4 bg-[#FCFEFE]">
+    <div class="rounded-3xl shadow-lg px-3 mx-1 py-4 my-4 bg-[#FCFEFE]">
       <!-- name -->
       <div class="px-2">
-        <p class="text-lg pb-1">Name</p>
+        <p class="text-lg pb-1 text-[#4f6495]">Name</p>
         <p class="text-2xl font-semibold pl-2 text-[#354666]">
           <%= user.username %>
         </p>
       </div>
       <!-- email -->
       <div class="px-2 pt-4">
-        <p class="text-lg pb-1">Email</p>
+        <p class="text-lg pb-1 text-[#4f6495]">Email</p>
         <p class="text-2xl font-semibold pl-2 text-[#354666]">
           <%= user.email %>
         </p>
       </div>
-      <!-- impant id -->
+      <!-- medical impant id -->
       <div class="px-2 pt-4">
-        <p class="text-lg pb-1">Implant ID</p>
+        <p class="text-lg pb-1 text-[#4f6495]">Medical Implant ID</p>
         <p class="text-2xl font-semibold pl-2 text-[#354666]">
           <%= user.id %>
         </p>
@@ -30,24 +30,29 @@
     </div>
 
     <!-- DOB, Sex, Weight, and Height card -->
-    <div class="rounded-3xl shadow-lg pt-2 mx-2 mb-4 mt-6 bg-[#FCFEFE]">
+    <div class="rounded-3xl shadow-lg px-1 pt-2 mx-1 mb-4 mt-6 bg-[#FCFEFE]">
       <!-- Edit Button -->
-      <a href="/edit_profile" type="button" id="editBtn" name="editBtn"
-        class="float-right text-blue-700 pt-0 pb-2 pr-5 focus:text-blue-950 tracking-wider"> <span
-          class="material-symbols-outlined text-lg">
-          edit
-        </span> Edit</a>
+      <div class="flex items-center justify-end mt-2">
+        <a href="/edit_profile" type="button"
+          class="float-right text-blue-700 pt-0 pr-4 focus:text-blue-950 tracking-wider flex items-center justify-center">
+          <span class="material-symbols-outlined text-lg">
+            edit
+          </span>
+          <span class="ml-1">Edit</span>
+        </a>
+      </div>
+
 
       <!-- sex -->
-      <div class="px-4 pt-4">
-        <p class="text-lg pb-1">Sex</p>
+      <div class="px-4">
+        <p class="text-lg pb-1 text-[#4f6495]">Sex</p>
         <p class="text-2xl font-semibold pl-2 text-[#354666]">
           <%= user.sex %>
         </p>
       </div>
       <!-- birthday -->
       <div class="px-4 pt-4">
-        <p class="text-lg pb-1">Birthday</p>
+        <p class="text-lg pb-1 text-[#4f6495]">Birthday</p>
         <p class="text-2xl font-semibold pl-2 text-[#354666]">
           <%= user.dob %>
         </p>
@@ -56,27 +61,20 @@
       <div class="flex flex-row justify-around border-t px-3 mt-5 pb-6 rounded-3xl">
         <!-- weight -->
         <div class="px-2 pt-4">
-          <p class="text-lg pb-1">Weight</p>
+          <p class="text-lg pb-1 text-[#4f6495]">Weight</p>
           <p class="text-2xl font-semibold pl-2 text-[#354666]">
             <%= user.weight %> kg
           </p>
         </div>
         <!-- height -->
         <div class="px-2 pt-4">
-          <p class="text-lg pb-1">Height</p>
+          <p class="text-lg pb-1 text-[#4f6495]">Height</p>
           <p class="text-2xl font-semibold pl-2 text-[#354666]">
             <%= user.height %> cm
           </p>
         </div>
       </div>
     </div>
-
-    <!-- Logout button -->
-    <form id="logoutForm" method="post" class="flex justify-center">
-      <button type="submit" id="logoutBtn" name="logoutBtn"
-        class="text-center underline w-full text-red-600 pt-2 pb-14 focus:text-red-900">Logout</button>
-    </form>
-
   </div>
 
   <%- include('partials/bottomNav.ejs') %>

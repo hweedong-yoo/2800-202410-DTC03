@@ -1,23 +1,40 @@
 <%- include('partials/header.ejs') %>
 
-<div class="flex-grow flex justify-center items-center bg-white dark:bg-gray-900">
-    <form class="max-w-sm mx-4 rounded-lg shadow-lg bg-gray-100 dark:bg-gray-800 p-5" action="/security_question" method="post"> 
-        <label for="securityQuestion" class="block mb-4 text-sm font-medium text-gray-900 dark:text-white">Security Question:</label>
-        <select id="securityQuestion" name="securityQuestion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
-            <option value="What is your favorite childhood sport?">What is your favorite childhood sport?</option>
-            <option value="Who is your favourite teacher?">Who is your favourite teacher?</option>
-            <option value="What city are you born in?">What city are you born in?</option>
-        </select>
-        
-        <div class="my-5">
-            <label for="securityAnswer" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Answer</label>
-            <input type="text" id="securityAnswer" name="securityAnswer" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Answer" required />
-        </div>
-        <div class="mx-10">
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-10 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-        </div>
-    </form>
-</div>
+    <div class="flex-grow flex justify-center items-center bg-white dark:bg-gray-900 mb-8">
+        <form
+            class="max-w-sm mx-auto flex flex-col justify-center items-center rounded-xl shadow-xl bg-gray-100 dark:bg-gray-800 p-5"
+            method="post" action="">
+            <div class="flex justify-between w-full text-gray-700 dark:text-gray-300 text-xs mb-4">
+                <div>Account set up</div>
+                <div>2/3</div>
+            </div>
+            <div class="mb-4">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Security Question</h1>
+            </div>
 
-<%- include('partials/footer.ejs') %>
+            <select id="securityQuestion" name="securityQuestion"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4">
+                <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
+                <option value="What is your favorite childhood sport?">What is your favorite childhood sport?
+                </option>
+                <option value="Who is your favourite teacher?">Who is your favorite teacher?</option>
+                <option value="What city are you born in?">What city are you born in?</option>
+            </select>
+
+            <div class="relative mb-4 w-full">
+                <input id="securityAnswer" name="securityAnswer" type="text" id="floating-outlined"
+                    class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder="" required />
+                <label for="floating-outlined"
+                    class="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-100 dark:bg-gray-800 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Answer</label>
+            </div>
+            <div class="mx-10">
+                <button type="submit"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-10 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Next</button>
+            </div>
+        </form>
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</body>
+</html>

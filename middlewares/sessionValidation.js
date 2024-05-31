@@ -18,12 +18,12 @@ async function validateToken(req, res, next) {
         if (!user) {
             return res.redirect('/recover');
         }
-        const secret = process.env.JWT_SECRET + user.password;
-        const payload = jwt.verify(token, secret);
+        const secret = jwtSecret  + user.password;
+        jwt.verify(token, secret);
         next();
     } catch (error) {
         console.error('Token validation error:', error.message);
-        res.redirect('/recover');
+        return res.status(500).render('recoveryEmail', { authenticated: req.session.authenticated, error: 'Expired or Invalid link.'});
     }
 }
 
@@ -36,13 +36,13 @@ async function recoveryAnswerValidation(req, res, next) {
     }
 }
 
-async function hasSecurityAnswer(req, res, next) {
+async function haveSecurityAnswer(req, res, next) {
     const email = req.session.email;
     let user = await User.findOne({ email: email, recovery: { $exists: true }});
     if (user) {
         next();
     } else {
-        res.redirect('/security_question');
+        res.redirect('/setup/securityquestion');
     }
 }
 
@@ -50,5 +50,5 @@ module.exports = {
     sessionValidation,
     validateToken,
     recoveryAnswerValidation,
-    hasSecurityAnswer,
+    haveSecurityAnswer,
 }

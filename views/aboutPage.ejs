@@ -1,11 +1,24 @@
 <%- include('partials/header.ejs') %>
-<section class="flex-grow flex justify-center items-center bg-white dark:bg-gray-900">
-  <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
-      <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">About Us</h1>
-      <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">Biolink was founded by five BCIT students: Erryl, Mariko, Jon, Winson and Homayoun.<br>The project kickedoff in April 2054 when the founders decided to take advantage of the medical implants and help the general population to monitor their health. Biolink has been a success in every front and the team continue to make it accessible worldwide. </p>
+
+  <section class="flex-grow flex justify-center items-center bg-white dark:bg-gray-900">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
+      <h1
+        class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        About Us</h1>
+      <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">Biolink was
+        founded by five BCIT students: Erryl, Mariko, Jon, Winson and Homayoun.<br>The project kickedoff in April 2054
+        when the founders decided to take advantage of the medical implants and help the general population to monitor
+        their health. Biolink has been a success in every front and the team continue to make it accessible worldwide.
+      </p>
       <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
 
       </div>
-  </div>
-</section>
-<%- include('partials/footer.ejs') %>
+    </div>
+  </section>
+  <% if (authenticated) { %>
+    
+    <%- include('partials/bottomNav.ejs') %>
+      <% } else { %>
+        <%- include('partials/footer.ejs') %>
+          <% } %>
+          

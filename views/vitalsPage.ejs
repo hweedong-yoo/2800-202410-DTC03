@@ -1,44 +1,44 @@
 <%- include('partials/header.ejs') %>
-    <section class="my-auto bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
+    <section class="my-auto bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE] text-[#455780] font-bold">
         <div class="mx-5">
-            <div class="font-bold text-4xl text-slate-800 text-center mt-4">Vitals Graphs</div>
+            <h1 class="text-center py-6 text-4xl font-extrabold text-[#354666]">Vitals</h1>
             <!-- notification card -->
-            <div class="py-4">
+            <!-- <div class="py-4">
                 <div class="flex justify-evenly bg-white text-center shadow-lg rounded-full">
                     <span class="flex py-2 text-6xl material-symbols-outlined text-[#EA3323]">
                         ecg_heart
                     </span>
                 </div>
-            </div>
+            </div> -->
 
             <div class="flex flex-col ">
                 <div class="rounded-lg">
                     <!-- bpm chart -->
-                    <div class="mx-max max-w-md w-full bg-white rounded-lg dark:bg-gray-800 p-4 shadow-lg">
-                        <div class="leading-none text-md font-bold text-slate-600 dark:text-white pb-2">
-                                <div class="text-center mb-4 text-xl">Heart rate</div>
-                                <div id="BPM" class="text-2xl text-end"></div>
+                    <div class="mx-max max-w-md w-full bg-white rounded-3xl dark:bg-gray-800 p-4 shadow-lg">
+                        <div class="leading-none text-md dark:text-white pb-2">
+                            <div class="mb-4 text-xl px-1 text-[#4f6495]">Heart rate</div>
+                            <div id="BPM" class="text-[#354666] text-2xl text-end"></div>
                         </div>
                         <!-- actual chart -->
                         <div id="bpm-chart" class=""></div>
                     </div>
                     <!-- body temp chart -->
                     <div class="pt-4">
-                        <div class="mx-max max-w-md w-full bg-white rounded-lg dark:bg-gray-800 p-4 shadow-lg">
-                            <div class="leading-none text-md font-bold text-slate-600 dark:text-white pb-2">
-                                    <div class="text-center mb-4 text-xl">Body Temperature</div>
-                                    <div id="Temperature"class="text-2xl text-end"></div>
+                        <div class="mx-max max-w-md w-full bg-white rounded-3xl dark:bg-gray-800 p-4 shadow-lg">
+                            <div class="leading-none text-md dark:text-white pb-2">
+                                <div class="mb-4 text-xl px-1 text-[#4f6495]">Body Temperature</div>
+                                <div id="Temperature" class="text-[#354666] text-2xl text-end"></div>
                             </div>
                             <!-- actual chart -->
                             <div id="temp-chart" class=""></div>
                         </div>
                     </div>
                     <!-- RRP chart -->
-                    <div class="py-4 mb-[100px]">
-                        <div class="mx-max max-w-md w-full bg-white rounded-lg dark:bg-gray-800 p-4 shadow-lg">
-                            <div class="leading-none text-md font-bold text-slate-600 dark:text-white pb-2">
-                                    <div class="text-center mb-4 text-xl">Respitory rate</div>
-                                    <div id="RRP" class="text-2xl text-end"></div>
+                    <div class="py-4 mb-[64px]">
+                        <div class="mx-max max-w-md w-full bg-white rounded-3xl dark:bg-gray-800 p-4 shadow-lg">
+                            <div class="leading-none text-md dark:text-white pb-2">
+                                <div class="mb-4 text-xl px-1 text-[#4f6495]">Respitory rate</div>
+                                <div id="RRP" class="text-[#354666] text-2xl text-end"></div>
                             </div>
                             <!-- actual chart -->
                             <div id="breath-chart" class=""></div>
@@ -47,7 +47,8 @@
                 </div>
             </div>
     </section>
-    
+
+
     <script>
         let bpmOptions = {
             chart: {
@@ -309,15 +310,15 @@
          * @param {string} userID - The ID of the user.
          */
         async function getVitals(userID) {
-            const response = await fetch(`/home/vitals/json/${userID}`);  
+            const response = await fetch(`/home/vitals/json/${userID}`);
             const data = await response.json();
 
             const now = new Date();
             for (let i = 0; i < data.BPM.length; i++) {
                 let time = new Date(now.getTime() - (9 - i) * 60000); // 10 mins ago to now
-                bpmSeries.push({ x: time, y: data.BPM[i][1] });
-                tempSeries.push({ x: time, y: data.temperature[i][1] });
-                breathSeries.push({ x: time, y: data.respiratoryRate[i][1] });
+                bpmSeries.push({ x: time, y: data.BPM[i].value });
+                tempSeries.push({ x: time, y: data.temperature[i].value });
+                breathSeries.push({ x: time, y: data.respiratoryRate[i].value });
             }
 
             bpmChart.updateSeries([{ data: bpmSeries }]);
