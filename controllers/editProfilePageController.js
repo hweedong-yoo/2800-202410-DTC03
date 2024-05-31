@@ -95,11 +95,11 @@ const addInitialInformation = async (req, res) => {
     }
 
     let updateBodyCompData = {};
-    if (weight && weight > 0 && weight < 300) updateBodyCompData.weight = weight;
-    if (height && height > 0 && height < 300) updateBodyCompData.height = height;
+    if (weight) updateBodyCompData.weight = weight;
+    if (height) updateBodyCompData.height = height;
 
     // Calculate BMI if both weight and height are provided
-    if (updateBodyCompData.weight && updateBodyCompData.height) {
+    if (weight && height) {
       const bmi = ((weight / height / height) * 10000).toFixed(1);
       updateBodyCompData.BMI = bmi;
 
@@ -153,11 +153,11 @@ const editInformation = async (req, res) => {
     }
 
     let updateBodyCompData = {};
-    if (weight && weight > 0 && weight < 300) updateBodyCompData.weight = weight;
-    if (height && height > 0 && height < 300) updateBodyCompData.height = height;
+    if (weight) updateBodyCompData.weight = weight;
+    if (height) updateBodyCompData.height = height;
 
     // Calculate BMI if both weight and height are provided
-    if (updateBodyCompData.weight && updateBodyCompData.height) {
+    if (weight && height) {
       const bmi = ((weight / height / height) * 10000).toFixed(1);
       updateBodyCompData.BMI = bmi;
 
