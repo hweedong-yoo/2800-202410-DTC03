@@ -21,6 +21,7 @@
 ## 📝 Table of Contents
 
 - [About](#about)
+- [Project File Structure](#file_structure)
 - [Getting Started](#getting_started)
 - [Deployment](#deployment)
 - [Usage](#usage)
@@ -29,16 +30,115 @@
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
 
-## 🧐 About <a name = "about"></a>
+## 🧐 About <a id = "about"></a>
 
 We are DTC-03, a dedicated team from BCIT’s COMP2800 course, committed to transforming the landscape of health insights through our innovative application. 
 
 At BioLink, our mission is to seamlessly integrate the latest in bio-technology with user-friendly digital solutions to empower individuals to take control of their health like never before. Our web app core features include Body Model Avatar, Vitals Tracking, Blood Analysis Tracking, and Body Composition Tracking. 
-## 🏁 Getting Started <a name = "getting_started"></a>
+
+## 🌱 Project File Structure <a id = "file_structure"></a>
+```
+project-root/ 
+├── public/
+│   ├── styles/
+│   │   ├── input.css
+│   │   └── output.css
+│   └── images/
+│       ├── Body_Model.png
+│       ├── icon.png
+│       └── logo.svg
+├── routes/
+│   ├── 404Page.js
+│   ├── aboutPage.js
+│   ├── bloodPage.js
+│   ├── bodyCompositionPage.js
+│   ├── bodyModelPage.js
+│   ├── contactPage.js
+│   ├── editProfilePage.js
+│   ├── home.js
+│   ├── landingPage.js
+│   ├── loginPage.js
+│   ├── logout.js
+│   ├── profilePage.js
+│   ├── recoverPage.js
+│   ├── setupPage.js
+│   ├── signupPage.js
+│   ├── termsPage.js
+│   └── vitalsPage.js
+├── utils/
+│   ├── mockData.js
+│   └── sendEmail.js
+├── validation/
+│   └── authValidation.js
+├── middlewares/
+│   ├── accountSetUp.js
+│   └── sessionValidation.js
+├── controllers/
+│   ├── aboutPageController.js
+│   ├── bodyModelController.js
+│   ├── contactPageController.js
+│   ├── editProfilePageController.js
+│   ├── emailVerificationController.js
+│   ├── homePageController.js
+│   ├── landingPageController.js
+│   ├── loginPageController.js
+│   ├── logoutController.js
+│   ├── NotFoundController.js
+│   ├── ProfilePageController.js
+│   ├── recoverPageController.js
+│   ├── securityQuestionController.js
+│   ├── signUpPageController.js
+│   └── termsPageController.js
+├── models/
+│   ├── bloodModels.js
+│   ├── bodyCompModels.js
+│   ├── userModels.js
+│   └── vitalsModel.js
+├── views/
+│   ├── partials/
+│   │   ├── header.ejs
+│   │   ├── footer.ejs
+│   │   └── bottomNav.ejs 
+│   ├── 404.ejs
+│   ├── aboutPage.ejs
+│   ├── bloodPage.ejs
+│   ├── bloodPageCBC.ejs
+│   ├── bloodPageChemistry.ejs
+│   ├── bloodPageLipid.ejs
+│   ├── bodyComposition.ejs
+│   ├── bodyCompositionCharts.ejs
+│   ├── bodyModel.ejs
+│   ├── contactPage.ejs
+│   ├── editProfile.ejs
+│   ├── emailVerification.ejs
+│   ├── home.ejs
+│   ├── landingPage.ejs
+│   ├── loginPage.ejs
+│   ├── profile.ejs
+│   ├── recoverPage.ejs
+│   ├── recoveryEmail.ejs
+│   ├── recoveryResetPassword.ejs
+│   ├── recoverySecurityQuestion.ejs
+│   ├── securityQuestion.ejs
+│   ├── setUpProfile.ejs
+│   ├── signupPage.ejs
+│   ├── termsPage.ejs
+│   └── vitalsPage.ejs
+├── .gitignore
+├── about.html
+├── LICENSE.txt
+├── package-lock.json
+├── package.json
+├── README.md
+├── server.js
+└── tailwind.config.js
+```
+
+## Getting Started <a id = "getting_started"></a>
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Prerequisites
+### Prerequisites 
 
 Before you begin, ensure you have met the following requirements:
 - [Node.js](https://nodejs.org/) installed on your machine.
