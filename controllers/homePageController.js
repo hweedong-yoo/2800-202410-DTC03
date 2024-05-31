@@ -1,3 +1,13 @@
+/**
+ * Express controller function for the homepage.
+ * 
+ * This module contains functions to handle homepage interactions such as
+ * displaying the vitals, blood assessment, and body composition overviews along with
+ * retrieving user statistics from MongoDB.
+ * 
+ */
+
+
 // Import required models
 const User = require('../models/userModels');
 const BodyComp = require('../models/bodyCompModels');

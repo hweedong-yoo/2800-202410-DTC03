@@ -1,4 +1,11 @@
+/**
+ * Express controller function for displaying the landing page.
+ * 
+ * This module contains a function to handle the request to render the landing page.
+ * 
+ */
 
+// Display the landing page
 const displayPage = async (req, res) => {
     try {
         res.render('landingPage', {authenticated : req.session.authenticated});

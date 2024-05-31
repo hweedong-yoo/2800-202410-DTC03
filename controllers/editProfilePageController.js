@@ -1,3 +1,12 @@
+/**
+ * Express controller function for editting profile.
+ * 
+ * This module contains functions to handle the editing within the profile page
+ * including adding, editing, retrieving user information from MongoDB.
+ * 
+ */
+
+
 // Import required models and mock data
 const User = require('../models/userModels');
 const BodyComp = require('../models/bodyCompModels');
