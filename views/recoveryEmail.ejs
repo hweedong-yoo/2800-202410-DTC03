@@ -1,0 +1,64 @@
+<%- include('partials/header.ejs') %>
+
+    <div class="flex-grow flex justify-center items-center bg-white dark:bg-gray-900 ">
+        <form
+            class="max-w-sm mx-4 rounded-lg shadow-lg bg-gray-100 dark:bg-gray-800 p-5 flex flex-col justify-center items-center"
+            action="/recover/email" method="post">
+            <div class="w-full mb-4 text-center">
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Recovery Email</h1>
+            </div>
+            <div class="relative mb-4">
+                <input id="email" name="email" type="text" id="floating_outlined"
+                    value="<%= typeof email !== 'undefined' ? email : '' %>"
+                    class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " />
+                <label for="floating_outlined"
+                    class="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-gray-100 dark:bg-gray-800 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Email
+                    address</label>
+            </div>
+            <button type="submit"
+                class="text-white bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-10 py-2.5 text-center dark:bg-blue-600 opacity-75" disabled>Next</button>
+            <% if (typeof error !=='undefined' && error) { %>
+                <div class="mt-4 w-full text-center">
+                    <p class="text-xs text-red-500">
+                        <%= error %>
+                    </p>
+                </div>
+            <% } %>
+            <% if (typeof message !=='undefined' && message) { %>
+                <div class="mt-4 w-full text-center">
+                    <p class="text-md text-gray-900">
+                        <%= message %>
+                    </p>
+                </div>
+            <% } %>
+            
+            
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const emailInput = document.getElementById('email');
+          const submitButton = document.querySelector('button[type="submit"]');
+    
+          // Function to check if the email is valid
+          const checkEmailValidity = () => {
+            // Regular expression to check if the email is valid
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    
+            if (!emailRegex.test(emailInput.value)) {
+              submitButton.classList.add('opacity-75'); // Reduce the opacity of the submit button
+              // Disable the submit button since the email is invalid
+              submitButton.disabled = true;
+            } else {
+              submitButton.classList.remove('opacity-75'); // Revert the opacity of the submit button
+              // Enable the submit button
+              submitButton.disabled = false;
+            }
+          };
+    
+          emailInput.addEventListener('input', checkEmailValidity);
+        });
+      </script>
+
+    <%- include('partials/footer.ejs') %>

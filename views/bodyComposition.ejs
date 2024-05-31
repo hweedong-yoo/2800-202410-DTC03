@@ -1,183 +1,155 @@
-<!-- Tried not using cdn for tailwind but it broke everything -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<!-- Temporary variables for user BMI, T-Score, and Body Fat Percentage used in relative charts ejs file -->
+<script>
+    const tempBMI = <%= userBMI %>;
+    const tempTScore = <%= userTscore %>;
+    const tempBF = <%= userBF %>;
 
+    // Logs the values to the console for debugging purposes
+    console.log(tempBMI, 'userBMI');
+    console.log(tempTScore, 'tempTScore');
+</script>
+
+<!-- Include header -->
 <%- include('partials/header.ejs') %>
-    <% currentBmi=25 %>
-        <section class="my-auto bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE]">
-            <div class="mx-auto">
-                <!-- hero -->
-                <div class="flex mx-auto justify-center py-4 my-4">
-                    <h1 class="font-extrabold text-3xl">
-                        Body Composition
-                    </h1>
+
+<section class="flex justify-center my-auto bg-gradient-to-b from-[#D1D9E9] to-[#FCFEFE] text-[#455780] font-bold">
+    <div class="max-w-full">
+        <!-- header -->
+        <h1 class="text-center py-6 text-4xl font-extrabold text-[#354666]">Body Composition</h1>
+
+        <!-- Beginning of cards -->
+        <div class="flex flex-col mx-auto box-border">
+            <!-- BMI Card -->
+            <div class="m-4 p-3 bg-[#FCFEFE] rounded-3xl shadow-lg">
+                <h1 class="text-3xl text-center pb-10 pt-5 text-[#4f6495]">
+                    Body Mass
+                    <br>
+                    Index
+                </h1>
+                <!-- BMI chart -->
+                <div id="bmi-chart"></div>
+                <!-- BMI description and info based on user value -->
+                <p class="text-xl p-4 text-center">
+                    <% if (userBMI == "undefined") { %>
+                        You have not entered your details yet!
+                        <br>
+                        <a href="/edit_profile" class="text-slate-500">Click here to edit.</a>
+                    <% } else { %>
+                        Your BMI: <%= userBMI %>
+                        <br>
+                        <% if (userBMI < 18.5) { %>
+                            You are <span class="text-red-400">underweight</span>. Risks associated with being underweight are:
+                            <ul>
+                                <li class="px-3">- Malnutrition</li>
+                                <li class="px-3">- Osteoporosis</li>
+                                <li class="px-3">- Decreased muscle strength</li>
+                                <li class="px-3">- Hypothermia</li>
+                                <li class="px-3">- Lowered immunity</li>
+                            </ul>
+                        <% } else if (userBMI >= 18.5 && userBMI < 26) { %>
+                            You are <span class="text-green-400">normal weight</span> relative to your height.
+                        <% } else { %>
+                            You are <span class="text-red-400">Overweight</span>. Risks associated with being overweight are:
+                            <ul>
+                                <li class="px-3">- Heart disease</li>
+                                <li class="px-3">- Diabetes</li>
+                                <li class="px-3">- High blood pressure</li>
+                                <li class="px-3">- High cholesterol</li>
+                                <li class="px-3">- Liver disease</li>
+                                <li class="px-3">- Sleep apnea</li>
+                                <li class="px-3">- Certain cancers</li>
+                            </ul>
+                        <% } %>
+                    <% } %>
+                    <br>
+                    <p class="text-center pb-4">
+                        *BMI ratings are not accurate for people with physical conditioning.
+                    </p>
+                </p>
+            </div>
+
+            <!-- Body Fat Percentage Card -->
+            <div class="m-4 p-3 bg-[#FCFEFE] rounded-3xl shadow-lg">
+                <!-- Card header -->
+                <h1 class="text-3xl text-center pb-10 pt-5 px-5 text-[#4f6495]">Body Fat Percentage</h1>
+                <!-- BF chart -->
+                <div id="bf-chart"></div>
+                <!-- BF description and info based on user value -->
+                <p class="text-xl p-4 text-center">
+                    <% if (userBF == "undefined") { %>
+                        You have not entered your details yet!
+                        <br>
+                        <a href="/edit_profile" class="text-slate-500">Click here to edit.</a>
+                    <% } else { %>
+                        Your BF%: <%= userBF %>%
+                        <br>
+                        <% if (userGender === 'F') { %>
+                            <% if (userBF >= 32) { %>
+                                <br>Your body fat is <span class="text-red-400">higher</span> than normal ranges.
+                            <% } else if (userBF > 21 && userBF < 32) { %>
+                                Your body fat is <span class="text-green-400">within</span> normal ranges.
+                            <% } else { %>
+                                Your body fat is <span class="text-red-400">below</span> average ranges.
+                            <% } %>
+                        <% } else { %>
+                            <% if (userBF >= 19) { %>
+                                <br>Your body fat is <span class="text-red-400">higher</span> than normal ranges.
+                            <% } else if (userBF > 8 && userBF < 19) { %>
+                                Your body fat is <span class="text-green-400">within</span> normal ranges.
+                            <% } else { %>
+                                Your body fat is <span class="text-red-400">below</span> average ranges.
+                            <% } %>
+                        <% } %>
+                    <% } %>
+                </p>
+            </div>
+
+            <!-- Weight and Height Cards -->
+            <div class="flex max-w-full">
+                <div class="m-4 bg-[#FCFEFE] rounded-3xl shadow-lg flex-auto">
+                    <h1 class="text-2xl text-center pb-10 pt-5 text-[#4f6495]">Weight</h1>
+                    <p class="text-2xl p-4 text-center">
+                        <%= userWeight %> kg
+                        <br>
+                    </p>
                 </div>
-                <!-- beginning of cards -->
-                <div class="flex flex-col mx-[10px]">
-                    <div class="m-4 p-3 bg-[#FCFEFE] rounded-lg shadow-lg">
-
-                        <!-- chart html -->
-                        <!-- chart header -->
-                        <div class="mx-max max-w-md w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4">
-                            <div class="flex justify-between mb-5">
-                                <div>
-                                    <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">
-                                        BMI: <%= currentBmi %>
-                                    </h5>
-                                    <p class="text-base font-normal text-gray-500 dark:text-gray-400">This week</p>
-                                </div>
-                                <div
-                                    class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
-                                    23%
-                                    <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 10 14">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <!-- actual chart -->
-                            <div id="bmi-chart"></div>
-
-                        </div>
-
-
-                        <p class="text-xl p-4">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus similique sit saepe
-                            vero
-                            eos
-                            sunt
-                            delectus voluptate, excepturi totam omnis illum quos. Culpa, odio accusamus! Mollitia
-                            dolorum in
-                            nostrum
-                            voluptate.
-                        </p>
-                    </div>
-                    <div class="m-4 py-20 bg-[#FCFEFE] rounded-lg shadow-lg">
-                        <h1 class="text-3xl text-center pb-10">
-                            Bone Density
-                        </h1>
-                        <p class="text-xl p-4">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus similique sit saepe
-                            vero
-                            eos
-                            sunt
-                            delectus voluptate, excepturi totam omnis illum quos. Culpa, odio accusamus! Mollitia
-                            dolorum in
-                            nostrum
-                            voluptate.
-                        </p>
-                    </div>
-                    <div class="m-4 py-20 bg-[#FCFEFE] rounded-lg shadow-lg">
-                        <h1 class="text-3xl text-center pb-10">
-                            Weight
-                        </h1>
-
-                        <p class="text-xl p-4">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus similique sit saepe
-                            vero
-                            eos
-                            sunt
-                            delectus voluptate, excepturi totam omnis illum quos. Culpa, odio accusamus! Mollitia
-                            dolorum in
-                            nostrum
-                            voluptate.
-                        </p>
-                    </div>
+                <div class="m-4 bg-[#FCFEFE] rounded-3xl shadow-lg flex-auto text-[#4f6495]">
+                    <h1 class="text-2xl text-center pb-10 pt-5">Height</h1>
+                    <p class="text-2xl p-4 text-center">
+                        <%= userHeight %> cm
+                        <br>
+                    </p>
                 </div>
             </div>
-        </section>
-        <!-- chart script -->
-        <script>
-            const options = {
-                // enable and customize data labels using the following example, learn more from here: https://apexcharts.com/docs/datalabels/
-                dataLabels: {
-                    enabled: true,
-                    // offsetX: 10,
-                    style: {
-                        cssClass: 'text-xs text-white font-medium'
-                    },
-                },
-                grid: {
-                    show: false,
-                    strokeDashArray: 4,
-                    padding: {
-                        left: 16,
-                        right: 16,
-                        top: -26
-                    },
-                },
-                series: [
-                    {
-                        name: "Average BMI",
-                        data: [150, 141, 145, 152, 135, 125],
-                        color: "#1A56DB",
-                    },
-                    {
-                        name: "Personal BMI",
-                        data: [64, 41, 41, 41, 38, 35],
-                        color: "#7E3BF2",
-                    },
-                ],
-                chart: {
-                    height: "100%",
-                    maxWidth: "100%",
-                    type: "area",
-                    fontFamily: "Inter, sans-serif",
-                    dropShadow: {
-                        enabled: false,
-                    },
-                    toolbar: {
-                        show: false,
-                    },
-                },
-                tooltip: {
-                    enabled: true,
-                    x: {
-                        show: false,
-                    },
-                },
-                legend: {
-                    show: true
-                },
-                fill: {
-                    type: "gradient",
-                    gradient: {
-                        opacityFrom: 0.55,
-                        opacityTo: 0,
-                        shade: "#1C64F2",
-                        gradientToColors: ["#1C64F2"],
-                    },
-                },
-                stroke: {
-                    width: 6,
-                },
-                xaxis: {
-                    categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
-                    labels: {
-                        show: false,
-                    },
-                    axisBorder: {
-                        show: false,
-                    },
-                    axisTicks: {
-                        show: false,
-                    },
-                },
-                yaxis: {
-                    show: false,
-                    labels: {
-                        formatter: function (value) {
-                            return '$' + value;
-                        }
-                    }
-                },
-            }
 
-            if (document.getElementById("bmi-chart") && typeof ApexCharts !== 'undefined') {
-                const chart = new ApexCharts(document.getElementById("bmi-chart"), options);
-                chart.render();
-            }
-        </script>
+            <!-- Bone Density Card -->
+            <div class="m-4 p-3 mb-[80px] bg-[#FCFEFE] rounded-3xl shadow-lg">
+                <h1 class="text-3xl text-center pb-10 pt-5 text-[#4f6495]">Bone Density</h1>
+                <!-- T-score chart -->
+                <div id="t-score-chart"></div>
+                <!-- T-score description and info based on user value -->
+                <p class="text-xl p-4">
+                    Your Bone Density T-score: <%= userTscore %>
+                    <br>
+                    <br>
+                    <% if (userTscore > -1) { %>
+                        Your T-score is <span class="text-green-400">within normal ranges</span>.
+                    <% } else if (userTscore > -2.5 && userTscore <= -1) { %>
+                        Your T-score is <span class="text-red-400">within a lower range</span>.
+                        <br>This means that you are more likely to have osteopenia, a pre-osteoporosis condition.
+                    <% } else { %>
+                        You have a <span class="text-red-400">very low</span> T-score range.
+                        <br>You are much more prone to breaking bones.
+                        <br>You most likely have osteoporosis.
+                    <% } %>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
 
+<!-- Include body composition charts -->
+<%- include('bodyComposititionCharts.ejs') %>
+
+<!-- Include bottom nav -->
 <%- include('partials/bottomNav.ejs') %>

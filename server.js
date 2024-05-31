@@ -3,9 +3,6 @@ const express = require('express');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const mongoose = require('mongoose');
-const Joi = require("joi");
-const bcrypt = require('bcrypt');
-
 
 // Get environment variables
 const mongodbHost = process.env.MONGODB_HOST;
@@ -43,43 +40,54 @@ app.use(session({
     secret: nodeSessionSecret,
     store: mongoStore,
     saveUninitialized: false,
-    resave: true
+    resave: true,
+    cookie: { maxAge: expireTime }
 }
 ));
 
+module.exports = {
+    expireTime,
+};
+
 // Middleware for session validation
-const sessionValidation = require('./middlewares/sessionValidation');
+const sessionValidationMiddlewares = require('./middlewares/sessionValidation');
+const accountSetUpMiddlewares = require('./middlewares/accountSetUp');
+const emailVerification = accountSetUpMiddlewares.emailVerification;
+const sessionValidation = sessionValidationMiddlewares.sessionValidation;
+const haveSecurityAnswer = sessionValidationMiddlewares.haveSecurityAnswer;
+const profileSetup = accountSetUpMiddlewares.profileSetup;
 
 // Define routes
 const landingPageRoute = require('./routes/landingPage');
 const homePageRoute = require('./routes/home');
 const signupRoute = require('./routes/signupPage');
 const loginRoute = require('./routes/loginPage');
-const bodyCompositionRoute = require('./routes/bodyCompositionPage.js')
 const profilePageRoute = require('./routes/profilePage');
-const securityQuestionRoute = require('./routes/securityQuestionPage.js')
 const recoverPageRoute = require('./routes/recoverPage');
 const editProfilePageRoute = require('./routes/editProfilePage');
 const bodyModelRoute = require('./routes/bodyModelPage');
 const NotFoundController = require('./routes/404Page');
-const vitalsPageRoute = require('./routes/vitalsPage');
-const bloodPageRoute = require('./routes/bloodPage');
 const contactPageRoute = require('./routes/contactPage');
+const aboutPageRoute = require('./routes/aboutPage');
+const termsPageRoute = require('./routes/termsPage');
+const logoutRoute = require('./routes/logout');
+const setUpRoute = require('./routes/setUpPage');
+
 
 // Use routes
 app.use('/', landingPageRoute);
 app.use('/signup', signupRoute);
 app.use('/login', loginRoute);
-app.use('/home', sessionValidation, homePageRoute);
-app.use('/body_comp', sessionValidation, bodyCompositionRoute)
-app.use('/profile', sessionValidation, profilePageRoute);
-app.use('/vitals', vitalsPageRoute);
-app.use('/security_question', securityQuestionRoute);
-app.use('/recover', recoverPageRoute);
-app.use('/edit_profile', editProfilePageRoute);
-app.use('/bodyModel', bodyModelRoute);
-app.use('/blood', bloodPageRoute)
 app.use('/contact', contactPageRoute)
+app.use('/about', aboutPageRoute);
+app.use('/terms', termsPageRoute);
+app.use('/recover', recoverPageRoute);
+app.use('/setup', setUpRoute);
+app.use('/home', sessionValidation, emailVerification, haveSecurityAnswer, profileSetup, homePageRoute);
+app.use('/profile', sessionValidation, emailVerification, haveSecurityAnswer, profilePageRoute);
+app.use('/edit_profile', sessionValidation, emailVerification, haveSecurityAnswer, editProfilePageRoute);
+app.use('/bodyModel', sessionValidation, emailVerification, haveSecurityAnswer, profileSetup, bodyModelRoute);
+app.use('/logout', sessionValidation, logoutRoute);
 app.use('*', NotFoundController);
 
 // Start the server

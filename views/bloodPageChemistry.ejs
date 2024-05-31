@@ -1,0 +1,464 @@
+<script>
+    /* 
+    BLOOD CHEMISTRY:
+    -Glucose: [70, 140]mg/dL 
+        - Low: Hypoglycemia - increased infection risk; fatigue.
+        - High: Hyperglycemia - possibly diabetes mellitus; increased thirst, frequent urination, fatigue.
+    
+    -Calcium: [8.5, 10.5]mg/dL 
+        - Low: Hypocalcemia - muscle cramps, numbness, tingling, seizures.
+        - High: Hypercalcemia - fatigue, nausea, vomiting, kidney stones. 
+    
+    -Kidney Function Markers:
+        - Blood Urea Nitrogen (BUN): [7,20] mg/dL
+        - Creatinine: [0.6,1.3] mg/dL
+        - Elevated BUN and Creatinine: Kidney dysfunction or dehydration.
+    
+    -Liver Function Tests:
+        - Alanine Aminotransferase (ALT): [7,56] U/L
+        - Aspartate Aminotransferase (AST): [10,40] U/L
+        - Elevated Liver Enzymes: Liver damage or disease.
+    */
+
+    // Generate random data within a given range
+    // function generateData(min, max) {
+    //     const data = [];
+    //     for (let i = 1; i <= 7; i++) { // Data for 30 days
+    //         const value = Math.floor(Math.random() * (max - min + 1)) + min;
+    //         data.push(value);
+    //     }
+    //     return data;
+    // }
+
+    // Data for Blood Chemistry
+    const glucoseData = <%= JSON.stringify(bloodData.glucose) %>;
+    const calciumData = <%= JSON.stringify(bloodData.calcium) %>;
+    const bunData = <%= JSON.stringify(bloodData.bun) %>;
+    const creatinineData = <%= JSON.stringify(bloodData.creatinine) %>;
+    const altData = <%= JSON.stringify(bloodData.alt) %>;
+    const astData = <%= JSON.stringify(bloodData.ast) %>;
+
+    const latestGlucoseValue = glucoseData[glucoseData.length - 1];
+    const previousGlucoseValue = glucoseData[glucoseData.length - 2];
+    const percentageChangeGlucose = ((latestGlucoseValue - previousGlucoseValue) / previousGlucoseValue) * 100;
+
+    const latestCalciumValue = calciumData[calciumData.length - 1];
+    const previousCalciumValue = calciumData[calciumData.length - 2];
+    const percentageChangeCalcium = ((latestCalciumValue - previousCalciumValue) / previousCalciumValue) * 100;
+
+    const latestBUNValue = bunData[bunData.length - 1];
+    const previousBUNValue = bunData[bunData.length - 2];
+    const percentageChangeBUN = ((latestBUNValue - previousBUNValue) / previousBUNValue) * 100;
+
+    const latestCreatinineValue = creatinineData[creatinineData.length - 1];
+    const previousCreatinineValue = creatinineData[creatinineData.length - 2];
+    const percentageChangeCreatinine = ((latestCreatinineValue - previousCreatinineValue) / previousCreatinineValue) * 100;
+
+    const latestALTValue = altData[altData.length - 1];
+    const previousALTValue = altData[altData.length - 2];
+    const percentageChangeALT = ((latestALTValue - previousALTValue) / previousALTValue) * 100;
+
+    const latestASTValue = astData[astData.length - 1];
+    const previousASTValue = astData[astData.length - 2];
+    const percentageChangeAST = ((latestASTValue - previousASTValue) / previousASTValue) * 100;
+
+    // Data for sparklines
+    const sparklineGlucoseData = <%= JSON.stringify(bloodData.glucose) %>;
+    const sparklineCalciumData = <%= JSON.stringify(bloodData.calcium) %>;
+    const sparklineBunData = <%= JSON.stringify(bloodData.bun) %>;
+    const sparklineCreatinineData = <%= JSON.stringify(bloodData.creatinine) %>;
+    const sparklineAltData = <%= JSON.stringify(bloodData.alt) %>;
+    const sparklineAstData = <%= JSON.stringify(bloodData.ast) %>;
+
+    // Function to determine if the count is within the optimal range
+    function isWithinOptimalRange(count, optimalMin, optimalMax) {
+        return count >= optimalMin && count <= optimalMax;
+    };
+
+    // Set color for sparkline based on whether the count is within the optimal range
+    const glucoseColor = isWithinOptimalRange(latestGlucoseValue, 70, 140) ? '#28a745' : '#FF0000';
+    const calciumColor = isWithinOptimalRange(latestCalciumValue, 8.5, 10.5) ? '#28a745' : '#FF0000';
+    const bunColor = isWithinOptimalRange(latestBUNValue, 7, 20) ? '#3d85c6' : '#FF0000';
+    const creatininColor = isWithinOptimalRange(latestCreatinineValue, 0.6, 1.3) ? '#28a745' : '#FF0000';
+    const altColor = isWithinOptimalRange(latestALTValue, 7, 56) ? '#3d85c6' : '#FF0000';
+    const astColor = isWithinOptimalRange(latestASTValue, 10, 40) ? '#28a745' : '#FF0000';
+
+    // Set color for sparkline based on whether the count is within the optimal range
+    const glucoseSparklineColor = isWithinOptimalRange(latestGlucoseValue, 70, 140) ? '#28a745' : '#FF0000';
+    const calciumSparklineColor = isWithinOptimalRange(latestCalciumValue, 8.5, 10.5) ? '#28a745' : '#FF0000';
+    const bunSparklineColor = isWithinOptimalRange(latestBUNValue, 7, 20) ? '#3d85c6' : '#FF0000';
+    const creatinineSparklineColor = isWithinOptimalRange(latestCreatinineValue, 0.6, 1.3) ? '#28a745' : '#FF0000';
+    const altSparklineColor = isWithinOptimalRange(latestALTValue, 7, 56) ? '#3d85c6' : '#FF0000';
+    const astSparklineColor = isWithinOptimalRange(latestASTValue, 10, 40) ? '#28a745' : '#FF0000';
+
+    // Create ApexChart for Glucose
+    const glucoseApex = {
+        chart: {
+            height: 200,
+            type: 'line',
+            zoom: {
+                enabled: false
+            },
+            toolbar: {
+                show: false
+            }
+        },
+        series: [{
+            name: 'Glucose',
+            data: glucoseData
+        }],
+        xaxis: {
+            categories: Array.from(Array(30), (_, i) => i + 1),
+            labels: {
+                show: false
+            }
+        },
+        yaxis: {
+            min: 60,
+            max: 150
+        },
+        stroke: {
+            width: 2
+        },
+        markers: {
+            size: 4,
+        },
+        annotations: {
+            yaxis: [
+                {
+                    y: 70,
+                    borderColor: '#FF4560',
+                    label: {
+                        borderColor: '#FF4560',
+                        style: {
+                            color: '#fff',
+                            background: '#FF4560',
+                            fontSize: '8px'
+                        },
+                        text: 'Optimal Above',
+                        position: 'left',
+                        offsetX: 10,
+                    }
+                },
+                {
+                    y: 140,
+                    borderColor: '#FF4560',
+                    label: {
+                        borderColor: '#FF4560',
+                        style: {
+                            color: '#fff',
+                            background: '#FF4560',
+                            fontSize: '8px'
+                        },
+                        text: 'Optimal Less',
+                        position: 'left',
+                        offsetX: 10,
+                    }
+                }
+            ]
+        },
+        colors: [glucoseColor]
+    };
+
+    // Create ApexChart for Calcium
+    const calciumApex = {
+        chart: {
+            height: 200,
+            type: 'line',
+            zoom: {
+                enabled: false
+            },
+            toolbar: {
+                show: false
+            }
+        },
+        series: [{
+            name: 'Calcium',
+            data: calciumData
+        }],
+        xaxis: {
+            categories: Array.from(Array(30), (_, i) => i + 1),
+            labels: {
+                show: false
+            }
+        },
+        yaxis: {
+            min: 7,
+            max: 12
+        },
+        stroke: {
+            width: 2
+        },
+        markers: {
+            size: 4,
+        },
+        annotations: {
+            yaxis: [
+                {
+                    y: 8.5,
+                    borderColor: '#FF4560',
+                    label: {
+                        borderColor: '#FF4560',
+                        style: {
+                            color: '#fff',
+                            background: '#FF4560',
+                            fontSize: '8px'
+                        },
+                        text: 'Optimal Above',
+                        position: 'left',
+                        offsetX: 10,
+                    }
+                },
+                {
+                    y: 10.5,
+                    borderColor: '#FF4560',
+                    label: {
+                        borderColor: '#FF4560',
+                        style: {
+                            color: '#fff',
+                            background: '#FF4560',
+                            fontSize: '8px'
+                        },
+                        text: 'Optimal Less',
+                        position: 'left',
+                        offsetX: 10,
+                    }
+                }
+            ]
+        },
+        colors: [calciumColor]
+    };
+
+    // Create ApexChart for Kidney Function Markers (BUN and Creatinine)
+    const kidneyMarkersApex = {
+        chart: {
+            height: 200,
+            type: 'line',
+            zoom: {
+                enabled: false
+            },
+            toolbar: {
+                show: false
+            }
+        },
+        series: [
+            {
+                name: 'BUN',
+                data: bunData
+            },
+            {
+                name: 'Creatinine',
+                data: creatinineData
+            }
+        ],
+        xaxis: {
+            categories: Array.from(Array(30), (_, i) => i + 1),
+            labels: {
+                show: false
+            }
+        },
+        yaxis: {
+            min: -2,
+            max: 22
+        },
+        stroke: {
+            width: 2
+        },
+        markers: {
+            size: 4,
+        },
+        colors: [bunColor, creatininColor]
+    };
+
+    // Create ApexChart for Liver Function Tests (ALT and AST)
+    const liverMarkersApex = {
+        chart: {
+            height: 200,
+            type: 'line',
+            zoom: {
+                enabled: false
+            },
+            toolbar: {
+                show: false
+            }
+        },
+        series: [
+            {
+                name: 'ALT',
+                data: altData
+            },
+            {
+                name: 'AST',
+                data: astData
+            }
+        ],
+        xaxis: {
+            categories: Array.from(Array(30), (_, i) => i + 1),
+            labels: {
+                show: false
+            }
+        },
+        yaxis: {
+            min: 5,
+            max: 58
+        },
+        stroke: {
+            width: 2
+        },
+        markers: {
+            size: 4,
+        },
+        colors: [altColor, astColor]
+    };
+
+    // Sparkline configuration for Glucose
+    const glucoseSparklineConfig = {
+        chart: {
+            type: 'line',
+            height: 50,
+            width: 100,
+            sparkline: {
+                enabled: true
+            }
+        },
+        series: [{
+            data: sparklineGlucoseData
+        }],
+        stroke: {
+            width: 2,
+            curve: 'straight'
+        },
+        colors: [glucoseSparklineColor]
+    };
+
+    // Sparkline configuration for Calcium
+    const calciumSparklineConfig = {
+        chart: {
+            type: 'line',
+            height: 50,
+            width: 100,
+            sparkline: {
+                enabled: true
+            }
+        },
+        series: [{
+            data: sparklineCalciumData
+        }],
+        stroke: {
+            width: 2,
+            curve: 'straight'
+        },
+        colors: [calciumSparklineColor]
+    };
+
+    // Sparkline configuration for Kidney Markers (BUN and Creatinine)
+    const kidneyMarkersSparklineConfig = {
+        chart: {
+            type: 'line',
+            height: 50,
+            width: 100,
+            sparkline: {
+                enabled: true
+            }
+        },
+        series: [
+            {
+                name: 'BUN',
+                data: sparklineBunData
+            },
+            {
+                name: 'Creatinine',
+                data: sparklineCreatinineData
+            }
+        ],
+        stroke: {
+            width: 2,
+            curve: 'straight'
+        },
+        colors: [bunSparklineColor, creatinineSparklineColor]
+    };
+
+    // Sparkline configuration for Liver Markers (ALT and AST)
+    const liverMarkersSparklineConfig = {
+        chart: {
+            type: 'line',
+            height: 50,
+            width: 100,
+            sparkline: {
+                enabled: true
+            }
+        },
+        series: [
+            {
+                name: 'ALT',
+                data: sparklineAltData
+            },
+            {
+                name: 'AST',
+                data: sparklineAstData
+            }
+        ],
+        stroke: {
+            width: 2,
+            curve: 'straight'
+        },
+        colors: [altSparklineColor, astSparklineColor]
+    };
+
+    // Initialize ApexCharts
+    const glucoseChart = new ApexCharts(document.querySelector("#glucose-chart"), glucoseApex);
+    const calciumChart = new ApexCharts(document.querySelector("#calcium-chart"), calciumApex);
+    const kidneyMarkersChart = new ApexCharts(document.querySelector("#kidney-markers-chart"), kidneyMarkersApex);
+    const liverMarkersChart = new ApexCharts(document.querySelector("#liver-markers-chart"), liverMarkersApex);
+    const glucoseSparkline = new ApexCharts(document.querySelector("#glucose-sparkline"), glucoseSparklineConfig);
+    const calciumSparkline = new ApexCharts(document.querySelector("#calcium-sparkline"), calciumSparklineConfig);
+    const kidneyMarkersSparkline = new ApexCharts(document.querySelector("#kidney-markers-sparkline"), kidneyMarkersSparklineConfig);
+    const liverMarkersSparkline = new ApexCharts(document.querySelector("#liver-markers-sparkline"), liverMarkersSparklineConfig);
+
+    // Render ApexCharts
+    glucoseChart.render();
+    calciumChart.render();
+    kidneyMarkersChart.render();
+    liverMarkersChart.render();
+    glucoseSparkline.render();
+    calciumSparkline.render();
+    kidneyMarkersSparkline.render();
+    liverMarkersSparkline.render();
+
+    // Set Counts with Units
+    document.getElementById('glucose-count').innerText = glucoseData[glucoseData.length - 1] + ' mg/dL';
+    document.getElementById('calcium-count').innerText = calciumData[calciumData.length - 1] + ' mg/dL';
+    document.getElementById('bun-count').innerText = bunData[bunData.length - 1] + ' BUN mg/dL';
+    document.getElementById('creatinine-count').innerText = creatinineData[creatinineData.length - 1] + ' Creatinine mg/dL';
+    document.getElementById('alt-count').innerText = altData[altData.length - 1] + ' ALT U/L';
+    document.getElementById('ast-count').innerText = astData[astData.length - 1] + ' AST U/L';
+    document.getElementById('glucose-summary-count').innerText = glucoseData[glucoseData.length - 1] + ' mg/dL';
+    document.getElementById('calcium-summary-count').innerText = calciumData[calciumData.length - 1] + ' mg/dL';
+    document.getElementById('bun-summary-count').innerText = bunData[bunData.length - 1] + ' BUN mg/dL';
+    document.getElementById('creatinine-summary-count').innerText = creatinineData[creatinineData.length - 1] + ' Cr mg/dL';
+    document.getElementById('alt-summary-count').innerText = altData[altData.length - 1] + ' ALT U/L';
+    document.getElementById('ast-summary-count').innerText = astData[astData.length - 1] + ' AST U/L';
+
+
+    const glucoseCount = glucoseData[glucoseData.length - 1];
+    const calciumCount = calciumData[calciumData.length - 1];
+    const bunCount = bunData[bunData.length - 1];
+    const creatinineCount = creatinineData[creatinineData.length - 1];
+    const altCount = altData[altData.length - 1];
+    const astCount = astData[astData.length - 1];
+
+    const showLiver = (glucoseCount < 70 || glucoseCount > 140) || (altCount < 7 || altCount > 56) || (astCount < 10 || astCount > 40);
+    const showKidney = (calciumCount < 8.5 || calciumCount > 10.5) || (bunCount < 7 || bunCount > 20) || (creatinineCount < 0.6 || creatinineCount > 1.3);
+
+    if (showLiver) {
+        document.getElementById('liver').style.display = 'flex';
+    } else {
+        document.getElementById('liver').style.display = 'none';
+    }
+
+    if (showKidney) {
+        document.getElementById('kidney').style.display = 'flex';
+    } else {
+        document.getElementById('kidney').style.display = 'none';
+    }
+</script>
